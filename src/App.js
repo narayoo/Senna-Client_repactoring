@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 import Mypage from './components/Mypage';
@@ -15,6 +16,8 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
+    font-family: 'Scada', sans-serif;
+    color: #f5f5f5;
   }
 `;
 
@@ -22,8 +25,10 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Main/>
+    <GlobalStyle />
+    <Switch>
+      <Route exact path='/' component={Main} />
+    </Switch>
     </>
   );
 }
