@@ -102,8 +102,9 @@ const Title = styled.p`
   color: #424242;
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
+  
 `
 export default function LoginModal({ }) {
   return(
