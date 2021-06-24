@@ -10,9 +10,8 @@ function Main({}) {
   return (
     <>
       <NavContainer/>
-         <Slider>
-           </Slider>
-      
+      <Slider>
+      </Slider>
     </>
   )
 }

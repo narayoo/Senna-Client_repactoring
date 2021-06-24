@@ -20,6 +20,8 @@ const LoginModalDiv = styled.div`
   border: 1px solid gray;
   padding: 1.5rem;
   border-radius: 15px;
+  z-index: 100;
+  display: none;
 `;
 // 모달 버튼 그룹
 const ButtonGroup = styled.div`
