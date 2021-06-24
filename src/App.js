@@ -2,6 +2,8 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
+import Mypage from './components/Mypage';
+
 // 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
 
 /* 글로벌 속성 (수정금지)*/
