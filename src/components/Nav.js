@@ -14,6 +14,7 @@ const NavSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 `;
 // 로고 
 const Logo = styled.img`

@@ -11,6 +11,7 @@ const BackgroundDark = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0,0,0,0.7);
+  z-index: 1;
 `;
 // login modal div
 const LoginModalDiv = styled.div`
