@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import { Switch, Route } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 import Mypage from './components/Mypage';
 
@@ -28,6 +28,7 @@ function App() {
     <GlobalStyle />
     <Switch>
       <Route exact path='/' component={Main} />
+      <Route exact path='/mypage' component={Mypage} />
     </Switch>
     </>
   );

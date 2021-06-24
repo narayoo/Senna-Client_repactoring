@@ -11,25 +11,30 @@ const Container = styled.div`
   width : 100%;
   height : 460px;
   background-color: #1b1b1b;
+  
+`; 
+
+const CarouselWrapper = styled.div`
   z-index: 0;
 `;
-
 
 function Slider() {
   return (
     <>  
-    <Carousel autoplay>
-      <Container>
+    <CarouselWrapper>
+      <Carousel autoplay>
+        <Container>
+          <video controls autoplay="autoplay" muted >
+            <source src={Man} type="video/mp4" />
+          </video>  
+        </Container>
+        <Container>
         <video controls autoplay="autoplay" muted >
-          <source src={Man} type="video/mp4" />
-        </video>  
-      </Container>
-      <Container>
-      <video controls autoplay="autoplay" muted >
-        <source src={Palms} type="video/mp4" />
-      </video>
-      </Container>
-    </Carousel>
+          <source src={Palms} type="video/mp4" />
+        </video>
+        </Container>
+      </Carousel>
+    </CarouselWrapper>
     </>
     
     );

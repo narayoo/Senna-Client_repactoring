@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
-import LoginModal from '../components/LoginModal'
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -47,9 +46,6 @@ function Nav({ openModal, closeModal }) {
         <NavButton onClick={openModal}>
          Login
         </NavButton>
-        <LoginModal>
-          <input type='text'></input>  
-        </LoginModal>
       </NavSection>
     </>
   )

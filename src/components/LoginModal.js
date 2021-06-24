@@ -1,6 +1,6 @@
 import { darken, lighten } from 'polished';
-import styled, { ThemeProvider } from 'styled-components';
-// 뒷배경
+import styled from 'styled-components';
+
 const BackgroundDark = styled.div`
   position: fixed;
   left: 0;
@@ -20,8 +20,6 @@ const LoginModalDiv = styled.div`
   border: 1px solid gray;
   padding: 1.5rem;
   border-radius: 15px;
-  z-index: 100;
-  display: none;
 `;
 // 모달 버튼 그룹
 const ButtonGroup = styled.div`
@@ -98,17 +96,19 @@ const LoginInput = styled.input`
   box-shadow: none;
   outline:none;
 }
-  `;
+`;
 // 모달 타이틀
 const Title = styled.p`
   color: #424242;
   font-size: 1.4rem;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-bottom: 3rem;
   
 `
-export default function LoginModal({ }) {
+export default function LoginModal({ visible, onConfirm, onCancle}) {
+  if (!visible) return null;
+
   return(
     <BackgroundDark>
       <LoginModalDiv>
@@ -116,8 +116,8 @@ export default function LoginModal({ }) {
         <LoginInput placeholder='Write your ID'/>
         <LoginInput placeholder='Write your Password'/>
         <ButtonGroup>
-          <CancleBtn>Cancle</CancleBtn>
-          <LoginBtn>Login</LoginBtn>
+          <CancleBtn onClick={onCancle}>Cancle</CancleBtn>
+          <LoginBtn onClick={onConfirm}>Login</LoginBtn>
           <SocialBtn>Kakao Login</SocialBtn>
         </ButtonGroup>
       </LoginModalDiv>
