@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 // 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
@@ -13,22 +14,19 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
+    font-family: 'Scada', sans-serif;
+    color: #f5f5f5;
   }
 `;
 
-const Circle = styled.div`
-  width: 5rem;
-  height: 5rem;
-  background: #ffffff;
-  border-radius: 50px;
-`;
 
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Circle />
-      <Main/>
+    <GlobalStyle />
+    <Switch>
+      <Route exact path='/' component={Main} />
+    </Switch>
     </>
   );
 }
