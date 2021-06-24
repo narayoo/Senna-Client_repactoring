@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
-import Nav from './components/Nav';
+import Main from './components/Main';
 // 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
 
 /* 글로벌 속성 (수정금지)*/
@@ -22,8 +23,10 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Nav />
+    <GlobalStyle />
+    <Switch>
+      <Route exact path='/' component={Main} />
+    </Switch>
     </>
   );
 }

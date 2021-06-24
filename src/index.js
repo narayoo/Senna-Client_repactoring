@@ -2,21 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import rootReducer from './modules';
 import * as serviceWorker from './serviceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(rootReducer, composeWithDevTools());
-console.log(store.getState());
-
+console.log(store.getState()); // 스토어 상태확인
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
