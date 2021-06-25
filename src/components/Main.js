@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
+import ContentSlider from './ContentSlider';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
@@ -17,7 +18,7 @@ function Main() {
     window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
 
-  // 클릭하면 스크롤이 위로 올라가는 함수
+  // top 버튼 함수
   const handleTop = () => {  
     window.scrollTo({
       top: 0,
@@ -69,7 +70,8 @@ function Main() {
   }
   return (
     <>
-      <Nav openModal={openModal} scrollTop={scrollTop}/>
+    <Nav openModal={openModal} scrollTop={scrollTop}/>
+    {/* <ContentSlider></ContentSlider> */}
       <Slider />
       <div className='topBtnWrapper'>
         <button 
