@@ -4,7 +4,7 @@ const Search_Bar = styled.input`
   max-width: 800px;
   width: 50%;
   height: 38px;
-  border-radius: 25px;
+  border-radius: 20px;
   border: none;
   background-color: #e0e0e0;
   margin: 0 auto;

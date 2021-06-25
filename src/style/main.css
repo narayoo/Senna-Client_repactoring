@@ -1,0 +1,22 @@
+.topBtn{
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 1px solid #eeeeee;
+  border-radius: 25px;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  display: none;
+  bottom: 0;
+  position: fixed;
+}
+.topBtn:hover{
+  cursor: pointer;
+  background: #eeeeee;
+  color: #1b1b1b;
+}
+.topBtnWrapper{
+  display: flex;
+  justify-content: flex-end;
+}

@@ -11,11 +11,11 @@ const Container = styled.div`
   width : 100%;
   height : 460px;
   background-color: #1b1b1b;
-  
 `; 
 
 const CarouselWrapper = styled.div`
   z-index: 0;
+  padding: 3rem;
 `;
 
 function Slider() {
