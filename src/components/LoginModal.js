@@ -1,3 +1,4 @@
+import React from 'react';
 import { darken, lighten } from 'polished';
 import styled from 'styled-components';
 
@@ -107,21 +108,28 @@ const Title = styled.p`
   margin-bottom: 3rem;
   
 `
-export default function LoginModal({ visible, onConfirm, onCancle}) {
+
+
+export default function LoginModal({ handleModalOff, visible, onConfirm, onCancle}) {
   if (!visible) return null;
+  
 
   return(
-    <BackgroundDark>
-      <LoginModalDiv>
-        <Title>Login</Title>
-        <LoginInput placeholder='Write your ID'/>
-        <LoginInput placeholder='Write your Password'/>
-        <ButtonGroup>
-          <CancleBtn onClick={onCancle}>Cancle</CancleBtn>
-          <LoginBtn onClick={onConfirm}>Login</LoginBtn>
-          <SocialBtn>Kakao Login</SocialBtn>
-        </ButtonGroup>
-      </LoginModalDiv>
-    </BackgroundDark>
+    <>
+    {visible && (
+      <BackgroundDark onClick={(e) => handleModalOff(e)}>
+        <LoginModalDiv className='modal'>
+          <Title>Login</Title>
+          <LoginInput placeholder='Write your ID'/>
+          <LoginInput placeholder='Write your Password'/>
+          <ButtonGroup>
+            <CancleBtn onClick={onCancle}>Cancle</CancleBtn>
+            <LoginBtn onClick={onConfirm}>Login</LoginBtn>
+            <SocialBtn>Kakao Login</SocialBtn>
+          </ButtonGroup>
+        </LoginModalDiv>
+      </BackgroundDark>
+    )}
+    </>
   )
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+import '../style/nav.css';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
@@ -6,15 +8,14 @@ import styled from 'styled-components';
 // 네비바 영역
 const NavSection = styled.div`
   width: 100%;
-  height: 6rem;
-  background-color: #1b1b1b;
-  border-bottom : 1px solid #212121;
   position: sticky;
   top: 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1;
+  transition: all 0.3s ease-in-out;
+  height: 7rem;
 `;
 // 로고 
 const Logo = styled.img`
@@ -37,12 +38,18 @@ const NavButton = styled.button`
     cursor: pointer;
   }
 `;
-
-function Nav({ openModal, closeModal }) {
+// Logo 클릭 시 메인화면 새로고침 이동
+const clickLogo = () => {
+  window.location.replace("/")
+}
+function Nav({ openModal, scrollTop }) {
+  
   return (
     <>
-      <NavSection>
-        <Logo src={logo}/>
+      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : '' }>
+        <Link to='./'>
+          <Logo src={logo} onClick={clickLogo}/>
+        </Link>
         <SearchBar />
         <NavButton onClick={openModal}>
          Login
