@@ -33,21 +33,21 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   
+    <!-- 그리드용 함수 -->
     <script type="text/javascript">
-    function SetGridItemHeight() {
-            let grid = document.getElementsByClassName('grid')[0];
-            let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-            let rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+      function SetGridItemHeight() {
+        let grid = document.getElementsByClassName('grid')[0];
+        let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+        let rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
 
-            let item = grid.getElementsByClassName('item');
-            for (let i = 0; i < item.length; ++i) {
-                item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 45)}`
-            }
+        let item = grid.getElementsByClassName('item');
+          for (let i = 0; i < item.length; ++i) {
+              item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 45)}`
+          }
         }
         window.addEventListener("load", SetGridItemHeight);
         window.addEventListener("resize", SetGridItemHeight);
-        
-    
+
     </script>
   </body>
 </html>
