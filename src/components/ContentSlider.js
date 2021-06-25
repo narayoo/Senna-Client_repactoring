@@ -41,14 +41,15 @@ export default function ContentSlider() {
   const SliderBtn = styled.button`
     display: flex;
     width: 2.2rem;
-    height: 5rem;
+    height: 100%;
     color: #cfcfcf;
     font-size: 50px;
     align-items: center;
     background: transparent;
     border: none;
+    transition: all 0.3s ease 0s;
     &:hover{
-      color: #757575;
+      background: #e0e0e0;
       cursor: pointer;
     }
   `;
@@ -77,13 +78,13 @@ export default function ContentSlider() {
   return (
     <>
       <Container>
-        <SliderBtn onClick={() => onPrev()}>{`<`}</SliderBtn>
+        <SliderBtn onClick={() => onPrev()}></SliderBtn>
         <Wrapper>
           <StyledSlider className='carousel'>
             {photoList}
           </StyledSlider>
         </Wrapper>
-        <SliderBtn onClick={() => onNext()}>{`>`}</SliderBtn>
+        <SliderBtn onClick={() => onNext()}></SliderBtn>
       </Container>
     </>
   );
