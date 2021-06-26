@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
-import ContentSlider from './ContentSlider';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
@@ -71,7 +70,6 @@ function Main() {
   return (
     <>
     <Nav openModal={openModal} scrollTop={scrollTop}/>
-    {/* <ContentSlider></ContentSlider> */}
       <Slider />
       <div className='topBtnWrapper'>
         <button 

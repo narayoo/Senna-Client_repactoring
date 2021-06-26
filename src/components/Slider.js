@@ -15,7 +15,6 @@ const Container = styled.div`
 
 const CarouselWrapper = styled.div`
   z-index: 0;
-  padding: 3rem;
 `;
 
 function Slider() {

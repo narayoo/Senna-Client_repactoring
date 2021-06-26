@@ -45,8 +45,14 @@ const AddButton = styled.button`
 `;
 // add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 65%;
-  text-align: right;
+
+  align-items: center;
+`;
+const TotalComponent = styled.p`
 `;
 
 const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
@@ -61,6 +67,9 @@ function Album({openCtModal}) {
     <>
     <AlbumSection>
       <AddButtonWrapper>
+        <TotalComponent>
+          <i class="fas fa-feather-alt">&nbsp;&nbsp;122,651</i>
+        </TotalComponent>
         <Link to='/addcontents'>
           <AddButton>Add</AddButton>
         </Link>
