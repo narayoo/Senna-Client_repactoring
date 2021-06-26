@@ -6,6 +6,11 @@ import {connect} from 'react-redux'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import demo1 from '../image/demo1.jpg';
+import demo2 from '../image/demo2.jpg';
+import demo3 from '../image/demo3.jpg';
+import demo4 from '../image/demo4.jpg';
+import demo5 from '../image/demo5.jpg';
 
 
 
@@ -60,6 +65,12 @@ const settings = {
     height: 270px;
     background-color: pink;
   `
+
+  const TextImage = styled.img`
+    padding: 5px;
+    width: 250px;
+    height: 270px;
+  `
   
 
   
@@ -70,19 +81,19 @@ const settings = {
         <h2> My Contents </h2>
         <Slider {...settings}>
           <TextContent>
-            <h3>1</h3>
+            <TextImage src={demo1} />
           </TextContent>
           <TextContent>
-            <h3>2</h3>
+            <TextImage src={demo2} />
           </TextContent>
           <TextContent>
-            <h3>3</h3>
+            <TextImage src={demo3} />
           </TextContent>
           <TextContent>
-            <h3>4</h3>
+            <TextImage src={demo4} />
           </TextContent>
           <TextContent>
-            <h3>5</h3>
+            <TextImage src={demo5} />
           </TextContent>
         </Slider>
       </UserTextTotalBox>
