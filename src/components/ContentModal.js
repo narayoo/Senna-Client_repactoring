@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import photo from '../img/korea4.jpeg';
+import ContentSlider from './ContentSlider';
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -20,30 +20,16 @@ const ContentModalDiv = styled.div`
   max-width: 900px;
   min-width: 750px;
   width: 60%;
-  height: 550px;
+  height: 600px;
   background-color: #f5f5f5;
-  padding: 1rem;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
   display: flex;
-`;
-// content img wrapper css
-const ContentImgWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #f5f5f5;
-  width: 65%;
-  height: 100%;
-  overflow: hidden;
-`;
-// content img css
-const ContentImg = styled.img`
-  width: 100%;
 `;
 // content text area css
 const ContentTextArea = styled.div`
   width: 35%;
   height: 100%;
-  padding: 2rem;
+  padding: 4rem 2rem 2rem 1rem;
   
 `;
 // content text css
@@ -68,12 +54,11 @@ const HashTagWrapper = styled.div`
 `;
 // 해시태그
 const HashTag = styled.p`
-  font-weight: bold;
   color: #1b1b1b;
   width: 30%;
 `;
 
-export default function ContentModal({ ctModal, handleCtModalOff}) {
+export default function ContentModal({ ctModal, handleCtModalOff }) {
   if (!ctModal) return null;
 
   return(
@@ -81,9 +66,7 @@ export default function ContentModal({ ctModal, handleCtModalOff}) {
     {ctModal && (
       <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
         <ContentModalDiv className='ctModal'>
-          <ContentImgWrapper>
-            <ContentImg src={photo}/>
-          </ContentImgWrapper>
+          <ContentSlider />
           <ContentTextArea>
             <ContentText>
               내 어머니는 성취와 성공의 차이를 분명히 하셨다. 
