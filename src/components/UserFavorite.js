@@ -6,7 +6,11 @@ import {connect} from 'react-redux'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
+import demo1 from '../image/demo1.jpg';
+import demo2 from '../image/demo2.jpg';
+import demo3 from '../image/demo3.jpg';
+import demo4 from '../image/demo4.jpg';
+import demo5 from '../image/demo5.jpg';
 
 
 const settings = {
@@ -45,41 +49,54 @@ const settings = {
   };
 
 
+  const UserFavoriteTotalBox = styled.div`
+  margin-top: 5px;
+  margin-left: 10px;
+  width: 1230px;
+  height: 340px;
+  background-color: yellow;
+`
+
+const FavoritesContent = styled.div`
+  margin: 0 auto;
+  width: 250px;
+  height: 270px;
+  background-color: pink;
+`
+
+const FavoritesImage = styled.img`
+  padding: 5px;
+  width: 250px;
+  height: 270px;
+`
+
+
 
 
   
   function UserFavorite() {
     return (
       <>
-       <div>
-        <h2> Responsive </h2>
+        <UserFavoriteTotalBox >
+        <h2> My Favorites </h2>
         <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-          <div>
-            <h3>7</h3>
-          </div>
-          <div>
-            <h3>8</h3>
-          </div>
+          <FavoritesContent>
+            <FavoritesImage src={demo1} />
+          </FavoritesContent>
+          <FavoritesContent>
+            <FavoritesImage src={demo2} />
+          </FavoritesContent>
+          <FavoritesContent>
+            <FavoritesImage src={demo3} />
+          </FavoritesContent>
+          <FavoritesContent>
+            <FavoritesImage src={demo4} />
+          </FavoritesContent>
+          <FavoritesContent>
+            <FavoritesImage src={demo5} />
+          </FavoritesContent>
         </Slider>
-      </div>
+      </UserFavoriteTotalBox>
       </>
     )
   }
