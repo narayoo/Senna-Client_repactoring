@@ -49,7 +49,6 @@ const AddButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 65%;
-
   align-items: center;
 `;
 const TotalComponent = styled.p`
@@ -58,6 +57,19 @@ const TotalComponent = styled.p`
 const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
 function Album({openCtModal}) {
   
+
+  // 메인 앨범 그리드용 함수. 삭제 금지
+  function SetGridItemHeight() {
+    let grid = document.getElementsByClassName('grid')[0];
+    let item = grid.getElementsByClassName('item');
+      for (let i = 0; i < item.length; ++i) {
+          item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 45)}`
+      }
+    }
+    window.addEventListener("load", SetGridItemHeight);
+    window.addEventListener("resize", SetGridItemHeight);
+    //
+
   const photoList = list.map(e => 
     <div className='item' onClick={(el) => openCtModal(el)}>
       <PhotoImg src={e} loading="lazy"></PhotoImg>

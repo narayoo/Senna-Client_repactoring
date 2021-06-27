@@ -42,6 +42,7 @@ const NavButton = styled.button`
 const clickLogo = () => {
   window.location.replace("/")
 }
+
 function Nav({ openModal, scrollTop }) {
   
   return (
@@ -51,6 +52,9 @@ function Nav({ openModal, scrollTop }) {
           <Logo src={logo} onClick={clickLogo}/>
         </Link>
         <SearchBar />
+        <Link to='/signup'>
+          <NavButton>SignUp</NavButton>
+        </Link>
         <NavButton onClick={openModal}>
          Login
         </NavButton>

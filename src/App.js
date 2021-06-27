@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 import Mypage from './components/Mypage';
 import Addcontents from './components/Addcontents';
+import SignUp from './components/SignUp';
 
 // 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
 
@@ -34,6 +35,7 @@ function App() {
       <Route exact path='/' component={Main} />
       <Route exact path='/mypage' component={Mypage} />
       <Route exact path='/addcontents' component={Addcontents} />
+      <Route exact path='/signup' component={SignUp} />
     </Switch>
     </>
   );
