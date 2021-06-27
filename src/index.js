@@ -8,6 +8,18 @@ import rootReducer from './modules';
 import * as serviceWorker from './serviceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+// 메인 앨범 그리드용 함수. 삭제 금지
+function SetGridItemHeight() {
+  let grid = document.getElementsByClassName('grid')[0];
+  let item = grid.getElementsByClassName('item');
+  for (let i = 0; i < item.length; ++i) {
+    item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 45)}`
+  }
+}
+ 
+window.addEventListener("load", SetGridItemHeight);
+window.addEventListener("resize", SetGridItemHeight);
+
 
 const store = createStore(rootReducer, composeWithDevTools());
 console.log(store.getState()); // 스토어 상태확인

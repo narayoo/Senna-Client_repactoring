@@ -1,8 +1,5 @@
-import React, {useReducer, useEffect }from 'react'
-import axios from 'axios';
+import React from 'react'
 import styled from 'styled-components';
-import { withRouter } from "react-router-dom";
-import {connect} from 'react-redux'
 import UserInfo from './UserInfo'
 import UserContents from './UserContets'
 
@@ -19,7 +16,7 @@ const ProfileSection = styled.div`
    justify-content: center;
 `
 
-// loading, sucess, error
+/* // loading, sucess, error
 function userProfile (state, action) {
   switch (action.type){
     case 'LOADING': 
@@ -47,7 +44,7 @@ function userProfile (state, action) {
 }
 
 
-
+ */
 
 function  Mypage () {
 

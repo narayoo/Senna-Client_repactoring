@@ -56,38 +56,25 @@ const TotalComponent = styled.p`
 
 const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
 function Album({openCtModal}) {
-  
-
-  // 메인 앨범 그리드용 함수. 삭제 금지
-  function SetGridItemHeight() {
-    let grid = document.getElementsByClassName('grid')[0];
-    let item = grid.getElementsByClassName('item');
-      for (let i = 0; i < item.length; ++i) {
-          item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 45)}`
-      }
-    }
-    window.addEventListener("load", SetGridItemHeight);
-    window.addEventListener("resize", SetGridItemHeight);
-    //
-
-  const photoList = list.map(e => 
-    <div className='item' onClick={(el) => openCtModal(el)}>
-      <PhotoImg src={e} loading="lazy"></PhotoImg>
-    </div>)
 
   return (
     <>
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>
-          <i class="fas fa-feather-alt">&nbsp;&nbsp;122,651</i>
+          <i className="fas fa-feather-alt">&nbsp;&nbsp;122,651</i>
         </TotalComponent>
         <Link to='/addcontents'>
           <AddButton>Add</AddButton>
         </Link>
       </AddButtonWrapper>
       <div className='grid'>
-        {photoList}
+        {list.map((photo,index)=> {
+          return <div className='item' key={index} onClick={(el) => openCtModal(el)}>
+            <PhotoImg key={index} src={photo} loading="lazy"></PhotoImg>
+          </div>
+          }
+        )}
       </div>
     </AlbumSection>
     </>

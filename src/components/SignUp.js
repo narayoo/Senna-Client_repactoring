@@ -149,16 +149,18 @@ export default function SignUp() {
   const [previewURL, setPreviewURL] = useState('');
   
   // 유저 이미지 적용 함수
-  const handleFileOnChange = async (event) => {
+  const handleFileOnChange = (event) => {
     event.preventDefault();
     let reader = new FileReader();
     let file = event.target.files[0];
-    reader.onloadend = () => {
+    console.log(file)
+    reader.onload = (function(file) {
       setFile(file)
       setPreviewURL(reader.result);
-    }
+    })(file);
     reader.readAsDataURL(file)
   }
+  
   // 유저 이미지 적용 조건문
   let profile_preview = null;
   if(file !== ''){
@@ -183,7 +185,7 @@ export default function SignUp() {
         <ProfileCircle>
           {profile_preview}
         </ProfileCircle>
-        <FileWrapper for='ex_filename'>Image Upload</FileWrapper>
+        <FileWrapper htmlFor='ex_filename'>Image Upload</FileWrapper>
         <ProfileInput id='ex_filename' type='file' name='profile_img' accept='image/*' onChange={handleFileOnChange}/>
         <SignupInput type='text' placeholder='Write your ID' />
         <SignupInput type='password' placeholder='Write your Password' />

@@ -10,8 +10,6 @@ function Main() {
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
-  const [currentCt, setCt] = useState('');
-
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -64,7 +62,6 @@ function Main() {
   };
   // content modal 열기
   const openCtModal = (e) => {
-    let val = e.target.src;
     setCtModal(true);
   }
   return (

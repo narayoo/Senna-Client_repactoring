@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
 import korea1 from '../img/korea1.jpeg';
 import korea2 from '../img/korea2.jpeg';
@@ -30,7 +30,7 @@ export default function ContentSlider() {
     align-items: center;
     text-align: center;
     transform: translate3d(0, 0, 0); 
-    transition: transform 0.2s;
+    transition: transform 0.7s;
   `;
   
   const Img = styled.img`
@@ -47,7 +47,7 @@ export default function ContentSlider() {
     align-items: center;
     background: transparent;
     border: none;
-    transition: all 0.3s ease 0s;
+    transition: all 0.8s ease 0s;
     &:hover{
       background: #e0e0e0;
       cursor: pointer;
