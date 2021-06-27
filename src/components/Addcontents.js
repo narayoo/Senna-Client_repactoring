@@ -9,7 +9,7 @@ const AddCtWrapper = styled.form`
   width: 80%;
   max-width: 1000px;
   margin: 0 auto;
-  margin-top: 1.5rem;
+  margin-top: 5rem;
 `;
 const AddCtFileSection = styled.section`
   display: flex;
@@ -20,6 +20,7 @@ const AddCtFileSection = styled.section`
 `;
 const AddCtSection = styled.section`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50%;
@@ -47,6 +48,7 @@ const AddCtText = styled.textarea`
   background: linear-gradient(#ffffff, #aeaeae);
   font-size: 17px;
   resize: none;
+  margin-bottom: 1rem;
   box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
   &:focus{
     outline: none;
@@ -57,6 +59,7 @@ const ButtonGroup = styled.section`
   width: 100%;
   text-align: right;
   padding-right: 2rem;
+  margin-top: 3rem;
 `;
 const CancleBtn = styled.button`
   width: 100px;
@@ -105,11 +108,25 @@ const SubmitBtn = styled.button`
     transform: translateY(-7px);
   }
 `;
-// 캔슬 버튼 누를 시 새로고침을 위한 함수
-const cancle = () => {
-  window.location.replace("/")
-}
+const HashTagBox = styled.input`
+  padding-left: 1rem;
+  height: 10%;
+  width: 80%;
+  color: #1b1b1b;
+  background: linear-gradient(#ffffff, #aeaeae);
+  font-size: 17px;
+  resize: none;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+  &:focus{
+    outline: none;
+    background: #ffffff;
+  }
+`;
 function Addcontents() {
+    // 캔슬 버튼 누를 시 새로고침을 위한 함수
+  const cancle = () => {
+    window.location.replace("/")
+  }
   return (
     <>
     <Nav />
@@ -123,6 +140,7 @@ function Addcontents() {
         </AddCtFileSection>
         <AddCtSection>
           <AddCtText placeholder='Write Your Memories' />
+          <HashTagBox placeholder='ex) #Korea #Seoul' />
         </AddCtSection>
         <ButtonGroup>
           <Link to='./'>

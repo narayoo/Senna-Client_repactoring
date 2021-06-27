@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  
   return (
     <>
     <GlobalStyle />

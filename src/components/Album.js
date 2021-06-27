@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import "../style/grid.css";
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import korea2 from '../img/korea2.jpeg';
 import korea3 from '../img/korea3.jpeg';
 import korea4 from '../img/korea4.jpeg';
 import korea5 from '../img/korea5.jpeg';
+
 
 // album section css
 const AlbumSection = styled.section`
@@ -28,10 +29,9 @@ const AddButton = styled.button`
   letter-spacing: 2.5px;
   font-weight: 500;
   color: #000;
-  background-color: #fff;
+  background-color: #eeeeee;
   border: none;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
   margin-bottom: 2rem;
@@ -39,8 +39,7 @@ const AddButton = styled.button`
   &:hover{
     background-color: #00acc1;
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
-    color: #fff;
-    transform: translateY(-7px);
+    color: #eeeeee;
   }
 `;
 // add 버튼 wrapper css
@@ -51,11 +50,12 @@ const AddButtonWrapper = styled.div`
   width: 65%;
   align-items: center;
 `;
+// total contents Css
 const TotalComponent = styled.p`
 `;
 
-const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
-function Album({openCtModal}) {
+const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
+function Album({ openCtModal }) {
 
   return (
     <>
@@ -81,3 +81,5 @@ function Album({openCtModal}) {
   )
 }
 export default Album;
+
+

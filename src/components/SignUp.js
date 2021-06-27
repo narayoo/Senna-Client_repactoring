@@ -15,23 +15,22 @@ const SignupContainer = styled.form`
   align-items: center;
   width: 100%;
 `;
-
-const Title = styled.h1`
+const Title = styled.p`
   margin-bottom: 4rem;
-`
+  font-size: 40px;
+`;
 // 이미지 wrapper
 const ProfileCircle = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 100px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 2.5rem;
   box-shadow: 8px 8px 8px 8px rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const FileWrapper = styled.label`
   display: flex;
   width: 150px;
@@ -67,7 +66,6 @@ const ProfileInput = styled.input`
   clip:rect(0,0,0,0); 
   border: 0;
 `;
-
 const SignupInput = styled.input`
   max-width: 300px;
   min-width: 210px;
@@ -82,7 +80,6 @@ const SignupInput = styled.input`
     outline: none;
   }
 `;
-
 const PhotoSection = styled.div`
   height: 100vh;
 `;
@@ -96,7 +93,7 @@ const ButtonGroup = styled.section`
   text-align: right;
   display: flex;
   justify-content: center;
-  margin-top: 4rem;
+  margin-top: 5rem;
 `;
 const CancleBtn = styled.button`
   width: 100px;
@@ -181,7 +178,7 @@ export default function SignUp() {
         <Photo src={photo} />
       </PhotoSection>
       <SignupContainer>
-        <Title>Join Free</Title>
+        <Title>JOIN SENNA</Title>
         <ProfileCircle>
           {profile_preview}
         </ProfileCircle>

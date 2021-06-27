@@ -15,13 +15,13 @@ const NavSection = styled.div`
   align-items: center;
   z-index: 1;
   transition: all 0.3s ease-in-out;
-  height: 7rem;
+  height: 8rem;
 `;
 // 로고 
 const Logo = styled.img`
-  height: 6rem;
+  height: 5rem;
   display: block;
-  margin-left: 20px;
+  margin-left: 3rem;
   
   &:hover {
     cursor: pointer;
@@ -31,19 +31,21 @@ const Logo = styled.img`
 const NavButton = styled.button`
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 15px;
   margin-right: 30px;
   
   &:hover {
     cursor: pointer;
   }
 `;
-// Logo 클릭 시 메인화면 새로고침 이동
-const clickLogo = () => {
-  window.location.replace("/")
-}
-
+const ButtonGroup = styled.div`
+  margin-right: 2rem;
+`;
 function Nav({ openModal, scrollTop }) {
+  // Logo 클릭 시 메인화면 새로고침 이동
+  const clickLogo = () => {
+    window.location.replace("/")
+  }
   
   return (
     <>
@@ -52,12 +54,12 @@ function Nav({ openModal, scrollTop }) {
           <Logo src={logo} onClick={clickLogo}/>
         </Link>
         <SearchBar />
-        <Link to='/signup'>
-          <NavButton>SignUp</NavButton>
-        </Link>
-        <NavButton onClick={openModal}>
-         Login
-        </NavButton>
+        <ButtonGroup>
+          <Link to='/signup'>
+            <NavButton>Join Free</NavButton>
+          </Link>
+          <NavButton onClick={openModal}>Login</NavButton>
+        </ButtonGroup>
       </NavSection>
     </>
   )
