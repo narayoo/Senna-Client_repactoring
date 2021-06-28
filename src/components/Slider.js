@@ -22,13 +22,17 @@ function Slider() {
     <CarouselWrapper>
       <Carousel autoplay>
         <Container>
+
           {/* <video controls autoplay="autoplay" muted >
+
+          <video controls autoplay="autoplay" loop="loop" muted >
+
             <source src={Man} type="video/mp4" />
           </video> */}
           <img src={v}></img>
         </Container>
         <Container>
-        <video controls autoplay="autoplay" muted >
+        <video controls autoplay="autoplay" loop="loop" muted >
           <source src={Palms} type="video/mp4" />
         </video>
         </Container>
