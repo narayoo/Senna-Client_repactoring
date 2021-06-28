@@ -5,6 +5,7 @@ import Main from './components/Main';
 import Mypage from './components/Mypage';
 import Addcontents from './components/Addcontents';
 import Search from './components/Search'
+import ProfileUpdate from './components/ProfileUpdate'
 
 // 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
 
@@ -36,6 +37,7 @@ function App() {
       <Route exact path='/mypage' component={Mypage} />
       <Route exact path='/addcontents' component={Addcontents} />
       <Route exact path='/search' component={Search} />
+      <Route exact path='/profileupdate' component={ProfileUpdate} />
     </Switch>
     </>
   );
