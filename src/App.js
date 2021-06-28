@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 import Mypage from './components/Mypage';
 import Addcontents from './components/Addcontents';
+import SignUp from './components/SignUp';
 import Search from './components/Search'
 import ProfileUpdate from './components/ProfileUpdate'
 
@@ -29,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  
   return (
     <>
     <GlobalStyle />
@@ -36,6 +38,7 @@ function App() {
       <Route exact path='/' component={Main} />
       <Route exact path='/mypage' component={Mypage} />
       <Route exact path='/addcontents' component={Addcontents} />
+      <Route exact path='/signup' component={SignUp} />
       <Route exact path='/search' component={Search} />
       <Route exact path='/profileupdate' component={ProfileUpdate} />
     </Switch>
