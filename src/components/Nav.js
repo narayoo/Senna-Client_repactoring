@@ -41,7 +41,7 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop }) {
+function Nav({ openModal, scrollTop, isLogin }) {
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
@@ -55,10 +55,21 @@ function Nav({ openModal, scrollTop }) {
         </Link>
         <SearchBar />
         <ButtonGroup>
-          <Link to='/signup'>
-            <NavButton>Join Free</NavButton>
-          </Link>
-          <NavButton onClick={openModal}>Login</NavButton>
+          { isLogin ? 
+          <>
+            <Link to='/mypage'>
+              <NavButton>Mypage</NavButton>
+            </Link>
+            <NavButton >Logout</NavButton>
+          </>
+          :
+          <>
+            <Link to='/signup'>
+              <NavButton>Join Free</NavButton>
+            </Link>
+            <NavButton onClick={openModal}>Login</NavButton>
+          </>
+          }
         </ButtonGroup>
       </NavSection>
     </>

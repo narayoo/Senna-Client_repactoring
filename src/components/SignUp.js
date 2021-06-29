@@ -164,21 +164,6 @@ export default function SignUp() {
       setPreviewURL(reader.result);
     };
     reader.readAsDataURL(file)
-
-    let formData = new FormData();
-    const config = {
-      header: {'content-type': 'multipart/form-data'}
-    }
-    formData.append("avatar", file);
-    await axios.post('http://54.180.151.176/user/upload',
-    formData, config)
-    .then(res => {
-      console.log('업로드 성공');
-      console.log('res.data:::',res.data.data.path);
-      setProfileImg(res.data.data.path);
-    }).catch(err => {
-      console.log(err)
-    })
   } 
   // 유저 이미지 미리보기 적용 조건문
   let profile_preview = null;
@@ -233,16 +218,26 @@ export default function SignUp() {
     }else if(!isPwdDoubleCk) {
       alert('비밀번호가 서로 일치하지 않습니다.')
     }else if(isValidId && isValidPassword && isPwdDoubleCk){
+      let formData = new FormData();
+      const config = {
+        header: {'content-type': 'multipart/form-data'}
+      }
+      formData.append("avatar", img);
+      formData.append("userId", userId);
+      formData.append("password", password);
       await axios.post('http://54.180.151.176/user/signup',
-      { userId, password, profileImg}, 
-      {'Content-Type':'application/json', withCredentials: true})
+      formData, config)
       .then(res => {
-        console.log('res:::',res);
+        console.log('res.data:::',res.data.data.profileImg);
+        console.log('업로드 성공');
         console.log('회원가입 성공');
         alert('회원가입이 완료되었습니다');
+        setProfileImg(res.data.data.profileImg);
         history.push('./'); // 메인 페이지로 리다이렉션
         window.location.replace('./')
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
   
