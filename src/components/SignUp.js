@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { isId, isPassword } from '../js/regExp';
 import styled from 'styled-components';
 import userImg from '../img/userImg.png';
 import photo from '../img/signPhoto2.jpeg';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,7 +51,7 @@ const FileWrapper = styled.label`
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   &:hover{
     color: #fff;
     transform: translateY(-7px);
@@ -142,35 +144,108 @@ const SubmitBtn = styled.button`
 
 export default function SignUp() {
 
-  const [file, setFile] = useState('');
   const [previewURL, setPreviewURL] = useState('');
-  
-  // 유저 이미지 적용 함수
-  const handleFileOnChange = (event) => {
+  const [img, setImg] = useState('');
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+  const [isValidId , setValidId ] = useState(false);
+  const [isValidPassword , setIsValidPassword ] = useState(false);
+  const [isPwdDoubleCk , setIsPwdDoubleCk ] = useState(false);
+  const [profileImg, setProfileImg] = useState('');
+
+  // 유저 이미지 미리보기 적용 함수
+  const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();
     let file = event.target.files[0];
-    console.log(file)
-    reader.onload = (function(file) {
-      setFile(file)
+    reader.onloadend = () => {
+      setImg(file)
       setPreviewURL(reader.result);
-    })(file);
+    };
     reader.readAsDataURL(file)
-  }
-  
-  // 유저 이미지 적용 조건문
+
+    let formData = new FormData();
+    const config = {
+      header: {'content-type': 'multipart/form-data'}
+    }
+    formData.append("avatar", file);
+    await axios.post('http://54.180.151.176/user/upload',
+    formData, config)
+    .then(res => {
+      console.log('업로드 성공');
+      console.log('res.data:::',res.data.data.path);
+      setProfileImg(res.data.data.path);
+    }).catch(err => {
+      console.log(err)
+    })
+  } 
+  // 유저 이미지 미리보기 적용 조건문
   let profile_preview = null;
-  if(file !== ''){
+  if(img !== ''){
     profile_preview = <img className='profile_preview' src={previewURL}></img>
   }else{
     profile_preview = <img className='profile_preview' src={userImg}></img>
   }
-
   // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
     window.location.replace("/")
   }
-
+  const onChangeId = (e) => {
+    setUserId(e.target.value);
+    if (!isId(e.target.value)) { 
+      setValidId(false);
+    } else if(e.target.value === ''){
+      setValidId(false);
+    } else { // 이메일 형식 통과 했을때
+      setValidId(true);
+    }
+  }
+  const onChangePwd = (e) => {
+    setPassword(e.target.value);
+    // 비밀번호 형식 안맞을 때
+    if (!isPassword(e.target.value)) { 
+      setIsValidPassword(false);
+    } else { // 비밀번호 형식 통과 했을때
+      setIsValidPassword(true);
+    }
+  }
+  const onChangeCheckPwd = (e) => {
+    setCheckPassword(e.target.value);
+    if (password.length < 1 || e.target.value.length < 1) {
+      setIsPwdDoubleCk(false);
+      // 비밀번호가 같다면 일치
+    }else if (password === e.target.value) {
+      setIsPwdDoubleCk(true);
+      // 비밀번호가 같지 않다면 불일치
+    } else {
+      setIsPwdDoubleCk(false);
+    }
+  }
+  // submit 버튼 클릭 함수
+  let history = useHistory();
+  const submit = async (e) => {
+    e.preventDefault();
+    if(!isValidId){
+      alert('아이디를 다시 확인해주세요.')
+    }else if(!isValidPassword) {
+      alert('비밀번호를 다시 확인해주세요.')
+    }else if(!isPwdDoubleCk) {
+      alert('비밀번호가 서로 일치하지 않습니다.')
+    }else if(isValidId && isValidPassword && isPwdDoubleCk){
+      await axios.post('http://54.180.151.176/user/signup',
+      { userId, password, profileImg}, 
+      {'Content-Type':'application/json', withCredentials: true})
+      .then(res => {
+        console.log('res:::',res);
+        console.log('회원가입 성공');
+        alert('회원가입이 완료되었습니다');
+        history.push('./'); // 메인 페이지로 리다이렉션
+        window.location.replace('./')
+      }).catch(err => console.log(err))
+    }
+  }
+  
   return (
     <>
     <Wrapper> 
@@ -183,15 +258,15 @@ export default function SignUp() {
           {profile_preview}
         </ProfileCircle>
         <FileWrapper htmlFor='ex_filename'>Image Upload</FileWrapper>
-        <ProfileInput id='ex_filename' type='file' name='profile_img' accept='image/*' onChange={handleFileOnChange}/>
-        <SignupInput type='text' placeholder='Write your ID' />
-        <SignupInput type='password' placeholder='Write your Password' />
-        <SignupInput type='password' placeholder='One more check Password' />
+        <ProfileInput id='ex_filename' type='file' name='avatar' accept='image/*' onChange={handleFileOnChange}/>
+        <SignupInput value={userId} onChange={onChangeId} type='text' placeholder='ID (only letter and numbers)' />
+        <SignupInput value={password} onChange={onChangePwd} type='password' placeholder='Password(min. 6 char)' />
+        <SignupInput value={checkPassword} onChange={onChangeCheckPwd} type='password' placeholder='One more check Password' />
         <ButtonGroup>
           <Link to='./'>
             <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn>
           </Link>
-          <SubmitBtn>Join</SubmitBtn>
+          <SubmitBtn onClick={(e) => submit(e)} type='submit'>Join</SubmitBtn>
         </ButtonGroup>
       </SignupContainer>
     </Wrapper>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import demo5 from '../image/demo5.jpg';
+import demo5 from '../img/demo5.jpg';
 
 
 
