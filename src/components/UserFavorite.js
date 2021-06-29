@@ -2,6 +2,7 @@ import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import styled from 'styled-components';
 import demo1 from '../image/demo1.jpg';
 import demo2 from '../image/demo2.jpg';
 import demo3 from '../image/demo3.jpg';
