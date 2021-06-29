@@ -7,10 +7,9 @@ import { createStore } from 'redux';
 import rootReducer from './modules';
 import * as serviceWorker from './serviceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import ReduxThunk from 'redux-thunk';
 
 const store = createStore(rootReducer, composeWithDevTools());
-console.log(store.getState()); // 스토어 상태확인
+console.log('스토어 상태확인:::',store.getState()); // 스토어 상태확인
 
 ReactDOM.render(
   <BrowserRouter>

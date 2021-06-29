@@ -9,7 +9,7 @@ const Container = styled.div`
   overflow: hidden;
   display: flex;
   width : auto;
-  height : 35rem;
+  height : 38rem;
   background-color: #1b1b1b;
 `; 
 

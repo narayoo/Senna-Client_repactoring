@@ -3,11 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import styled from 'styled-components';
-import demo1 from '../image/demo1.jpg';
-import demo2 from '../image/demo2.jpg';
-import demo3 from '../image/demo3.jpg';
-import demo4 from '../image/demo4.jpg';
-import demo5 from '../image/demo5.jpg';
+import demo1 from '../img/demo1.jpg';
+import demo2 from '../img/demo2.jpg';
+import demo3 from '../img/demo3.jpg';
+import demo4 from '../img/demo4.jpg';
+import demo5 from '../img/demo5.jpg';
 
 
 const settings = {

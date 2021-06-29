@@ -1,9 +1,10 @@
-import React from 'react';
+import React  from 'react';
 import { Link } from 'react-router-dom'
 import '../style/nav.css';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
+
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -41,11 +42,15 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop }) {
+function Nav({ openModal, scrollTop, isLogin , logout}) {
+  
+  
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }
+  
+
   
   return (
     <>
@@ -55,10 +60,21 @@ function Nav({ openModal, scrollTop }) {
         </Link>
         <SearchBar />
         <ButtonGroup>
-          <Link to='/signup'>
-            <NavButton>Join Free</NavButton>
-          </Link>
-          <NavButton onClick={openModal}>Login</NavButton>
+          { isLogin ? 
+          <>
+            <Link to='/mypage'>
+              <NavButton>Mypage</NavButton>
+            </Link>
+            <NavButton onClick={logout}>Logout</NavButton>
+          </>
+          :
+          <>
+            <Link to='/signup'>
+              <NavButton>Join Free</NavButton>
+            </Link>
+            <NavButton onClick={openModal}>Login</NavButton>
+          </>
+          }
         </ButtonGroup>
       </NavSection>
     </>
