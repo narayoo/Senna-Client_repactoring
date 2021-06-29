@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
+//import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
+import axios from "axios";
+//import { loginUser } from '../modules/auth';
 
 function Main() {
+
+  //const dispatch = useDispatch();
+  const history = useHistory();
 
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
+  const [userId, setUserId] = useState('')
+  const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
+  const [accessToken , setAccessToken] = useState('');
 
+  const changeId = (e) => {
+    setUserId(e.target.value);
+  }
+  const changePwd = (e) => {
+    setPassword(e.target.value);
+  }
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -37,10 +54,22 @@ function Main() {
     setModal(true);
   }
   // modal 서밋 후 닫기
-  const onConfirm = () => {
-    console.log('확인')
+  const onConfirm = async(e) => {
+    await axios.post('http://54.180.151.176/user/login', 
+    { userId, password },
+    { 'Content-Type':'application/json', withCredentials: true })
+    .then(res => {
+      let acTokenPath = res.data.data.accessToken;
+      setAccessToken(`Bearer ${acTokenPath}`);
+      setIsLogin(true);
+      history.push('./');
+    }).catch(err => {
+      alert('로그인 정보가 유효하지 않습니다.')
+      console.log(err)
+    })
     setModal(false);
   }
+
   // modal 취소 후 닫기
   const onCancle = () => {
     console.log('취소')
@@ -69,7 +98,7 @@ function Main() {
 
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -78,6 +107,10 @@ function Main() {
         onClick={() => handleTop()}>Top</button>
       </div> 
       <LoginModal
+        changePwd={changePwd}
+        changeId={changeId}
+        userId={userId}
+        password={password}
         handleModalOff={handleModalOff}
         visible={modal}
         onConfirm={onConfirm}
