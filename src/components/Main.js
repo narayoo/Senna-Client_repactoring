@@ -13,7 +13,7 @@ import axios from "axios";
 function Main() {
 
   //const dispatch = useDispatch();
-  const history = useHistory();
+  //const history = useHistory();
 
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
@@ -22,6 +22,7 @@ function Main() {
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken , setAccessToken] = useState('');
+  const [loading, setLoading] = useState(null);
 
   const changeId = (e) => {
     setUserId(e.target.value);
@@ -53,23 +54,28 @@ function Main() {
   const openModal = () => {
     setModal(true);
   }
-  // modal 서밋 후 닫기
+  // 로그인 서밋 후 모달 닫기
   const onConfirm = async(e) => {
+    setLoading(true);
     await axios.post('http://54.180.151.176/user/login', 
     { userId, password },
     { 'Content-Type':'application/json', withCredentials: true })
     .then(res => {
-      let acTokenPath = res.data.data.accessToken;
-      setAccessToken(`Bearer ${acTokenPath}`);
-      setIsLogin(true);
-      history.push('./');
+      if(res.status === 200) {
+        let acTokenPath = res.data.data.accessToken;
+        setAccessToken(`Bearer ${acTokenPath}`);
+        setIsLogin(true);
+        setTimeout(()=> {
+          setLoading(false);
+          setModal(false);
+        },2000)
+      }
     }).catch(err => {
       alert('로그인 정보가 유효하지 않습니다.')
+      setLoading(null)
       console.log(err)
     })
-    setModal(false);
   }
-
   // modal 취소 후 닫기
   const onCancle = () => {
     console.log('취소')
@@ -98,7 +104,7 @@ function Main() {
 
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} loading={loading}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -107,6 +113,7 @@ function Main() {
         onClick={() => handleTop()}>Top</button>
       </div> 
       <LoginModal
+        loading={loading}
         changePwd={changePwd}
         changeId={changeId}
         userId={userId}

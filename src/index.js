@@ -11,6 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const store = createStore(rootReducer, composeWithDevTools());
 console.log('스토어 상태확인:::',store.getState()); // 스토어 상태확인
 
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
