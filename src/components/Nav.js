@@ -4,7 +4,9 @@ import '../style/nav.css';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import { getUserInfo } from '../modules/loginReducer';
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -44,15 +46,23 @@ const ButtonGroup = styled.div`
 `;
 function Nav({ openModal, scrollTop, logout }) {
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
+  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }
+  const gotoMypage = () => {
+    history.push('./mypage');
+    dispatch(getUserInfo(accessToken));
+    //console.log(getUserInfo(accessToken))
+  }
   
   return (
     <>
-    {console.log('isLogin???',isLogin)}
       <NavSection className={ scrollTop > 0.01 ? 'darkNav' : '' }>
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo}/>
@@ -61,9 +71,7 @@ function Nav({ openModal, scrollTop, logout }) {
         <ButtonGroup>
           { isLogin === true ? 
           <>
-            <Link to='/mypage'>
-              <NavButton>Mypage</NavButton>
-            </Link>
+            <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
             <NavButton onClick={() => logout()}>Logout</NavButton>
           </>
           :

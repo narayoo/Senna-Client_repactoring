@@ -28,6 +28,7 @@
     "redux": "^4.1.0",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
     "redux-pender": "^2.0.12",
     "redux-promise": "^0.6.0",
     "redux-promise-middleware": "^6.1.2",
