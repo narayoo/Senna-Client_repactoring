@@ -4,7 +4,7 @@ import '../style/nav.css';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
-
+import { useSelector, useDispatch } from 'react-redux';
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -42,24 +42,24 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop, isLogin,logout }) {
+function Nav({ openModal, scrollTop, logout }) {
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin);
 
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }
   
-
-  
   return (
     <>
+    {console.log('isLogin???',isLogin)}
       <NavSection className={ scrollTop > 0.01 ? 'darkNav' : '' }>
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo}/>
         </Link>
         <SearchBar />
         <ButtonGroup>
-          { isLogin ? 
+          { isLogin === true ? 
           <>
             <Link to='/mypage'>
               <NavButton>Mypage</NavButton>
