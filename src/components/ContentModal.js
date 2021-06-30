@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 
-
 // 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
@@ -31,10 +30,9 @@ const ContentModalDiv = styled.div`
 const ContentTextArea = styled.div`
   width: 100%;
   height: 100%;
-  /* padding: 4rem 2rem 2rem 1rem; */
-  padding-right: 1.2rem;
+  padding-right: 2rem;
   padding-bottom: 0.5rem;
-  
+  padding-left: 0.5rem;
 `;
 // content text css
 const ContentText = styled.div`
@@ -61,35 +59,27 @@ const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
 `;
-
-
 // 좋아요아이콘 
-
-
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
 ` 
-
-
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
-  padding: 5%;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2rem;
   cursor: pointer;
-
+  font-size: 12px;
 `
-
 const FavortiteUncheck = styled.i`
-  color : #1b1b1b;
+  color : gray;
   transition: transform 300ms ease;
 `
-
 const FavortiteCheck = styled.i`
   color: red;
   transition: transform 300ms ease;
 `
-
 
 export default function ContentModal({ ctModal, handleCtModalOff , handleLikeButton , likeButton, handleDeleteButton, isLogin }) {
   if (!ctModal) return null;
