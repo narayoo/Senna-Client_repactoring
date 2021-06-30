@@ -8,20 +8,25 @@ import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
 import axios from 'axios';
-import {localLogin} from '../modules/loginReducer';
+import {localLogin, localLogout} from '../modules/loginReducer';
+
+
 
 function Main() {
+  
+
+
+
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
-  const [accessToken , setAccessToken] = useState('');
   const [loading, setLoading] = useState(null);
   const [likeButton , setLikeButton] = useState(false);
   const [postingId , setPostingId] = useState('');
 
+ 
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -92,12 +97,8 @@ function Main() {
 
   // user logout 
   const logout = () => {
-    axios.get('http://54.180.151.176/user/logout',
-      { headers : { authorization : accessToken ,'Content-Type': 'application/json', withCredentials: true } }
-      ).then((res) => {
-        setIsLogin(false);
-        history.push('./')
-      })
+    dispatch(localLogout())
+    history.push('./')
   }
 
   // likebutton click event
@@ -128,7 +129,7 @@ function Main() {
  
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout}/>
+    <Nav openModal={openModal} scrollTop={scrollTop}/*  isLogin={isLogin} */ logout={logout}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -155,7 +156,7 @@ function Main() {
         handleLikeButton={handleLikeButton}
         likeButton={likeButton}
         handleDeleteButton={handleDeleteButton}
-        isLogin={isLogin}
+        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>
