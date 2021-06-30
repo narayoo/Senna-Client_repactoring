@@ -18,7 +18,10 @@ function Main() {
   const [accessToken , setAccessToken] = useState('');
   const [loading, setLoading] = useState(null);
   const dispatch = useDispatch();
-  
+  const [likeButton , setLikeButton] = useState(false);
+  const [postingId , setPostingId] = useState('');
+
+
   const changeId = (e) => {
     setUserId(e.target.value);
   }
@@ -106,41 +109,78 @@ function Main() {
     })
   }
 
+  
+  // user logout 
+  const logout = () => {
+    axios.get('http://54.180.151.176/user/logout',
+      { headers : { authorization : accessToken ,'Content-Type': 'application/json', withCredentials: true } }
+      ).then((res) => {
+        setIsLogin(false);
+        history.push('./')
+      })
+  }
+
+
+  // likebutton click event
+
+  const handleLikeButton = async() => {
+  
+    if(!likeButton) {
+      await axios.patch('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
+      { postingId : '60dabc3078bc87e86f2d51e9' }  
+     ).then((res) => {
+       setLikeButton(true);
+     })
+    } 
+  }
+
+  const handleDeleteButton = async() =>{
+    
+    if (likeButton) {
+      await axios.delete('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
+      { data : { postingId : '60dabc3078bc87e86f2d51e9' } , withCredentials : true}
+      ).then((res) => {
+        setLikeButton(false);
+      })
+
+    }
+
+  }
+
+ 
   return (
     <>
-    <Nav 
-      openModal={openModal} 
-      scrollTop={scrollTop} 
-      isLogin={isLogin} 
-      loading={loading} 
-      logoutHandler={logoutHandler} 
-    />
-    <Slider />
-    <div className='topBtnWrapper'>
-      <button 
-      className='topBtn' 
-      style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
-      onClick={() => handleTop()}>Top</button>
-    </div> 
-    <LoginModal
-      loading={loading}
-      changePwd={changePwd}
-      changeId={changeId}
-      userId={userId}
-      password={password}
-      handleModalOff={handleModalOff}
-      visible={modal}
-      onConfirm={onConfirm}
-      onCancle={onCancle}>
-    <input type='text'></input>  
-    </LoginModal>
-    <Album openCtModal={openCtModal}/>
-    <ContentModal
-      handleCtModalOff={handleCtModalOff}
-      ctModal={ctModal}
-      >
-    </ContentModal>
-  </>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout} logoutHandler={logoutHandler}/>
+      <Slider />
+      <div className='topBtnWrapper'>
+        <button 
+        className='topBtn' 
+        style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
+        onClick={() => handleTop()}>Top</button>
+      </div> 
+      <LoginModal
+        loading={loading}
+        changePwd={changePwd}
+        changeId={changeId}
+        userId={userId}
+        password={password}
+        handleModalOff={handleModalOff}
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancle={onCancle}>
+        <input type='text'></input>  
+      </LoginModal>
+      <Album openCtModal={openCtModal}/>
+      <ContentModal
+        handleCtModalOff={handleCtModalOff}
+        ctModal={ctModal}
+        handleLikeButton={handleLikeButton}
+        likeButton={likeButton}
+        handleDeleteButton={handleDeleteButton}
+        isLogin={isLogin}
+        >
+      </ContentModal>
+    </>
   )
 }
 

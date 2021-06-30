@@ -54,6 +54,8 @@ const AddButtonWrapper = styled.div`
 const TotalComponent = styled.p`
 `;
 
+
+
 const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
 function Album({ openCtModal }) {
 
@@ -71,7 +73,7 @@ function Album({ openCtModal }) {
       <div className='grid'>
         {list.map((photo,index)=> {
           return <div className='item' key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg key={index} src={photo} loading="lazy"></PhotoImg>
+            <PhotoImg key={index} src={photo} loading="lazy"></PhotoImg>    
           </div>
           }
         )}

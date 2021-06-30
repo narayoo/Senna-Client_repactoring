@@ -1,9 +1,10 @@
-import React from 'react';
+import React  from 'react';
 import { Link } from 'react-router-dom'
 import '../style/nav.css';
 import SearchBar from '../components/SearchBar';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
+
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -42,10 +43,13 @@ const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
 function Nav({ openModal, scrollTop, isLogin, logoutHandler }) {
+
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }
+  
+
   
   return (
     <>
