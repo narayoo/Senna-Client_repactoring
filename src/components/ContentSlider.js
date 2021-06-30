@@ -41,33 +41,32 @@ export default function ContentSlider() {
   const SliderBtn = styled.button`
     display: flex;
     width: 2.2rem;
-    height: 100%;
+    height: 5rem;
     color: #cfcfcf;
     font-size: 50px;
     align-items: center;
     background: transparent;
     border: none;
-    transition: all 0.8s ease 0s;
     &:hover{
-      background: #e0e0e0;
+      color: #757575;
       cursor: pointer;
     }
   `;
 
   let index = 0;
-  const carousel = document.getElementsByClassName('carousel'); 
+  const modalcarousel = document.getElementsByClassName('modalcarousel'); 
 
   //  이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
     index -= 1; 
-    carousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
   }
   // 다음 버튼
   const onNext = () => {
     if (index === 2) return; 
     index += 1; 
-    carousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
   } 
 
   const list = [ korea4,korea2,korea1 ];
@@ -80,7 +79,7 @@ export default function ContentSlider() {
       <Container>
         <SliderBtn onClick={() => onPrev()}></SliderBtn>
         <Wrapper>
-          <StyledSlider className='carousel'>
+          <StyledSlider className='modalcarousel'>
             {photoList}
           </StyledSlider>
         </Wrapper>

@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import axios from "axios";
-//import { loginUser } from '../modules/auth';
+import { loginUser,logoutUser } from '../_actions/userAction';
 
 function Main() {
-
-  //const dispatch = useDispatch();
-  const history = useHistory();
-
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
@@ -22,6 +16,8 @@ function Main() {
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken , setAccessToken] = useState('');
+  const [loading, setLoading] = useState(null);
+  const dispatch = useDispatch();
   const [likeButton , setLikeButton] = useState(false);
   const [postingId , setPostingId] = useState('');
 
@@ -36,7 +32,6 @@ function Main() {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
-
   // top 버튼 함수
   const handleTop = () => {  
     window.scrollTo({
@@ -56,23 +51,28 @@ function Main() {
   const openModal = () => {
     setModal(true);
   }
-  // modal 서밋 후 닫기
+  // 로그인 서밋 후 모달 닫기
   const onConfirm = async(e) => {
-    await axios.post('http://54.180.151.176/user/login', 
-    { userId, password },
-    { 'Content-Type':'application/json', withCredentials: true })
+    setLoading(true);
+    const body = {
+      userId: userId,
+      password: password,
+    }
+    await dispatch(loginUser(body))
     .then(res => {
-      let acTokenPath = res.data.data.accessToken;
+      let acTokenPath = res.payload.accessToken;
       setAccessToken(`Bearer ${acTokenPath}`);
       setIsLogin(true);
-      history.push('./');
-    }).catch(err => {
+      setTimeout(()=> {
+        setLoading(false);
+        setModal(false);
+      },2000)
+    }).catch((err) => {
       alert('로그인 정보가 유효하지 않습니다.')
+      setLoading(null)
       console.log(err)
-    })
-    setModal(false);
+    });
   }
-
   // modal 취소 후 닫기
   const onCancle = () => {
     console.log('취소')
@@ -97,6 +97,16 @@ function Main() {
   // content modal 열기
   const openCtModal = (e) => {
     setCtModal(true);
+  }
+  const logoutHandler = async() => {
+    await dispatch(logoutUser())
+    .then(res => {
+      console.log(res);
+      setIsLogin(false);
+    }).catch(err => {
+      console.log(err)
+      alert('로그아웃에 실패하였습니다')
+    })
   }
 
   
@@ -140,7 +150,7 @@ function Main() {
  
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout} logoutHandler={logoutHandler}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -149,6 +159,7 @@ function Main() {
         onClick={() => handleTop()}>Top</button>
       </div> 
       <LoginModal
+        loading={loading}
         changePwd={changePwd}
         changeId={changeId}
         userId={userId}

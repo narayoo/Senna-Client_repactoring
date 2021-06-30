@@ -1,6 +1,6 @@
 import React ,{ useState } from 'react';
 import { darken, lighten } from 'polished';
-import axios from 'axios';
+import Loading from './Loading';
 import styled from 'styled-components';
 
 const BackgroundDark = styled.div`
@@ -110,13 +110,9 @@ const Title = styled.p`
   
 `
 
-
-export default function LoginModal({ changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle}) {
+export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle}) {
   if (!visible) return null;
   
-  
-
-
   return(
     <>
     {visible && (
@@ -127,7 +123,11 @@ export default function LoginModal({ changePwd, changeId, userId, password, hand
           <LoginInput type='password' placeholder='Write your Password' name='password' value={password} onChange={changePwd}/>
           <ButtonGroup>
             <CancleBtn onClick={onCancle}>Cancle</CancleBtn>
-            <LoginBtn onClick={onConfirm}>Login</LoginBtn>
+            <LoginBtn onClick={onConfirm}>
+            {
+            loading ? 
+            <Loading /> : 'Login'}
+              </LoginBtn>
             <SocialBtn>Kakao Login</SocialBtn>
           </ButtonGroup>
         </LoginModalDiv>

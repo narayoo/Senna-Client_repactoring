@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { isId, isPassword } from '../js/regExp';
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components';
 import userImg from '../img/userImg.png';
 import photo from '../img/signPhoto2.jpeg';
+import { onCheckId } from '../_actions/userAction';
 import axios from 'axios';
 
 const Wrapper = styled.div`
@@ -70,9 +72,23 @@ const ProfileInput = styled.input`
 `;
 const SignupInput = styled.input`
   max-width: 300px;
-  min-width: 210px;
+  min-width: 250px;
   margin-top: 15px;
   width: 30%;
+  height: 35px;
+  border: none;
+  padding-left: 10px;
+  box-shadow: 8px 8px 8px 5px rgba(0,0,0,0.6);
+  color: #1b1b1b;
+  &:focus{
+    outline: none;
+  }
+`;
+const SignupIdInput = styled.input`
+  max-width: 300px;
+  margin-top: 15px;
+  margin-right: 1rem;
+  width: 100%;
   height: 35px;
   border: none;
   padding-left: 10px;
@@ -111,7 +127,7 @@ const CancleBtn = styled.button`
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin-right: 1rem;
+  margin-right: 2rem;
   &:hover{
     background-color: #8d8d8d;
     box-shadow: 0px 15px 20px rgba(141, 141, 141, 0.4);
@@ -141,6 +157,33 @@ const SubmitBtn = styled.button`
     transform: translateY(-7px);
   }
 `;
+const IdCheckBtn = styled.button`
+  margin-top: 15px;
+  width: 30%;
+  height: 35px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #eeeeee;
+  border: 1px solid #eeeeee;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+  &:hover{
+    color: #000;
+    background-color: #fff;
+  }
+`;
+const IdSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30%;
+  max-width: 300px;
+  min-width: 250px;
+`;
 
 export default function SignUp() {
 
@@ -153,6 +196,8 @@ export default function SignUp() {
   const [isValidPassword , setIsValidPassword ] = useState(false);
   const [isPwdDoubleCk , setIsPwdDoubleCk ] = useState(false);
   const [profileImg, setProfileImg] = useState('');
+  const [checkId, setCheckId] = useState(false);
+  const dispatch = useDispatch();
 
   // 유저 이미지 미리보기 적용 함수
   const handleFileOnChange = async (event) => {
@@ -217,7 +262,9 @@ export default function SignUp() {
       alert('비밀번호를 다시 확인해주세요.')
     }else if(!isPwdDoubleCk) {
       alert('비밀번호가 서로 일치하지 않습니다.')
-    }else if(isValidId && isValidPassword && isPwdDoubleCk){
+    }else if(!checkId) {
+      alert('아이디 중복확인을 해주세요.')
+    }else if(isValidId && isValidPassword && isPwdDoubleCk && checkId){
       let formData = new FormData();
       const config = {
         header: {'content-type': 'multipart/form-data'}
@@ -240,7 +287,25 @@ export default function SignUp() {
       })
     }
   }
-  
+  // 아이디 중복 확인 함수
+  const doubleCheckId = async(e) => {
+    e.preventDefault()
+    const id = { id : userId}
+    await dispatch(onCheckId(id))
+    .then(res => {
+      if(userId !== ''){
+        console.log(res)
+        setCheckId(true)
+        alert('사용할 수 있는 아이디입니다.')
+      }else{
+        alert('아이디를 입력해주세요.')
+      }
+    }).catch(err => {
+      console.log(err)
+      alert('이미 존재하는 아이디입니다.')
+    })
+  }
+
   return (
     <>
     <Wrapper> 
@@ -254,7 +319,10 @@ export default function SignUp() {
         </ProfileCircle>
         <FileWrapper htmlFor='ex_filename'>Image Upload</FileWrapper>
         <ProfileInput id='ex_filename' type='file' name='avatar' accept='image/*' onChange={handleFileOnChange}/>
-        <SignupInput value={userId} onChange={onChangeId} type='text' placeholder='ID (only letter and numbers)' />
+        <IdSection>
+          <SignupIdInput value={userId} onChange={onChangeId} type='text' placeholder='ID (only letter and numbers)' />
+          <IdCheckBtn onClick={(e) => doubleCheckId(e)} >Double check</IdCheckBtn>
+        </IdSection>
         <SignupInput value={password} onChange={onChangePwd} type='password' placeholder='Password(min. 6 char)' />
         <SignupInput value={checkPassword} onChange={onChangeCheckPwd} type='password' placeholder='One more check Password' />
         <ButtonGroup>
