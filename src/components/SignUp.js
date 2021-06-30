@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { isId, isPassword } from '../js/regExp';
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components';
 import userImg from '../img/userImg.png';
 import photo from '../img/signPhoto2.jpeg';
-import { onCheckId } from '../_actions/userAction';
 import axios from 'axios';
 
 const Wrapper = styled.div`
@@ -195,9 +193,7 @@ export default function SignUp() {
   const [isValidId , setValidId ] = useState(false);
   const [isValidPassword , setIsValidPassword ] = useState(false);
   const [isPwdDoubleCk , setIsPwdDoubleCk ] = useState(false);
-  const [profileImg, setProfileImg] = useState('');
   const [checkId, setCheckId] = useState(false);
-  const dispatch = useDispatch();
 
   // 유저 이미지 미리보기 적용 함수
   const handleFileOnChange = async (event) => {
@@ -275,11 +271,10 @@ export default function SignUp() {
       await axios.post('http://54.180.151.176/user/signup',
       formData, config)
       .then(res => {
-        console.log('res.data:::',res.data.data.profileImg);
+        console.log('res.data:::',res.data);
         console.log('업로드 성공');
         console.log('회원가입 성공');
         alert('회원가입이 완료되었습니다');
-        setProfileImg(res.data.data.profileImg);
         history.push('./'); // 메인 페이지로 리다이렉션
         window.location.replace('./')
       }).catch(err => {
@@ -291,7 +286,7 @@ export default function SignUp() {
   const doubleCheckId = async(e) => {
     e.preventDefault()
     const id = { id : userId}
-    await dispatch(onCheckId(id))
+    await axios.post('http://54.180.151.176/user/checkid',id)
     .then(res => {
       if(userId !== ''){
         console.log(res)
