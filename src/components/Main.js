@@ -22,6 +22,9 @@ function Main() {
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken , setAccessToken] = useState('');
+  const [likeButton , setLikeButton] = useState(false);
+  const [postingId , setPostingId] = useState('');
+
 
   const changeId = (e) => {
     setUserId(e.target.value);
@@ -96,9 +99,48 @@ function Main() {
     setCtModal(true);
   }
 
+  
+  // user logout 
+  const logout = () => {
+    axios.get('http://54.180.151.176/user/logout',
+      { headers : { authorization : accessToken ,'Content-Type': 'application/json', withCredentials: true } }
+      ).then((res) => {
+        setIsLogin(false);
+        history.push('./')
+      })
+  }
+
+
+  // likebutton click event
+
+  const handleLikeButton = async() => {
+  
+    if(!likeButton) {
+      await axios.patch('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
+      { postingId : '60dabc3078bc87e86f2d51e9' }  
+     ).then((res) => {
+       setLikeButton(true);
+     })
+    } 
+  }
+
+  const handleDeleteButton = async() =>{
+    
+    if (likeButton) {
+      await axios.delete('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
+      { data : { postingId : '60dabc3078bc87e86f2d51e9' } , withCredentials : true}
+      ).then((res) => {
+        setLikeButton(false);
+      })
+
+    }
+
+  }
+
+ 
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -121,6 +163,10 @@ function Main() {
       <ContentModal
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
+        handleLikeButton={handleLikeButton}
+        likeButton={likeButton}
+        handleDeleteButton={handleDeleteButton}
+        isLogin={isLogin}
         >
       </ContentModal>
     </>

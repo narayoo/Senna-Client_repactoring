@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 
+
 // 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
@@ -24,12 +25,15 @@ const ContentModalDiv = styled.div`
   background-color: #f5f5f5;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
   display: flex;
+  flex-direction: row;
 `;
 // content text area css
 const ContentTextArea = styled.div`
-  width: 35%;
+  width: 100%;
   height: 100%;
-  padding: 4rem 2rem 2rem 1rem;
+  /* padding: 4rem 2rem 2rem 1rem; */
+  padding-right: 1.2rem;
+  padding-bottom: 0.5rem;
   
 `;
 // content text css
@@ -58,7 +62,36 @@ const HashTag = styled.p`
   width: 30%;
 `;
 
-export default function ContentModal({ ctModal, handleCtModalOff }) {
+
+// 좋아요아이콘 
+
+
+const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+` 
+
+
+const FavoriteCheckWrapper = styled.div`
+  text-align: right;
+  padding: 5%;
+  cursor: pointer;
+
+`
+
+const FavortiteUncheck = styled.i`
+  color : #1b1b1b;
+  transition: transform 300ms ease;
+`
+
+const FavortiteCheck = styled.i`
+  color: red;
+  transition: transform 300ms ease;
+`
+
+
+export default function ContentModal({ ctModal, handleCtModalOff , handleLikeButton , likeButton, handleDeleteButton, isLogin }) {
   if (!ctModal) return null;
 
   return(
@@ -67,7 +100,37 @@ export default function ContentModal({ ctModal, handleCtModalOff }) {
       <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
         <ContentModalDiv className='ctModal'>
           <ContentSlider />
-          <ContentTextArea>
+            <ContentsWrapper >
+              <FavoriteCheckWrapper >
+                  <>
+                    {likeButton ? 
+                        <FavortiteCheck className='fas fa-heart fa-2x' onClick={() => {
+                          return (
+                             <>
+                              {isLogin ? handleDeleteButton()
+                               : 
+                                 alert('로그인 후 이용 가능합니다.')
+
+                               }
+                             </>
+                          )
+                        }} />
+                        :
+                        <FavortiteUncheck className='far fa-heart fa-2x' onClick={() => {
+                          return (
+                            <>
+                             {isLogin ? handleLikeButton()
+                              : 
+                                alert('로그인 후 이용 가능합니다.')
+
+                              }
+                            </>
+                         )
+                       }} />
+                    }
+                    </>                   
+              </FavoriteCheckWrapper>
+            <ContentTextArea>
             <ContentText>
               내 어머니는 성취와 성공의 차이를 분명히 하셨다. 
               어머니는 말씀하셨다. 
@@ -86,6 +149,7 @@ export default function ContentModal({ ctModal, handleCtModalOff }) {
               <HashTag>#부산</HashTag>
             </HashTagWrapper>
           </ContentTextArea>
+          </ContentsWrapper>
         </ContentModalDiv>
       </BackgroundDark>
     )}
