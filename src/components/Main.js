@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import '../style/main.css';
 import Slider from "./Slider"
@@ -8,7 +8,7 @@ import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
 import axios from 'axios';
-import { loginUser,logoutUser } from '../_actions/userAction';
+import {localLogin} from '../modules/loginReducer';
 
 function Main() {
   const [scrollTop, setScrollTop] = useState(0); 
@@ -21,6 +21,7 @@ function Main() {
   const [loading, setLoading] = useState(null);
   const [likeButton , setLikeButton] = useState(false);
   const [postingId , setPostingId] = useState('');
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -55,25 +56,13 @@ function Main() {
   }
   // 로그인 서밋 후 모달 닫기
   const onConfirm = async(e) => {
-    setLoading(true);
     const body = {
       userId: userId,
       password: password,
     }
-    await dispatch(loginUser(body))
-    .then(res => {
-      let acTokenPath = res.payload.accessToken;
-      setAccessToken(`Bearer ${acTokenPath}`);
-      setIsLogin(true);
-      setTimeout(()=> {
-        setLoading(false);
-        setModal(false);
-      },2000)
-    }).catch((err) => {
-      alert('로그인 정보가 유효하지 않습니다.')
-      setLoading(null)
-      console.log(err)
-    });
+    dispatch(localLogin(body));
+    setModal(false);
+  
   }
   // modal 취소 후 닫기
   const onCancle = () => {
@@ -100,18 +89,7 @@ function Main() {
   const openCtModal = (e) => {
     setCtModal(true);
   }
-  const logoutHandler = async() => {
-    await dispatch(logoutUser())
-    .then(res => {
-      console.log(res);
-      setIsLogin(false);
-    }).catch(err => {
-      console.log(err)
-      alert('로그아웃에 실패하였습니다')
-    })
-  }
 
-  
   // user logout 
   const logout = () => {
     axios.get('http://54.180.151.176/user/logout',
@@ -122,9 +100,7 @@ function Main() {
       })
   }
 
-
   // likebutton click event
-
   const handleLikeButton = async() => {
   
     if(!likeButton) {
@@ -152,7 +128,7 @@ function Main() {
  
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout} logoutHandler={logoutHandler}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} logout={logout}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 

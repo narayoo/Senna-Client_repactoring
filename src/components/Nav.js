@@ -42,7 +42,7 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop, isLogin, logoutHandler }) {
+function Nav({ openModal, scrollTop, isLogin,logout }) {
 
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
@@ -64,7 +64,7 @@ function Nav({ openModal, scrollTop, isLogin, logoutHandler }) {
             <Link to='/mypage'>
               <NavButton>Mypage</NavButton>
             </Link>
-            <NavButton onClick={() => logoutHandler()}>Logout</NavButton>
+            <NavButton onClick={() => logout()}>Logout</NavButton>
           </>
           :
           <>
