@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
+import axios from 'axios';
 import { loginUser,logoutUser } from '../_actions/userAction';
 
 function Main() {
@@ -17,10 +19,10 @@ function Main() {
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken , setAccessToken] = useState('');
   const [loading, setLoading] = useState(null);
-  const dispatch = useDispatch();
   const [likeButton , setLikeButton] = useState(false);
   const [postingId , setPostingId] = useState('');
-
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const changeId = (e) => {
     setUserId(e.target.value);

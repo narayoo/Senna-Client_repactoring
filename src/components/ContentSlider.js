@@ -41,7 +41,7 @@ export default function ContentSlider() {
   const SliderBtn = styled.button`
     display: flex;
     width: 2.2rem;
-    height: 5rem;
+    height: 100%;
     color: #cfcfcf;
     font-size: 50px;
     align-items: center;
@@ -70,8 +70,8 @@ export default function ContentSlider() {
   } 
 
   const list = [ korea4,korea2,korea1 ];
-  const photoList = list.map(e =>
-    <Img src={e} loading="lazy" />
+  const photoList = list.map((e,index) =>
+    <Img src={e} key={index} loading="lazy" />
   )
 
   return (
