@@ -1,20 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
-import rootReducer from './modules';
 import * as serviceWorker from './serviceWorker';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from "redux";
+import promiseMiddlerware from "redux-promise";
+import reduxThunk from "redux-thunk";
 
-const store = createStore(rootReducer, composeWithDevTools());
-console.log('스토어 상태확인:::',store.getState()); // 스토어 상태확인
+//import rootReducer from './modules';
+//import { composeWithDevTools } from 'redux-devtools-extension';
+
+//const store = createStore(rootReducer, composeWithDevTools());
+const createStoreWidthMiddleware = applyMiddleware(
+  promiseMiddlerware,
+  reduxThunk
+)(createStore);
+
+//console.log('스토어 상태확인:::',store.getState()); // 스토어 상태확인
 
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={createStoreWidthMiddleware(
+      //개발자 도구를 사용하기 위한 설정
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+      )}>
       <App />
     </Provider>
   </BrowserRouter>,

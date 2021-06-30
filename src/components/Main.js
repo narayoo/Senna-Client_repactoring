@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import '../style/main.css';
 import Slider from "./Slider"
 import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import axios from "axios";
-//import { loginUser } from '../modules/auth';
+import { loginUser,logoutUser } from '../_actions/userAction';
 
 function Main() {
-
-  //const dispatch = useDispatch();
-  //const history = useHistory();
-
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
@@ -23,7 +17,8 @@ function Main() {
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken , setAccessToken] = useState('');
   const [loading, setLoading] = useState(null);
-
+  const dispatch = useDispatch();
+  
   const changeId = (e) => {
     setUserId(e.target.value);
   }
@@ -34,7 +29,6 @@ function Main() {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
-
   // top 버튼 함수
   const handleTop = () => {  
     window.scrollTo({
@@ -57,24 +51,24 @@ function Main() {
   // 로그인 서밋 후 모달 닫기
   const onConfirm = async(e) => {
     setLoading(true);
-    await axios.post('http://54.180.151.176/user/login', 
-    { userId, password },
-    { 'Content-Type':'application/json', withCredentials: true })
+    const body = {
+      userId: userId,
+      password: password,
+    }
+    await dispatch(loginUser(body))
     .then(res => {
-      if(res.status === 200) {
-        let acTokenPath = res.data.data.accessToken;
-        setAccessToken(`Bearer ${acTokenPath}`);
-        setIsLogin(true);
-        setTimeout(()=> {
-          setLoading(false);
-          setModal(false);
-        },2000)
-      }
-    }).catch(err => {
+      let acTokenPath = res.payload.accessToken;
+      setAccessToken(`Bearer ${acTokenPath}`);
+      setIsLogin(true);
+      setTimeout(()=> {
+        setLoading(false);
+        setModal(false);
+      },2000)
+    }).catch((err) => {
       alert('로그인 정보가 유효하지 않습니다.')
       setLoading(null)
       console.log(err)
-    })
+    });
   }
   // modal 취소 후 닫기
   const onCancle = () => {
@@ -101,36 +95,52 @@ function Main() {
   const openCtModal = (e) => {
     setCtModal(true);
   }
+  const logoutHandler = async() => {
+    await dispatch(logoutUser())
+    .then(res => {
+      console.log(res);
+      setIsLogin(false);
+    }).catch(err => {
+      console.log(err)
+      alert('로그아웃에 실패하였습니다')
+    })
+  }
 
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} isLogin={isLogin} loading={loading}/>
-      <Slider />
-      <div className='topBtnWrapper'>
-        <button 
-        className='topBtn' 
-        style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
-        onClick={() => handleTop()}>Top</button>
-      </div> 
-      <LoginModal
-        loading={loading}
-        changePwd={changePwd}
-        changeId={changeId}
-        userId={userId}
-        password={password}
-        handleModalOff={handleModalOff}
-        visible={modal}
-        onConfirm={onConfirm}
-        onCancle={onCancle}>
-        <input type='text'></input>  
-      </LoginModal>
-      <Album openCtModal={openCtModal}/>
-      <ContentModal
-        handleCtModalOff={handleCtModalOff}
-        ctModal={ctModal}
-        >
-      </ContentModal>
-    </>
+    <Nav 
+      openModal={openModal} 
+      scrollTop={scrollTop} 
+      isLogin={isLogin} 
+      loading={loading} 
+      logoutHandler={logoutHandler} 
+    />
+    <Slider />
+    <div className='topBtnWrapper'>
+      <button 
+      className='topBtn' 
+      style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
+      onClick={() => handleTop()}>Top</button>
+    </div> 
+    <LoginModal
+      loading={loading}
+      changePwd={changePwd}
+      changeId={changeId}
+      userId={userId}
+      password={password}
+      handleModalOff={handleModalOff}
+      visible={modal}
+      onConfirm={onConfirm}
+      onCancle={onCancle}>
+    <input type='text'></input>  
+    </LoginModal>
+    <Album openCtModal={openCtModal}/>
+    <ContentModal
+      handleCtModalOff={handleCtModalOff}
+      ctModal={ctModal}
+      >
+    </ContentModal>
+  </>
   )
 }
 
