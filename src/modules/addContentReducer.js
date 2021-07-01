@@ -26,7 +26,6 @@ const initialState = {
 }
 
 export default function addContentReducer(state = initialState, action){
-  console.log('action:::',action.loginSuccess)
   switch(action.type) {
     case ADD_CONTENT :
       return {
