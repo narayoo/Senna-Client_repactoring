@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
-import korea1 from '../img/korea1.jpeg';
-import korea2 from '../img/korea2.jpeg';
-import korea3 from '../img/korea3.jpeg';
-import korea4 from '../img/korea4.jpeg';
-import korea5 from '../img/korea5.jpeg';
-
+import StackGrid from "react-stack-grid";
 
 // album section css
 const AlbumSection = styled.section`
@@ -16,10 +11,13 @@ const AlbumSection = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
 `;
 // Img css
 const PhotoImg = styled.img`
   width:100%;
+  z-index: -1;
 `;
 // add 버튼 css
 const AddButton = styled.button`
@@ -55,24 +53,13 @@ const AddButtonWrapper = styled.div`
 const TotalComponent = styled.p`
 `;
 
-//const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
+export default function Album({ openCtModal }) {
 
-export default function Album({ openCtModal, gridFunc}) {
-  
-  
-  let list = [];
-
-  useEffect(() => {
-    
-    window.addEventListener("load", gridFunc);
-    window.addEventListener("rerize", gridFunc);
-  },[list])
-  
-  list = useSelector(state => state.showAllPosting.data.data);
+  let list = useSelector(state => state.showAllPosting.data.data);
   
   return (
     <>
-    {console.log('list::',list)}
+    {/*console.log('list::',list)*/}
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>
@@ -82,14 +69,18 @@ export default function Album({ openCtModal, gridFunc}) {
           <AddButton>Add</AddButton>
         </Link>
       </AddButtonWrapper>
-      <div className='grid'>
+      <StackGrid 
+        columnWidth={300}
+        gutterWidth={25}
+        gutterHeight={25}
+        style={{ width: "100%"}}>
         { list?.map((photo,index)=> {
-          return <div className='item' key={index} onClick={(el) => openCtModal(el)}>
+          return <div  key={index} onClick={(el) => openCtModal(el)}>
             <PhotoImg key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
           </div>
           }
         )}
-      </div>
+      </StackGrid>
     </AlbumSection>
     </>
   )

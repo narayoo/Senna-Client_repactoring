@@ -196,7 +196,7 @@ export default function Mypage () {
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
-    id : state.loginReducer.user.userKey
+    id : state.loginReducer.login.userKey,
   }),
   shallowEqual
   ); 
@@ -204,6 +204,7 @@ export default function Mypage () {
   console.log( 'userId:',userId)
   console.log( 'profileImg:',profileImg)
   console.log( 'favorite:',favorite)
+  console.log( 'id:',id)
 
   const photoList = favorite.map((e, index) =>
     <MyContentImg key={index} src={e} loading="lazy" />

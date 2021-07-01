@@ -9,7 +9,6 @@ export const withdrawal = ( id ) => async dispatch => {
     const password = prompt('비밀번호를 입력하세요', '');
     const withdrawalSuccess = await axios.patch(`http://54.180.151.176/user/d/${id}`, password );
     dispatch({type:USER_WITHDRAWAL,withdrawalSuccess});
- 
   }
     
   const initialState = {

@@ -16,7 +16,7 @@ const NavSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
   transition: all 0.3s ease-in-out;
   height: 8rem;
 `;
@@ -44,7 +44,7 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop, logout }) {
+function Nav({ openModal, scrollTop, logout, gridFunc }) {
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
 
@@ -58,7 +58,6 @@ function Nav({ openModal, scrollTop, logout }) {
   const gotoMypage = () => {
     history.push('./mypage');
     dispatch(getUserInfo(accessToken));
-    //console.log(getUserInfo(accessToken))
   }
   
   return (
