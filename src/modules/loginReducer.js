@@ -33,6 +33,7 @@ export const getUserInfo = (accessToken) =>  async dispatch => {
   
 const initialState = {
   login : {
+    userId: '',
     isLogin: false,
     userKey : '',
     accessToken : '',
@@ -51,6 +52,7 @@ export default function loginReducer(state = initialState, action){
       return {
         ...state,
           login: {
+            userId: action.loginSuccess.data.userId,
             isLogin: true,
             userKey: action.loginSuccess.data.userKey,
             accessToken: `Bearer ${action.loginSuccess.data.accessToken}`

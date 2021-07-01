@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
 import korea1 from '../img/korea1.jpeg';
@@ -54,13 +55,24 @@ const AddButtonWrapper = styled.div`
 const TotalComponent = styled.p`
 `;
 
+//const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
 
+export default function Album({ openCtModal, gridFunc}) {
+  
+  
+  let list = [];
 
-const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
-function Album({ openCtModal }) {
-
+  useEffect(() => {
+    
+    window.addEventListener("load", gridFunc);
+    window.addEventListener("rerize", gridFunc);
+  },[list])
+  
+  list = useSelector(state => state.showAllPosting.data.data);
+  
   return (
     <>
+    {console.log('list::',list)}
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>
@@ -71,9 +83,9 @@ function Album({ openCtModal }) {
         </Link>
       </AddButtonWrapper>
       <div className='grid'>
-        {list.map((photo,index)=> {
+        { list?.map((photo,index)=> {
           return <div className='item' key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg key={index} src={photo} loading="lazy"></PhotoImg>    
+            <PhotoImg key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
           </div>
           }
         )}
@@ -82,6 +94,3 @@ function Album({ openCtModal }) {
     </>
   )
 }
-export default Album;
-
-

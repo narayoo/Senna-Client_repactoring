@@ -10,10 +10,11 @@ import Album from './Album';
 import axios from 'axios';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
+import { getAllOfPosting } from '../modules/showAllPosting';
 
 
-
-function Main() {
+function Main({gridFunc}) {
+  
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
@@ -23,8 +24,11 @@ function Main() {
 
   const dispatch = useDispatch();
   const history = useHistory();
-
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+  
+  window.addEventListener('scroll',gridFunc)
+  window.addEventListener('rerize',gridFunc)
+  window.addEventListener('load',gridFunc)
 
   const changeId = (e) => {
     setUserId(e.target.value);
@@ -32,6 +36,9 @@ function Main() {
   const changePwd = (e) => {
     setPassword(e.target.value);
   }
+  useEffect(() => {
+    dispatch(getAllOfPosting());
+  },[]);
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -110,7 +117,12 @@ function Main() {
  
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop} logout={logout}/>
+    {
+      scrollTop > 0.2 ? 
+      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout}/>
+      :
+      <></>
+    }
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -130,7 +142,7 @@ function Main() {
         onCancle={onCancle}>
         <input type='text'></input>  
       </LoginModal>
-      <Album openCtModal={openCtModal}/>
+      <Album openCtModal={openCtModal} />
       <ContentModal
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
