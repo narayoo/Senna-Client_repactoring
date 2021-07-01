@@ -271,9 +271,6 @@ export default function SignUp() {
       await axios.post('http://54.180.151.176/user/signup',
       formData, config)
       .then(res => {
-        console.log('res.data:::',res.data);
-        console.log('업로드 성공');
-        console.log('회원가입 성공');
         alert('회원가입이 완료되었습니다');
         history.push('./'); // 메인 페이지로 리다이렉션
         window.location.replace('./')

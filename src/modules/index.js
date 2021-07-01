@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import loginReducer from './loginReducer';
 import favoriteButtonReducer from './favoriteButtonReducer'
-import addContetsReducer from './addPostingReducer'
+import addContetReducer from './addContentReducer'
+import withdrawalReducer from './withdrawalReducer'
 
 const rootReducer = combineReducers({
   loginReducer,
   favoriteButtonReducer,
-  addContetsReducer
+  addContetReducer,
+  withdrawalReducer
 })
 
 export default rootReducer;
