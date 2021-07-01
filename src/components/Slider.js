@@ -9,8 +9,12 @@ const Container = styled.div`
   overflow: hidden;
   display: flex;
   width : auto;
-  height : 38rem;
+  height: 100vh;
+  opacity : 0.7;
   background-color: #1b1b1b;
+  &:focus{
+    outline: none;
+  }
 `; 
 
 const CarouselWrapper = styled.div`
@@ -22,13 +26,6 @@ function Slider() {
     <CarouselWrapper>
       <Carousel autoplay>
         <Container>
-
-          {/* <video controls autoplay="autoplay" muted >
-
-          <video controls autoplay="autoplay" loop="loop" muted >
-
-            <source src={Man} type="video/mp4" />
-          </video> */}
           <img src={v}></img>
         </Container>
         <Container>

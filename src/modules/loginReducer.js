@@ -33,6 +33,7 @@ export const getUserInfo = (accessToken) =>  async dispatch => {
   
 const initialState = {
   login : {
+    userId: '',
     isLogin: false,
     userKey : '',
     accessToken : '',
@@ -46,12 +47,12 @@ const initialState = {
 }
 
 export default function loginReducer(state = initialState, action){
-  console.log('action:::',action.loginSuccess)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {
         ...state,
           login: {
+            userId: action.loginSuccess.data.userId,
             isLogin: true,
             userKey: action.loginSuccess.data.userKey,
             accessToken: `Bearer ${action.loginSuccess.data.accessToken}`
