@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
+
+
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -81,7 +84,15 @@ const FavortiteCheck = styled.i`
   transition: transform 300ms ease;
 `
 
-export default function ContentModal({ ctModal, handleCtModalOff , handleLikeButton , likeButton, handleDeleteButton, isLogin }) {
+
+
+
+
+function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLikeButton}) {
+
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const userlikeButton = useSelector(state => state.favoriteButtonReducer.like)
+  
   if (!ctModal) return null;
 
   return(
@@ -93,11 +104,11 @@ export default function ContentModal({ ctModal, handleCtModalOff , handleLikeBut
             <ContentsWrapper >
               <FavoriteCheckWrapper >
                   <>
-                    {likeButton ? 
+                    { userlikeButton ? 
                         <FavortiteCheck className='fas fa-heart fa-2x' onClick={() => {
                           return (
                              <>
-                              {isLogin ? handleDeleteButton()
+                              {isLogin ? handleUnLikeButton()
                                : 
                                  alert('로그인 후 이용 가능합니다.')
 
@@ -146,3 +157,7 @@ export default function ContentModal({ ctModal, handleCtModalOff , handleLikeBut
     </>
   )
 }
+
+
+
+export default ContentModal

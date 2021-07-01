@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector,shallowEqual } from 'react-redux';
+import { Link , useHistory } from 'react-router-dom'
+import { useSelector,shallowEqual, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import logo from '../img/SennaLogo.png';
 import img from '../img/userImg.png';
+import {withdrawal} from '../modules/withdrawalReducer'
 
 const Container = styled.div`
   display: flex;
@@ -183,14 +184,19 @@ let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 
 const carousel2 = document.getElementsByClassName('carousel2'); 
 
-export default function Mypage () {
 
+
+export default function Mypage () {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
 
-  const {userId,profileImg,favorite} = useSelector(state => ({
+  const {userId,profileImg,favorite,id} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
+    id : state.loginReducer.user.userKey
   }),
   shallowEqual
   ); 
@@ -198,6 +204,7 @@ export default function Mypage () {
   console.log( 'userId:',userId)
   console.log( 'profileImg:',profileImg)
   console.log( 'favorite:',favorite)
+
   const photoList = favorite.map((e, index) =>
     <MyContentImg key={index} src={e} loading="lazy" />
   )
@@ -231,6 +238,13 @@ export default function Mypage () {
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   } 
 
+
+  const handleWithdrawal = () => { 
+    // prompt('비밀번호를 입력하세요', '');
+    dispatch(withdrawal(id))
+    history.push('./')
+  }
+
   return (
     <>
     <Container>
@@ -247,7 +261,7 @@ export default function Mypage () {
           </UserProfileBox>
           <UserNameText>{userId}</UserNameText>
           <UpdateInfoButton>EDIT</UpdateInfoButton>
-          <WithdrawalButton>Withdrawal</WithdrawalButton>
+          <WithdrawalButton onClick={() => handleWithdrawal()}>Withdrawal</WithdrawalButton>
         </UserInfoSection>
         <UserContentSection>
           <UserTextBox>
