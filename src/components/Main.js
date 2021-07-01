@@ -7,15 +7,13 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import axios from 'axios';
 import {localLogin, localLogout} from '../modules/loginReducer';
+import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
 
 
 
 function Main() {
   
-
-
 
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
@@ -23,8 +21,6 @@ function Main() {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
-  const [likeButton , setLikeButton] = useState(false);
-  const [postingId , setPostingId] = useState('');
 
  
   const dispatch = useDispatch();
@@ -101,29 +97,16 @@ function Main() {
     history.push('./')
   }
 
+
   // likebutton click event
-  const handleLikeButton = async() => {
-  
-    if(!likeButton) {
-      await axios.patch('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
-      { postingId : '60dabc3078bc87e86f2d51e9' }  
-     ).then((res) => {
-       setLikeButton(true);
-     })
-    } 
+  const handleLikeButton = () => {
+  dispatch(likeButton())
   }
+ 
 
-  const handleDeleteButton = async() =>{
-    
-    if (likeButton) {
-      await axios.delete('http://54.180.151.176/user/favorite/60da7d60c47a8cdf99d33abd',
-      { data : { postingId : '60dabc3078bc87e86f2d51e9' } , withCredentials : true}
-      ).then((res) => {
-        setLikeButton(false);
-      })
-
-    }
-
+  // unlikebutton click event
+  const handleUnLikeButton = () =>{
+  dispatch(unLikeButton())
   }
 
  
@@ -154,8 +137,7 @@ function Main() {
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
         handleLikeButton={handleLikeButton}
-        likeButton={likeButton}
-        handleDeleteButton={handleDeleteButton}
+        handleUnLikeButton={handleUnLikeButton}
         /* isLogin={isLogin} */
         >
       </ContentModal>
