@@ -5,23 +5,25 @@ export const ADD_CONTENT = 'ADD_CONTENT';
 
 
 export const addContent = (hashtag,content,userId,images) => async dispatch => {
+  console.log('reducer_images::',images)
   let formData = new FormData()
   const config = {
-        header: {'content-type': 'multipart/form-data'}
-      }
-    formData.append("hashtag", hashtag);
-    formData.append("content", content);
-    formData.append("userId", userId);
-    formData.append("images", images);
-    
-    const userAddContent = await axios.post('http://54.180.151.176/post/upload', formData, config)
-    dispatch({type:ADD_CONTENT, userAddContent })
+    header: {'content-type': 'multipart/form-data'}
+  }
+  for (let i=0; i < images.length; i++){
+    formData.append('images', images[i]);
+  }
+  formData.append("hashtag", hashtag);
+  formData.append("content", content);
+  formData.append("userId", userId);
+  
+  const userAddContent = await axios.post('http://54.180.151.176/post/upload', formData, config)
+  dispatch({type:ADD_CONTENT, userAddContent })
 }
 
 const initialState = {
-  userId : '',
+  data: {},
 }
-
 
 export default function addContentReducer(state = initialState, action){
   console.log('action:::',action.loginSuccess)
@@ -29,7 +31,7 @@ export default function addContentReducer(state = initialState, action){
     case ADD_CONTENT :
       return {
         ...state,
-        userId : action.userAddContent,
+        data : action.userAddContent,
       }
     default : return state;
   }
