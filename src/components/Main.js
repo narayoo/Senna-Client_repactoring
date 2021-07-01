@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import '../style/main.css';
 import Slider from "./Slider"
@@ -8,15 +8,9 @@ import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
 import axios from 'axios';
-import {localLogin, localLogout} from '../modules/loginReducer';
-
-
+import {localLogin, localLogout } from '../modules/loginReducer';
 
 function Main() {
-  
-
-
-
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
@@ -26,9 +20,10 @@ function Main() {
   const [likeButton , setLikeButton] = useState(false);
   const [postingId , setPostingId] = useState('');
 
- 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
 
   const changeId = (e) => {
     setUserId(e.target.value);
@@ -67,7 +62,6 @@ function Main() {
     }
     dispatch(localLogin(body));
     setModal(false);
-  
   }
   // modal 취소 후 닫기
   const onCancle = () => {
@@ -94,10 +88,9 @@ function Main() {
   const openCtModal = (e) => {
     setCtModal(true);
   }
-
   // user logout 
   const logout = () => {
-    dispatch(localLogout())
+    dispatch(localLogout(accessToken))
     history.push('./')
   }
 
@@ -129,7 +122,7 @@ function Main() {
  
   return (
     <>
-    <Nav openModal={openModal} scrollTop={scrollTop}/*  isLogin={isLogin} */ logout={logout}/>
+    <Nav openModal={openModal} scrollTop={scrollTop} logout={logout}/>
       <Slider />
       <div className='topBtnWrapper'>
         <button 
@@ -156,7 +149,6 @@ function Main() {
         handleLikeButton={handleLikeButton}
         likeButton={likeButton}
         handleDeleteButton={handleDeleteButton}
-        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>

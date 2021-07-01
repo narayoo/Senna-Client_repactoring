@@ -3,6 +3,7 @@ import axios from "axios";
 /** 액션타입 */
 export const LOCAL_LOGIN = 'LOCAL_LOGIN';
 export const LOCAL_LOGOUT = 'LOCAL_LOGOUT';
+export const USER_INFO = 'USER_INFO';
 
 /** 액션생성함수 & API 요청 */
 export const localLogin = (userId,password) => async dispatch => {
@@ -19,13 +20,29 @@ export const localLogout = (accessToken) => async dispatch => {
   });
   dispatch({type:LOCAL_LOGOUT, logoutSuccess});
 }
+export const getUserInfo = (accessToken) =>  async dispatch => {
+  const getInfoSuccess =  await axios.get('http://54.180.151.176/user/info',
+  { headers : { 
+    authorization : accessToken ,
+    'Content-Type': 'application/json',
+    withCredentials: true 
+    } 
+  });
+  dispatch({type:USER_INFO, getInfoSuccess});
+}
   
 const initialState = {
   login : {
     isLogin: false,
     userKey : '',
     accessToken : '',
-  }
+  },
+  user : {
+    id: '',
+    userId: '',
+    profileImg: '',
+    favorite: [],
+  },
 }
 
 export default function loginReducer(state = initialState, action){
@@ -48,6 +65,16 @@ export default function loginReducer(state = initialState, action){
             userKey: null,
             accessToken: null,
           }
+      }
+    case USER_INFO :
+      return {
+        ...state,
+        user : {
+          id: action.getInfoSuccess.data.data._id,
+          userId: action.getInfoSuccess.data.data.userId,
+          profileImg: action.getInfoSuccess.data.data.profileImg,
+          favorite: action.getInfoSuccess.data.data.favorite,
+        }
       }
     default : return state;
   }

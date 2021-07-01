@@ -1,13 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector,shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 import logo from '../img/SennaLogo.png';
 import img from '../img/userImg.png';
-import demo1 from '../img/demo1.jpg';
-import demo2 from '../img/demo2.jpg';
-import demo3 from '../img/demo3.jpg';
-import demo4 from '../img/demo4.jpg';
-import demo5 from '../img/demo5.jpg';
 
 const Container = styled.div`
   display: flex;
@@ -183,25 +179,33 @@ const UserFavoriteBox = styled.div`
   border: 1px solid rgba(238, 238, 238, 0.5);
   padding-bottom: 2rem;
 `
-
-
 let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 
 const carousel2 = document.getElementsByClassName('carousel2'); 
 
 export default function Mypage () {
 
-  const list = [ demo1,demo2,demo3,demo4,demo5,demo1,demo2,demo3,demo4,demo5 ];
-  const photoList = list.map(e =>
-    <MyContentImg src={e} loading="lazy" />
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin);
+
+  const {userId,profileImg,favorite} = useSelector(state => ({
+    userId : state.loginReducer.user.userId,
+    profileImg : state.loginReducer.user.profileImg,
+    favorite: state.loginReducer.user.favorite,
+  }),
+  shallowEqual
+  ); 
+
+  console.log( 'userId:',userId)
+  console.log( 'profileImg:',profileImg)
+  console.log( 'favorite:',favorite)
+  const photoList = favorite.map((e, index) =>
+    <MyContentImg key={index} src={e} loading="lazy" />
   )
 
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }
-  
-
   //  이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
@@ -214,7 +218,6 @@ export default function Mypage () {
     index += 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   } 
-
   //  이전 버튼
   const onPrev2 = () => {
     if (index === 0) return; 
@@ -240,9 +243,9 @@ export default function Mypage () {
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
-            <UserImage src={img}/> 
+            <UserImage src={ profileImg === undefined ? img : profileImg }/> 
           </UserProfileBox>
-          <UserNameText>UserId</UserNameText>
+          <UserNameText>{userId}</UserNameText>
           <UpdateInfoButton>EDIT</UpdateInfoButton>
           <WithdrawalButton>Withdrawal</WithdrawalButton>
         </UserInfoSection>
