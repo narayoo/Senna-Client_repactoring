@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
+import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
+import { addContent } from '../modules/addContentReducer';
 
 const AddCtWrapper = styled.form`
   display: flex;
@@ -122,32 +124,107 @@ const HashTagBox = styled.input`
     background: #ffffff;
   }
 `;
+const SaveBtn = styled.button`
+  padding: 0.5rem;
+  margin: 1rem;
+  border: none;
+  color: #1b1b1b;
+  background: #eeeeee;
+  transition: all 0.3s ease 0s;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+  &:hover{
+    color: #fff;
+    cursor: pointer;
+    background: #494949;
+    transform: translateY(-7px);
+  }
+`;
 function Addcontents() {
-    // 캔슬 버튼 누를 시 새로고침을 위한 함수
+
+  const [ text, setText ] = useState('');
+  const [ hash, setHash ] = useState([]);
+  const [ photo, setPhoto ] = useState([]);
+  const imgArr = [];
+
+  // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
     window.location.replace("/")
   }
+  const onChangeText = (e) => {
+    setText(e.target.value);
+  }
+  const onChangeHash = (e) => {
+    setHash(e.target.value);
+  }
+
+  const handleFileOnChange1 = (e) => {
+    let file = e.target.files[0];
+    if(imgArr[0] === undefined && file !== undefined) { // 0번 자리가 비어있으면서, 새로들어온 파일이 사진이 있을때
+      imgArr.push(file); // 배열에 넣어준다.
+    }else if(imgArr[0] === undefined && file === undefined){ // 0번 자리가 비어있으면서, 새로 사진을 선택 안했을때 
+      return imgArr;
+    }else if(imgArr[0] !== undefined && file !== undefined) { // 0번 자리에 파일이 있으면서, 새로들어온 파일이 사진이 있을때
+      imgArr.splice(0,1,file);
+    }else { // 0번 자리에 파일이 있으면서, 새로운 사진 선택 안했을때,
+      
+    }
+  }
+  const handleFileOnChange2 = (e) => {
+    let file = e.target.files[0];
+    if(imgArr[1] === undefined) {
+      imgArr.push(file);
+    }else{
+      if(file !== undefined){
+        imgArr.splice(1,1,file);
+      }
+    }
+  }
+  const handleFileOnChange3 = (e) => {
+    let file = e.target.files[0];
+    if(imgArr[2] === undefined) {
+      imgArr.push(file);
+    }else{
+      if(file !== undefined){
+        imgArr.splice(2,1,file);
+      }
+    }
+  }
+
+  const onSave = (e) => {
+    setPhoto([]);
+    e.preventDefault();
+    console.log('imgArr :::',imgArr);
+    setPhoto(photo.concat(imgArr));
+  }
+  const onAddContent = (e) => {
+    //dispatch(addContent(files));
+    console.log('photo :::',photo);
+  }
+  
+  
+  
   return (
     <>
     <Nav />
       <AddCtWrapper>
         <AddCtFileSection>
-          <AddFile type='file'></AddFile>
-          <AddFile type='file'></AddFile>
-          <AddFile type='file'></AddFile>
-          <AddFile type='file'></AddFile>
-          <AddFile type='file'></AddFile>
+          <AddFile type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange1}></AddFile>
+          <AddFile type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange2}></AddFile>
+          <AddFile type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange3}></AddFile>
+         {/*  <AddFile type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange4}></AddFile>
+          <AddFile type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange5}></AddFile> */}
+          <SaveBtn onClick={(e) => onSave(e)}>SAVE</SaveBtn>
         </AddCtFileSection>
         <AddCtSection>
-          <AddCtText placeholder='Write Your Memories' />
-          <HashTagBox placeholder='ex) #Korea #Seoul' />
+          <AddCtText placeholder='Write Your Memories' value={text} onChange={onChangeText}/>
+          <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         </AddCtSection>
         <ButtonGroup>
           <Link to='./'>
             <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn>
           </Link>
           <Link to='./'>
-            <SubmitBtn type='submit'>Submit</SubmitBtn>
+            <SubmitBtn type='submit' onClick={() => onAddContent()}>Submit</SubmitBtn>
           </Link>
         </ButtonGroup>
       </AddCtWrapper>

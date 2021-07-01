@@ -24,7 +24,7 @@ function Main() {
   const history = useHistory();
 
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
-  
+
   const changeId = (e) => {
     setUserId(e.target.value);
   }
@@ -60,7 +60,6 @@ function Main() {
       userId: userId,
       password: password,
     }
-    console.log(localLogin(body))
     dispatch(localLogin(body));
     setModal(false);
   }
@@ -89,7 +88,6 @@ function Main() {
   const openCtModal = (e) => {
     setCtModal(true);
   }
-
   // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
