@@ -5,7 +5,7 @@ import korea1 from '../img/korea1.jpeg';
 import korea2 from '../img/korea2.jpeg';
 import korea4 from '../img/korea4.jpeg';
 
-export default function ContentSlider() {
+export default function ContentSlider({image}) {
   
   const Container = styled.div`
     display: flex;
@@ -69,8 +69,8 @@ export default function ContentSlider() {
     modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
   } 
 
-  const list = [ korea4,korea2,korea1 ];
-  const photoList = list.map((e,index) =>
+  //const list = [ korea4,korea2,korea1 ];
+  const photoList = image.map((e,index) =>
     <Img src={e} key={index} loading="lazy" />
   )
 

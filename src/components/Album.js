@@ -18,6 +18,21 @@ const AlbumSection = styled.section`
 const PhotoImg = styled.img`
   width:100%;
   z-index: -1;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+  &:hover{
+    cursor: pointer;
+    transform:scale(1.1);  
+    -webkit-transform:scale(1.1);   
+    -moz-transform:scale(1.1);
+    -o-transform:scale(1.1);  
+  }
+`;
+// add 버튼 wrapper css
+const AddButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 78%;
 `;
 // add 버튼 css
 const AddButton = styled.button`
@@ -34,20 +49,11 @@ const AddButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-bottom: 2rem;
-
   &:hover{
     background-color: #00acc1;
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
     color: #eeeeee;
   }
-`;
-// add 버튼 wrapper css
-const AddButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 65%;
-  align-items: center;
 `;
 // total contents Css
 const TotalComponent = styled.p`
@@ -56,27 +62,26 @@ const TotalComponent = styled.p`
 export default function Album({ openCtModal }) {
 
   let list = useSelector(state => state.showAllPosting.data.data);
-  
+ 
   return (
     <>
-    {/*console.log('list::',list)*/}
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>
-          <i className="fas fa-feather-alt">&nbsp;&nbsp;122,651</i>
+          <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
         </TotalComponent>
         <Link to='/addcontents'>
           <AddButton>Add</AddButton>
         </Link>
       </AddButtonWrapper>
       <StackGrid 
-        columnWidth={300}
+        columnWidth={400}
         gutterWidth={25}
         gutterHeight={25}
-        style={{ width: "100%"}}>
+        style={{ width: "100%" }}>
         { list?.map((photo,index)=> {
-          return <div  key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
+          return <div key={index} onClick={(el) => openCtModal(el)}>
+            <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
           </div>
           }
         )}

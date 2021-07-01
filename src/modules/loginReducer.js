@@ -1,9 +1,9 @@
 import axios from "axios";
 
 /** 액션타입 */
-export const LOCAL_LOGIN = 'LOCAL_LOGIN';
-export const LOCAL_LOGOUT = 'LOCAL_LOGOUT';
-export const USER_INFO = 'USER_INFO';
+export const LOCAL_LOGIN = 'loginReducer/LOCAL_LOGIN';
+export const LOCAL_LOGOUT = 'loginReducer/LOCAL_LOGOUT';
+export const USER_INFO = 'loginReducer/USER_INFO';
 
 /** 액션생성함수 & API 요청 */
 export const localLogin = (userId,password) => async dispatch => {
@@ -43,10 +43,12 @@ const initialState = {
     userId: '',
     profileImg: '',
     favorite: [],
+    uploadList: [],
   },
 }
 
 export default function loginReducer(state = initialState, action){
+  console.log('login:::', action)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {
@@ -75,6 +77,7 @@ export default function loginReducer(state = initialState, action){
           userId: action.getInfoSuccess.data.data.userId,
           profileImg: action.getInfoSuccess.data.data.profileImg,
           favorite: action.getInfoSuccess.data.data.favorite,
+          uploadList: action.getInfoSuccess.data.data.uploadList,
         }
       }
     default : return state;

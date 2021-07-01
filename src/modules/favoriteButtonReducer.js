@@ -2,8 +2,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 
 /** 액션타입 */
-export const LIKE_BUTTON = 'LIKE_BUTTON';
-export const UNLIKE_BUTTON = 'UNLIKE_BUTTON';
+export const LIKE_BUTTON = 'favoriteButtonReducer/LIKE_BUTTON';
+export const UNLIKE_BUTTON = 'favoriteButtonReducer/UNLIKE_BUTTON';
 
 
 
@@ -24,7 +24,6 @@ export const likeButton = (postingId) => async dispatch => {
 
 
   export default function favoriteButtonReducer(state = initialState, action){
-    console.log('action:::', state)
     switch(action.type) {
       case LIKE_BUTTON :
         return {

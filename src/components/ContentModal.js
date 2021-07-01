@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 
 
-
 // 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
@@ -84,15 +83,16 @@ const FavortiteCheck = styled.i`
   transition: transform 300ms ease;
 `
 
-
-
-
-
 function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLikeButton}) {
 
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const userlikeButton = useSelector(state => state.favoriteButtonReducer.like)
-  
+  const { content, hashtag, image } = useSelector(state => ({
+    content: state.pickPosting.postInfo.content,
+    hashtag: state.pickPosting.postInfo.hashtag,
+    image: state.pickPosting.postInfo.image,
+  })); 
+
   if (!ctModal) return null;
 
   return(
@@ -100,54 +100,44 @@ function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLik
     {ctModal && (
       <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
         <ContentModalDiv className='ctModal'>
-          <ContentSlider />
+          <ContentSlider image={image}/>
             <ContentsWrapper >
               <FavoriteCheckWrapper >
                   <>
                     { userlikeButton ? 
                         <FavortiteCheck className='fas fa-heart fa-2x' onClick={() => {
                           return (
-                             <>
+                              <>
                               {isLogin ? handleUnLikeButton()
-                               : 
-                                 alert('로그인 후 이용 가능합니다.')
-
-                               }
-                             </>
+                                : 
+                                  alert('로그인 후 이용 가능합니다.')
+                                }
+                              </>
                           )
                         }} />
                         :
                         <FavortiteUncheck className='far fa-heart fa-2x' onClick={() => {
                           return (
                             <>
-                             {isLogin ? handleLikeButton()
+                              {isLogin ? handleLikeButton()
                               : 
                                 alert('로그인 후 이용 가능합니다.')
 
                               }
                             </>
-                         )
-                       }} />
+                          )
+                        }} />
                     }
                     </>                   
               </FavoriteCheckWrapper>
             <ContentTextArea>
             <ContentText>
-              내 어머니는 성취와 성공의 차이를 분명히 하셨다. 
-              어머니는 말씀하셨다. 
-              '성취란 네가 열심히 공부하고 일했으며 네가 가진 최선을 다했다는 인식이다. 
-              성공은 남들에게 추앙받는 것이며, 이것이 멋진 일이긴 하나 그렇게 중요하거나 만족을 주는 것은 아니다. 
-              항상 성취를 목적으로 삼고 성공에 대해선 잊어라.'
-              <br />
-              <br />
-              'My mother drew a distinction between achievement and success. 
-              She said that 'achievement is the knowledge that you have studied and worked hard and done the best that is in you. 
-              Success is being praised by others, and that's nice, too, but not as important or satisfying. 
-              Always aim for achievement and forget about success.'
+              {content}
             </ContentText>
             <HashTagWrapper>
-              <HashTag>#한국</HashTag>
-              <HashTag>#부산</HashTag>
+              {hashtag.map((e) => {
+                <HashTag>{e}</HashTag>
+              })}
             </HashTagWrapper>
           </ContentTextArea>
           </ContentsWrapper>

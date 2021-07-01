@@ -11,7 +11,7 @@ import axios from 'axios';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
 import { getAllOfPosting } from '../modules/showAllPosting';
-
+import { getPickPosting } from '../modules/pickPosting';
 
 function Main() {
   
@@ -91,7 +91,9 @@ function Main() {
   };
   // content modal 열기
   const openCtModal = (e) => {
+    const postId = e.target.id;
     setCtModal(true);
+    dispatch(getPickPosting(postId));
   }
   // user logout 
   const logout = () => {
@@ -139,7 +141,6 @@ function Main() {
         ctModal={ctModal}
         handleLikeButton={handleLikeButton}
         handleUnLikeButton={handleUnLikeButton}
-        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 /** 액션타입 */
-export const USER_WITHDRAWAL = 'USER_WITHDRAWAL';
+export const USER_WITHDRAWAL = 'withdrawalReducer/USER_WITHDRAWAL';
 
 /** 액션생성함수 & API 요청 */
 export const withdrawal = ( id ) => async dispatch => {
@@ -12,14 +12,14 @@ export const withdrawal = ( id ) => async dispatch => {
   }
     
   const initialState = {
-      user : {
-        id: '',
-        userId: '',
-        password:'',
-        profileImg: '',
-        favorite: [],
-        status: true
-      },
+    user : {
+      id: '',
+      userId: '',
+      password:'',
+      profileImg: '',
+      favorite: [],
+      status: true
+    },
     }
   
   export default function withdrawalReducer(state = initialState, action){

@@ -1,11 +1,10 @@
 import axios from "axios";
 
 /** 액션타입 */
-export const ADD_CONTENT = 'ADD_CONTENT';
+export const ADD_CONTENT = 'addComtentReducer/ADD_CONTENT';
 
 
 export const addContent = (hashtag,content,userId,images) => async dispatch => {
-  console.log('reducer_images::',images)
   let formData = new FormData()
   const config = {
     header: {'content-type': 'multipart/form-data'}
@@ -22,7 +21,7 @@ export const addContent = (hashtag,content,userId,images) => async dispatch => {
 }
 
 const initialState = {
-  data: {},
+  content_data: {},
 }
 
 export default function addContentReducer(state = initialState, action){
@@ -30,8 +29,9 @@ export default function addContentReducer(state = initialState, action){
     case ADD_CONTENT :
       return {
         ...state,
-        data : action.userAddContent,
+        content_data : action.userAddContent.data
       }
     default : return state;
   }
+
 }
