@@ -34,20 +34,11 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 
-   // 그리드함수
-  const SetGridItemHeight = () => {
-    let grid = document.getElementsByClassName('grid')[0];
-    let items = grid.querySelectorAll('.item'); 
-    for(let item of items){
-      item.style.gridRowEnd = `span ${Math.floor((item.children[0].offsetHeight) / 45)}`
-    };
-  }
-
   return (
     <>
     <GlobalStyle />
     <Switch>
-      <Route exact path='/' render={() => <Main gridFunc={SetGridItemHeight}/> }/>
+      <Route exact path='/' component={Main}/>
       <Route exact path='/mypage' component={Mypage} />
       <Route exact path='/addcontents' component={Addcontents} />
       <Route exact path='/signup' component={SignUp} />

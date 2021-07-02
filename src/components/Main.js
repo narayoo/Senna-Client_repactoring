@@ -11,9 +11,9 @@ import axios from 'axios';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
 import { getAllOfPosting } from '../modules/showAllPosting';
+import { getPickPosting } from '../modules/pickPosting';
 
-
-function Main({gridFunc}) {
+function Main() {
   
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
@@ -26,16 +26,7 @@ function Main({gridFunc}) {
   const history = useHistory();
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
   
-  window.addEventListener('scroll',gridFunc)
-  window.addEventListener('rerize',gridFunc)
-  window.addEventListener('load',gridFunc)
-
-  const changeId = (e) => {
-    setUserId(e.target.value);
-  }
-  const changePwd = (e) => {
-    setPassword(e.target.value);
-  }
+  // 모든 포스팅 얻어오기 디스패치
   useEffect(() => {
     dispatch(getAllOfPosting());
   },[]);
@@ -43,6 +34,12 @@ function Main({gridFunc}) {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
+  const changeId = (e) => {
+    setUserId(e.target.value);
+  }
+  const changePwd = (e) => {
+    setPassword(e.target.value);
+  }
   // top 버튼 함수
   const handleTop = () => {  
     window.scrollTo({
@@ -94,27 +91,23 @@ function Main({gridFunc}) {
   };
   // content modal 열기
   const openCtModal = (e) => {
+    const postId = e.target.id;
     setCtModal(true);
+    dispatch(getPickPosting(postId));
   }
   // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
   }
-
-
   // likebutton click event
   const handleLikeButton = () => {
   dispatch(likeButton())
   }
- 
-
   // unlikebutton click event
   const handleUnLikeButton = () =>{
   dispatch(unLikeButton())
-  }
-
- 
+  } 
   return (
     <>
     {
@@ -148,7 +141,6 @@ function Main({gridFunc}) {
         ctModal={ctModal}
         handleLikeButton={handleLikeButton}
         handleUnLikeButton={handleUnLikeButton}
-        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>

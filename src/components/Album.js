@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
-import korea1 from '../img/korea1.jpeg';
-import korea2 from '../img/korea2.jpeg';
-import korea3 from '../img/korea3.jpeg';
-import korea4 from '../img/korea4.jpeg';
-import korea5 from '../img/korea5.jpeg';
-
+import StackGrid from "react-stack-grid";
 
 // album section css
 const AlbumSection = styled.section`
@@ -16,10 +11,28 @@ const AlbumSection = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
 `;
 // Img css
 const PhotoImg = styled.img`
   width:100%;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+  &:hover{
+    cursor: pointer;
+    transform:scale(1.1);  
+    -webkit-transform:scale(1.1);   
+    -moz-transform:scale(1.1);
+    -o-transform:scale(1.1);  
+  }
+`;
+// add 버튼 wrapper css
+const AddButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 78%;
 `;
 // add 버튼 css
 const AddButton = styled.button`
@@ -36,60 +49,43 @@ const AddButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-bottom: 2rem;
-
   &:hover{
     background-color: #00acc1;
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
     color: #eeeeee;
   }
 `;
-// add 버튼 wrapper css
-const AddButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 65%;
-  align-items: center;
-`;
 // total contents Css
 const TotalComponent = styled.p`
 `;
 
-//const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
+export default function Album({ openCtModal }) {
 
-export default function Album({ openCtModal, gridFunc}) {
-  
-  
-  let list = [];
-
-  useEffect(() => {
-    
-    window.addEventListener("load", gridFunc);
-    window.addEventListener("rerize", gridFunc);
-  },[list])
-  
-  list = useSelector(state => state.showAllPosting.data.data);
-  
+  let list = useSelector(state => state.showAllPosting.data.data);
+ 
   return (
     <>
-    {console.log('list::',list)}
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>
-          <i className="fas fa-feather-alt">&nbsp;&nbsp;122,651</i>
+          <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
         </TotalComponent>
         <Link to='/addcontents'>
           <AddButton>Add</AddButton>
         </Link>
       </AddButtonWrapper>
-      <div className='grid'>
+      <StackGrid 
+        columnWidth={400}
+        gutterWidth={25}
+        gutterHeight={25}
+        style={{ width: "100%" }}>
         { list?.map((photo,index)=> {
-          return <div className='item' key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
+          return <div key={index} onClick={(el) => openCtModal(el)}>
+            <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
           </div>
           }
         )}
-      </div>
+      </StackGrid>
     </AlbumSection>
     </>
   )

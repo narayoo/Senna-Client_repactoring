@@ -3,8 +3,8 @@ import loginReducer from './loginReducer';
 import favoriteButtonReducer from './favoriteButtonReducer'
 import addContetReducer from './addContentReducer'
 import withdrawalReducer from './withdrawalReducer'
-import addContentReducer from './addContentReducer';
 import showAllPosting from './showAllPosting';
+import pickPosting from './pickPosting';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
   addContetReducer,
   withdrawalReducer,
   showAllPosting,
+  pickPosting,
 })
 
 export default rootReducer;
