@@ -1,7 +1,7 @@
 import axios from "axios";
 
 /** 액션타입 */
-export const ALL_OR_POSTING = 'ALL_OR_POSTING';
+export const ALL_OR_POSTING = 'showAllPosting/ALL_OR_POSTING';
 
 /** 액션생성함수 & API 요청 */
 export const getAllOfPosting = () => async dispatch => {

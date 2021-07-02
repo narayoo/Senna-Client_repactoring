@@ -72,7 +72,7 @@ export default function Album({ openCtModal, gridFunc}) {
   
   return (
     <>
-    {console.log('list::',list)}
+    {/* {console.log('list::',list)} */}
     <AlbumSection>
       <AddButtonWrapper>
         <TotalComponent>

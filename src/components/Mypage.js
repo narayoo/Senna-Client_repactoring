@@ -196,14 +196,10 @@ export default function Mypage () {
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
-    id : state.loginReducer.user.userKey
+    id : state.loginReducer.login.userKey
   }),
   shallowEqual
   ); 
-
-  console.log( 'userId:',userId)
-  console.log( 'profileImg:',profileImg)
-  console.log( 'favorite:',favorite)
 
   const photoList = favorite.map((e, index) =>
     <MyContentImg key={index} src={e} loading="lazy" />
@@ -240,7 +236,6 @@ export default function Mypage () {
 
 
   const handleWithdrawal = () => { 
-    // prompt('비밀번호를 입력하세요', '');
     dispatch(withdrawal(id))
     history.push('./')
   }
@@ -248,12 +243,6 @@ export default function Mypage () {
   return (
     <>
     <Container>
-      <MyPageNav>
-        <Link to='./'>
-          <Logo src={logo} onClick={clickLogo}/>
-        </Link>
-        <NavButton >Logout</NavButton>
-      </MyPageNav>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
