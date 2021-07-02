@@ -192,17 +192,27 @@ export default function Mypage () {
   
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
 
-  const {userId,profileImg,favorite,id} = useSelector(state => ({
+  const {userId,profileImg,favorite,id, uploadList} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
-    id : state.loginReducer.login.userKey
+    id : state.loginReducer.login.userKey,
+    uploadList: state.loginReducer.user.uploadList
   }),
   shallowEqual
   ); 
 
-  const photoList = favorite.map((e, index) =>
-    <MyContentImg key={index} src={e} loading="lazy" />
+  console.log('userId:',userId)
+  console.log('profileImg:',profileImg)
+  console.log('favorite:',favorite)
+  console.log('id:',id)
+  console.log('uploadList:',uploadList)
+
+  const photoList = uploadList.map((e, index) =>
+    <MyContentImg key={index} src={e.image[0]} loading="lazy" />
+  )
+  const favoriteList = favorite.map((e, index) =>
+    <MyContentImg key={index} src={e.image[0]} loading="lazy" />
   )
 
   // Logo 클릭 시 메인화면 새로고침 이동
@@ -271,7 +281,7 @@ export default function Mypage () {
               <SliderBtn onClick={() => onPrev2()}></SliderBtn>
               <Wrapper>
                 <StyledSlider className='carousel2'>
-                  {photoList}
+                  {favoriteList}
                 </StyledSlider>
               </Wrapper>
               <SliderBtn onClick={() => onNext2()}></SliderBtn>

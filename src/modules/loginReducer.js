@@ -43,10 +43,12 @@ const initialState = {
     userId: '',
     profileImg: '',
     favorite: [],
+    uploadList: [],
   },
 }
 
 export default function loginReducer(state = initialState, action){
+  console.log('login:::', action)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {
@@ -75,6 +77,7 @@ export default function loginReducer(state = initialState, action){
           userId: action.getInfoSuccess.data.data.userId,
           profileImg: action.getInfoSuccess.data.data.profileImg,
           favorite: action.getInfoSuccess.data.data.favorite,
+          uploadList: action.getInfoSuccess.data.data.uploadList,
         }
       }
     default : return state;
