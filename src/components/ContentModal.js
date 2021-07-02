@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
+import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
 
 
 // 모달 뒷배경
@@ -85,13 +86,39 @@ const FavortiteCheck = styled.i`
 
 function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLikeButton}) {
 
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const userlikeButton = useSelector(state => state.favoriteButtonReducer.like)
+ 
+  const dispatch = useDispatch();
+  
+  const { isLogin, id } = useSelector(state => ({
+    isLogin : state.loginReducer.login.isLogin,
+    id : state.loginReducer.login.userKey,
+  })); 
+
+  
   const { content, hashtag, image } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
   })); 
+  
+  const postingId = useSelector(state => state.showAllPosting) //map을 돌려야함 
+  const userlikeButton = useSelector(state => state.favoriteButtonReducer.like)
+
+
+  
+    // likebutton click event
+    const handleLikeButton = () => {
+      console.log('찾고싶다아이디', postingId)
+      dispatch(likeButton(id, postingId))
+      }
+     
+    
+      // unlikebutton click event
+      const handleUnLikeButton = () =>{
+      dispatch(unLikeButton(id, postingId))
+      }
+  
+
 
   if (!ctModal) return null;
 

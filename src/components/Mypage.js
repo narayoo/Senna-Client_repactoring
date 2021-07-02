@@ -253,12 +253,6 @@ export default function Mypage () {
   return (
     <>
     <Container>
-      <MyPageNav>
-        <Link to='./'>
-          <Logo src={logo} onClick={clickLogo}/>
-        </Link>
-        <NavButton >Logout</NavButton>
-      </MyPageNav>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>

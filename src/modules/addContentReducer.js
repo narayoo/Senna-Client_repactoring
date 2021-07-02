@@ -4,6 +4,7 @@ import axios from "axios";
 export const ADD_CONTENT = 'addComtentReducer/ADD_CONTENT';
 
 
+
 export const addContent = (hashtag,content,userId,images) => async dispatch => {
   let formData = new FormData()
   const config = {
@@ -17,6 +18,7 @@ export const addContent = (hashtag,content,userId,images) => async dispatch => {
   formData.append("userId", userId);
   
   const userAddContent = await axios.post('http://54.180.151.176/post/upload', formData, config)
+  console.log('정체를밝혀라', userAddContent.data.data._id)
   dispatch({type:ADD_CONTENT, userAddContent })
 }
 

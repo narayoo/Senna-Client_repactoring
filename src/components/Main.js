@@ -7,9 +7,7 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import axios from 'axios';
 import {localLogin, localLogout} from '../modules/loginReducer';
-import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
 
@@ -24,7 +22,9 @@ function Main() {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+  const { accessToken } = useSelector(state => ({
+          accessToken : state.loginReducer.login.accessToken,
+        })); 
   
   // 모든 포스팅 얻어오기 디스패치
   useEffect(() => {
@@ -100,14 +100,11 @@ function Main() {
     dispatch(localLogout(accessToken))
     history.push('./')
   }
-  // likebutton click event
-  const handleLikeButton = () => {
-  dispatch(likeButton())
-  }
-  // unlikebutton click event
-  const handleUnLikeButton = () =>{
-  dispatch(unLikeButton())
-  } 
+
+
+
+ 
+
   return (
     <>
     {
@@ -139,8 +136,9 @@ function Main() {
       <ContentModal
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
-        handleLikeButton={handleLikeButton}
-        handleUnLikeButton={handleUnLikeButton}
+        // handleLikeButton={handleLikeButton}
+        // handleUnLikeButton={handleUnLikeButton}
+        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>
