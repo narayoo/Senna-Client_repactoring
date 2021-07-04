@@ -38,15 +38,15 @@ const ContentsWrapper = styled.div`
 // content text area css
 const ContentTextArea = styled.div`
   height: 100%;
-  padding-top: 0.5rem;
-  padding-right: 0.5rem;
+  padding-top: 1rem;
+  padding-right: 1.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
 `;
 // content text css
 const ContentText = styled.div`
   width: 100%;
-  height: 80%;
+  height: 70%;
   border: none;
   color: #1b1b1b;
   overflow-y: scroll;

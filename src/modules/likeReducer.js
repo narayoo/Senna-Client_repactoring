@@ -17,6 +17,7 @@ export default function likeReducer(state = initialState, action){
   switch(action.type) {
     case LIKE_BUTTON :
       return {
+        ...state,
         like : true
       }
     default : return state;

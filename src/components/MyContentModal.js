@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
+import { onDeleteMypost }from '../modules/deleteMyPosting';
+import { getUserInfo } from '../modules/loginReducer';
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -120,19 +122,26 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function MyContentModal({myCtModal, handleMyCtModalOff}) {
+export default function MyContentModal({myCtModal, setMyCtModal, handleMyCtModalOff}) {
 
   const dispatch = useDispatch();
-  const { content, hashtag, image, } = useSelector(state => ({
+  const { content, hashtag, image, postingId} = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
+    postingId: state.pickPosting.postInfo.postId,
   })); 
-
+  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+  
   // 내 콘텐츠 삭제 핸들러
   const deleteMyctHandler = (e) => {
-    
+    alert('삭제 후 게시물은 복구할 수 없습니다.')
+    const postId = e.target.id;
+    dispatch(onDeleteMypost(postId))
+    dispatch(getUserInfo(accessToken));
+    setMyCtModal(false);
   }
+  
   // 내 콘텐츠 업데이트 핸들러
   const updateMyctHandler = (e) => {
     
@@ -147,7 +156,7 @@ export default function MyContentModal({myCtModal, handleMyCtModalOff}) {
           <ContentSlider image={image}/>
           <ContentsWrapper >
             <BtnWrapper>
-              <DeleteBtn onClick={(e) => deleteMyctHandler(e)}>Delete</DeleteBtn>
+              <DeleteBtn id={postingId} onClick={(e) => deleteMyctHandler(e)}>Delete</DeleteBtn>
               <Link to='/contentupdate'>
                 <UpdateBtn onClick={(e) => updateMyctHandler(e)}>Update</UpdateBtn>
               </Link>

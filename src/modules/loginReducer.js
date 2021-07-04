@@ -50,7 +50,6 @@ const initialState = {
 }
 
 export default function loginReducer(state = initialState, action){
-  console.log('login:::', action)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {

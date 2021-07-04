@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useSelector,shallowEqual, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components';
@@ -9,7 +9,6 @@ import MypageNav from '../components/MypageNav';
 import { withdrawal } from '../modules/withdrawalReducer'
 import { getPickPosting } from '../modules/pickPosting';
 import { localLogout } from '../modules/loginReducer';
-
 
 const Container = styled.div`
   display: flex;
@@ -186,10 +185,11 @@ export default function Mypage () {
   
   const dispatch = useDispatch();
   const history = useHistory();
-
+    
+  const [filterPhoto, setFilterPhoto] = useState([])
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
-  const {userId,profileImg,favorite,id, uploadList} = useSelector(state => ({
+  const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
@@ -198,14 +198,10 @@ export default function Mypage () {
   }),
   shallowEqual
   ); 
+
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
-
-  //console.log('uploadList:::',uploadList) // 포스팅 아이디인지, 유저키인지가 들어옴
-  //console.log('favorite:::',favorite) // 포스팅 아이디인지, 유저키인지가 들어옴
-  // 맵으로 뿌려주려면 photolist처럼 들어와야함
-
   // 내 콘텐트 모달 열기
   const myContentOpenHandler = async(e) => {
     const postId = e.target.id;
@@ -233,9 +229,7 @@ export default function Mypage () {
       setFavoCtModal(false);
     }
   };
-  const photoList = uploadList.map((e, index) =>
-    <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
-  )
+  const photoList = uploadList.filter((e) => e.status === true)
   const favoriteList = favorite.map((e, index) =>
     <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
   )
@@ -301,7 +295,15 @@ export default function Mypage () {
               <SliderBtn onClick={() => onPrev()}></SliderBtn>
               <Wrapper>
                 <StyledSlider className='carousel1'>
-                  {photoList}
+                  { 
+                  // test77 로 로그인해야함.
+                  // 이외 모든 계정은 마이페이지 누를 시 에러발생
+                  photoList.length === 0 ? 
+                  <p style={{margin:'0 auto'}}>No Contents</p> :
+                  photoList.map((e, index) => {
+                    return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                  })
+                  }
                 </StyledSlider>
               </Wrapper>
               <SliderBtn onClick={() => onNext()}></SliderBtn>
@@ -325,6 +327,8 @@ export default function Mypage () {
         logout={logout}
         handleMyCtModalOff={handleMyCtModalOff}
         myCtModal={myCtModal}
+        setMyCtModal={setMyCtModal}
+        setFilterPhoto={setFilterPhoto}
         >
       </MyContentModal>
       <MyFavoriteModal

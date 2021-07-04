@@ -13,7 +13,7 @@ const AddCtWrapper = styled.div`
   width: 50%;
   max-width: 700px;
   margin: 0 auto;
-  margin-top: 5rem;
+
 `;
 const AddFile = styled.input`
   margin-top: 0.4rem;
@@ -31,6 +31,7 @@ const AddFile = styled.input`
   }
 `;
 const AddCtText = styled.textarea`
+  margin-top: 14rem;
   width: 80%;
   height: 20rem;
   padding: 1rem;
