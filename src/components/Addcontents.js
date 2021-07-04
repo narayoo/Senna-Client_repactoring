@@ -12,7 +12,7 @@ const AddCtWrapper = styled.div`
   width: 50%;
   max-width: 700px;
   margin: 0 auto;
-  margin-top: 5rem;
+  margin-top: 14rem;
 `;
 const AddFile = styled.input`
   margin-top: 1rem;
