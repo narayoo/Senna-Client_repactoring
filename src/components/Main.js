@@ -19,13 +19,13 @@ function Main() {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
-
+  const [heart , setHeart] = useState(false); // 선택한 포스트의 좋아요 상태
+  
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
-          accessToken : state.loginReducer.login.accessToken,
-        })); 
-  
+    accessToken : state.loginReducer.login.accessToken,
+  })); 
   // 모든 포스팅 얻어오기 디스패치
   useEffect(() => {
     dispatch(getAllOfPosting());
@@ -87,6 +87,8 @@ function Main() {
     if (clicked) return;
     else {
       setCtModal(false);
+      setHeart(false);
+      console.log('닫힘:',heart)
     }
   };
   // content modal 열기
@@ -100,10 +102,6 @@ function Main() {
     dispatch(localLogout(accessToken))
     history.push('./')
   }
-
-
-
- 
 
   return (
     <>
@@ -134,11 +132,10 @@ function Main() {
       </LoginModal>
       <Album openCtModal={openCtModal} />
       <ContentModal
+        heart={heart}
+        setHeart={setHeart}
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
-        // handleLikeButton={handleLikeButton}
-        // handleUnLikeButton={handleUnLikeButton}
-        /* isLogin={isLogin} */
         >
       </ContentModal>
     </>

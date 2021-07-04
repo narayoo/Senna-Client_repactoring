@@ -62,6 +62,7 @@ const TotalComponent = styled.p`
 export default function Album({ openCtModal }) {
 
   let list = useSelector(state => state.showAllPosting.data.data);
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
  
   return (
     <>
@@ -70,9 +71,14 @@ export default function Album({ openCtModal }) {
         <TotalComponent>
           <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
         </TotalComponent>
-        <Link to='/addcontents'>
-          <AddButton>Add</AddButton>
-        </Link>
+        {
+          isLogin ? 
+          <Link to='/addcontents'>
+            <AddButton>Add</AddButton>
+          </Link>
+          :
+          <></>
+        }
       </AddButtonWrapper>
       <StackGrid 
         columnWidth={400}

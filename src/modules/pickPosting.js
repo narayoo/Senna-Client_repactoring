@@ -15,6 +15,7 @@ const initialState = {
     hashtag : [],
     image: [],
     postId: '',
+    likeUser: [],
   },
 }
 
@@ -27,7 +28,8 @@ export default function pickPosting(state = initialState, action){
           content: action.getPosting.data.data.content,
           hashtag: action.getPosting.data.data.hashtag,
           image: action.getPosting.data.data.image,
-          postId: action.getPosting.data.data.postId,
+          postId: action.getPosting.data.data._id,
+          likeUser: action.getPosting.data.data.likeUser,
         }
       }
     default : return state;
