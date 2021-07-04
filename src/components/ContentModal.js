@@ -78,6 +78,7 @@ const FavoriteCheckWrapper = styled.div`
   font-size: 12px;
 `
 
+
 function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
 
   const dispatch = useDispatch();

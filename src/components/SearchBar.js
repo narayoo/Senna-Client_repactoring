@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link , useHistory } from 'react-router-dom'
 
 const Search_Bar = styled.input`
   width: 100%;
@@ -27,9 +28,11 @@ const SearchForm = styled.form`
 `;
 export default function SearchBar({}) {
 
+  const history = useHistory();
+
   const onKeyPress = (e) => {
     if(e.key == 'Enter') {
-      alert("서치페이지로~");
+      history.push('/search')
     }
   }
     

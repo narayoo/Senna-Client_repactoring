@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import logo from '../img/SennaLogo.png';
 import img from '../img/userImg.png';
 import {withdrawal} from '../modules/withdrawalReducer'
+import {localLogin, localLogout} from '../modules/loginReducer';
 
 const Container = styled.div`
   display: flex;
@@ -186,7 +187,7 @@ const carousel2 = document.getElementsByClassName('carousel2');
 
 
 
-export default function Mypage () {
+export default function Mypage ( ) {
   const history = useHistory();
   const dispatch = useDispatch();
   
@@ -201,6 +202,10 @@ export default function Mypage () {
   }),
   shallowEqual
   ); 
+
+  const { accessToken } = useSelector(state => ({
+    accessToken : state.loginReducer.login.accessToken,
+  })); 
 
   console.log('userId:',userId)
   console.log('profileImg:',profileImg)
@@ -247,12 +252,28 @@ export default function Mypage () {
 
   const handleWithdrawal = () => { 
     dispatch(withdrawal(id))
+    alert("회원 탈퇴가 완료되었습니다.")
     history.push('./')
+    logout()
   }
+
+    // user logout 
+    const logout = () => {
+      dispatch(localLogout(accessToken))
+      history.push('./')
+    }
 
   return (
     <>
     <Container>
+      <MyPageNav>
+        <>
+        <Link to='./'>
+          <Logo src={logo} onClick={clickLogo}/>
+        </Link>
+          <NavButton onClick={() => logout()}>Logout </NavButton>
+          </>
+        </MyPageNav>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
