@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
-import Nav from './Nav'
 import { addContent } from '../modules/addContentReducer';
+import MypageNav from '../components/MypageNav';
+import { localLogout } from '../modules/loginReducer';
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const AddCtWrapper = styled.div`
   margin-top: 5rem;
 `;
 const AddFile = styled.input`
-  margin-top: 1rem;
+  margin-top: 0.4rem;
   padding: 0.7rem;
   height: 10%;
   width: 80%;
@@ -107,16 +108,33 @@ const HashTagBox = styled.input`
   background: linear-gradient(#ffffff, #aeaeae);
   font-size: 17px;
   resize: none;
+  border: none;
   box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
   &:focus{
     outline: none;
     background: #ffffff;
   }
 `;
-function UpdateMycontents() {
+const Warning = styled.p`
+  font-size: 12px;
+  color: #eeeeee;
+  margin-top: 1.2rem;
+  justify-content: left;
+`;
+export default function UpdateMycontents() {
 
-  const [ text, setText ] = useState('');
-  const [ hash, setHash ] = useState([]);
+  const userId = useSelector(state => state.loginReducer.login.userId);
+  const { accessToken } = useSelector(state => ({
+    accessToken : state.loginReducer.login.accessToken,
+  }));
+  const { content, hashtag, image, } = useSelector(state => ({
+    content: state.pickPosting.postInfo.content,
+    hashtag: state.pickPosting.postInfo.hashtag,
+    image: state.pickPosting.postInfo.image,
+  }));  
+
+  const [ text, setText ] = useState(content);
+  const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
 
@@ -124,10 +142,9 @@ function UpdateMycontents() {
   const history = useHistory();
   const imgArr = [];
 
-  const userId = useSelector(state => state.loginReducer.login.userId);
   // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
-    window.location.replace("/")
+    window.location.replace("/mypage")
   }
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -136,6 +153,7 @@ function UpdateMycontents() {
     setHash(e.target.value);
   }
   const handleFileOnChange = (e) => {
+    // 업데이트해야하니까 여기서 기존이미지들 삭제해야함
     let file = e.target.files;
     if(file.length > 5 || file.length < 1) {
       alert('파일은 1장 이상 5장 이하입니다')
@@ -153,6 +171,8 @@ function UpdateMycontents() {
     setPhoto(photo.concat(imgArr));
   }
   const onAddContent = (e) => {
+    // 업데이트 디스패치
+
     if(ok){
       dispatch(addContent(hash,text,userId,photo));
       alert('등록되었습니다.')
@@ -161,13 +181,20 @@ function UpdateMycontents() {
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
     }
   }
-  
+  // user logout 
+  const logout = () => {
+    dispatch(localLogout(accessToken))
+    history.push('./')
+  }
+
+
   return (
     <>
-    <Nav />
+      <MypageNav logout={logout}/>
       <AddCtWrapper>
         <AddCtText placeholder='Write Your Memories' value={text} onChange={onChangeText}/>
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
+        <Warning> ⚠️ 사진은 모두 다시 선택해주셔야 합니다 </Warning>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <ButtonGroup>
           <Link to='./'>
@@ -179,7 +206,3 @@ function UpdateMycontents() {
   </>
   );
 }
-
-
-export default UpdateMycontents;
-
