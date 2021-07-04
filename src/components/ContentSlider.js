@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import korea1 from '../img/korea1.jpeg';
-import korea2 from '../img/korea2.jpeg';
-import korea4 from '../img/korea4.jpeg';
-
 export default function ContentSlider({image}) {
   
   const Container = styled.div`
@@ -64,12 +60,21 @@ export default function ContentSlider({image}) {
   }
   // 다음 버튼
   const onNext = () => {
-    if (index === 2) return; 
+    if(image.length === 1) {
+      if (index === 0) return; 
+    }else if(image.length === 2){
+      if (index === 1) return; 
+    }else if(image.length === 3){
+      if (index === 2) return; 
+    }else if(image.length === 4){
+      if (index === 3) return; 
+    }else if(image.length === 5){
+      if (index === 4) return; 
+    }
     index += 1; 
     modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
   } 
 
-  //const list = [ korea4,korea2,korea1 ];
   const photoList = image.map((e,index) =>
     <Img src={e} key={index} loading="lazy" />
   )

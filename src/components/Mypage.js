@@ -217,7 +217,7 @@ export default function Mypage ( ) {
     <MyContentImg key={index} src={e.image[0]} loading="lazy" />
   )
   const favoriteList = favorite.map((e, index) =>
-    <MyContentImg key={index} src={e.image[0]} loading="lazy" />
+    {/* <MyContentImg key={index} src={e.image[0]} loading="lazy" /> */}
   )
 
   // Logo 클릭 시 메인화면 새로고침 이동
