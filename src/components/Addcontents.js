@@ -156,7 +156,7 @@ function Addcontents() {
     if(ok){
       dispatch(addContent(hash,text,userId,photo));
       alert('등록되었습니다.')
-      history.push('./')
+      history.push('./');
     }else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
     }

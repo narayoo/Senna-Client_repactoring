@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
-import {likeButton, unLikeButton} from '../modules/favoriteButtonReducer'
+import {likeButton, unLikeButton} from '../modules/likeReducer'
 
 
 // 모달 뒷배경
@@ -29,11 +29,17 @@ const ContentModalDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
+// 좋아요아이콘 
+const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 19em;
+` 
 // content text area css
 const ContentTextArea = styled.div`
-  width: 100%;
   height: 100%;
-  padding-right: 2rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
 `;
@@ -62,111 +68,96 @@ const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
 `;
-// 좋아요아이콘 
-const ContentsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-` 
+
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   padding-right: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
   cursor: pointer;
   font-size: 12px;
 `
-const FavortiteUncheck = styled.i`
-  color : gray;
-  transition: transform 300ms ease;
-`
-const FavortiteCheck = styled.i`
-  color: red;
-  transition: transform 300ms ease;
-`
 
-function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLikeButton}) {
+function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
 
- 
   const dispatch = useDispatch();
   
-  const { isLogin, id } = useSelector(state => ({
+  const { isLogin, userKey, userId } = useSelector(state => ({
     isLogin : state.loginReducer.login.isLogin,
-    id : state.loginReducer.login.userKey,
+    userKey : state.loginReducer.login.userKey,
+    userId : state.loginReducer.login.userId,
   })); 
 
-  
-  const { content, hashtag, image } = useSelector(state => ({
+  const { content, hashtag, image, postId, likeUser } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
+    postId : state.pickPosting.postInfo.postId,
+    likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-  
-  const postingId = useSelector(state => state.showAllPosting) //map을 돌려야함 
-  const userlikeButton = useSelector(state => state.favoriteButtonReducer.like)
 
-
-  
-    // likebutton click event
-    const handleLikeButton = () => {
-      console.log('찾고싶다아이디', postingId)
-      dispatch(likeButton(id, postingId))
-      }
-     
+  const { likeState } = useSelector(state => ({
+    likeState: state.likeReducer.like
+  }))
+  // likebutton click event
+  const handleLikeButton = (e) => {
+    const like = e.target.id;
+    setHeart(true);
+    dispatch(likeButton(like, userKey))
+  }
     
-      // unlikebutton click event
-      const handleUnLikeButton = () =>{
-      dispatch(unLikeButton(id, postingId))
-      }
-  
+  // unlikebutton click event
+  const handleUnLikeButton = (e) =>{
+    const unlike = e.target.id;
+    setHeart(false);
+    dispatch(unLikeButton(unlike, userKey))
+  }
 
+
+  if(likeUser.includes(userId)){// 지금 로그인된 유저가 해당 포스팅좋아요 유저에 포함되어있다면 true
+    setHeart(true);
+  }else{
+    setHeart(false);
+  }
 
   if (!ctModal) return null;
-
   return(
     <>
+    {console.log('likeUser',likeUser)}
     {ctModal && (
       <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
         <ContentModalDiv className='ctModal'>
           <ContentSlider image={image}/>
             <ContentsWrapper >
               <FavoriteCheckWrapper >
-                  <>
-                    { userlikeButton ? 
-                        <FavortiteCheck className='fas fa-heart fa-2x' onClick={() => {
-                          return (
-                              <>
-                              {isLogin ? handleUnLikeButton()
-                                : 
-                                  alert('로그인 후 이용 가능합니다.')
-                                }
-                              </>
-                          )
-                        }} />
-                        :
-                        <FavortiteUncheck className='far fa-heart fa-2x' onClick={() => {
-                          return (
-                            <>
-                              {isLogin ? handleLikeButton()
-                              : 
-                                alert('로그인 후 이용 가능합니다.')
-
-                              }
-                            </>
-                          )
-                        }} />
-                    }
-                    </>                   
-              </FavoriteCheckWrapper>
-            <ContentTextArea>
-            <ContentText>
-              {content}
-            </ContentText>
-            <HashTagWrapper>
-              {hashtag.map((e) => {
-                <HashTag>{e}</HashTag>
-              })}
-            </HashTagWrapper>
-          </ContentTextArea>
+               {
+                <i 
+                  id={postId} 
+                  className={heart ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                  style={heart ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                  onClick={(e) => {
+                  return (
+                      <>
+                      {!isLogin ? alert('로그인 후 이용 가능합니다.')
+                        : heart? 
+                        handleUnLikeButton(e) :
+                        handleLikeButton(e)
+                        }
+                      </>
+                    )
+                  }}/>
+                }
+              </FavoriteCheckWrapper>  
+              <ContentTextArea>
+                <ContentText>
+                  {content}
+                </ContentText>
+                <HashTagWrapper>
+                {hashtag.map((e, index) => {
+                  return <HashTag key={index}>{`#${e}`}</HashTag>
+                })}
+              </HashTagWrapper>
+            </ContentTextArea>
           </ContentsWrapper>
         </ContentModalDiv>
       </BackgroundDark>
