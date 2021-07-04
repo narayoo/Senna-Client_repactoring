@@ -84,7 +84,7 @@ const FavortiteCheck = styled.i`
   transition: transform 300ms ease;
 `
 
-function ContentModal({ ctModal, handleCtModalOff, handleLikeButton, handleUnLikeButton}) {
+function ContentModal({ ctModal, handleCtModalOff,}) {
 
  
   const dispatch = useDispatch();

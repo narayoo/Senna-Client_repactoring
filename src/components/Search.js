@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
-import korea1 from '../img/korea1.jpeg';
-import korea2 from '../img/korea2.jpeg';
-import korea3 from '../img/korea3.jpeg';
-import korea4 from '../img/korea4.jpeg';
-import korea5 from '../img/korea5.jpeg';
 import Nav from './Nav'
+import StackGrid from "react-stack-grid";
 
 
 // album section css
@@ -62,13 +59,10 @@ const SearchResult = styled.div`
 `
 
 
-const list = [ korea1,korea2,korea3,korea4,korea5,korea1,korea2,korea3,korea4,korea5 ];
+
 function Search({openCtModal}) {
   
-  const photoList = list.map(e => 
-    <div className='item' onClick={(el) => openCtModal(el)}>
-      <PhotoImg src={e} loading="lazy"></PhotoImg>
-    </div>)
+  let list = useSelector(state => state.showAllPosting.data.data);
 
   return (
     <>
@@ -80,9 +74,18 @@ function Search({openCtModal}) {
           <AddButton>Add</AddButton>
         </Link>
       </AddButtonWrapper>
-      <div className='grid'>
-        {photoList}
-      </div>
+      <StackGrid 
+        columnWidth={400}
+        gutterWidth={25}
+        gutterHeight={25}
+        style={{ width: "100%" }}>
+        { list?.map((photo,index)=> {
+          return <div key={index} onClick={(el) => openCtModal(el)}>
+            <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
+          </div>
+          }
+        )}
+      </StackGrid>
     </AlbumSection>
     </>
   )
