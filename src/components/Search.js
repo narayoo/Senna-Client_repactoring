@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
 import Nav from './Nav'
 import StackGrid from "react-stack-grid";
-
+import { searchContent } from "../modules/searchReducer"
+import searchBar from "./SearchBar"
 
 // album section css
 const AlbumSection = styled.section`
@@ -60,14 +61,15 @@ const SearchResult = styled.div`
 
 
 
-function Search({openCtModal}) {
-  
+function Search({openCtModal , searchHandler }) {
+
+  const dispatch = useDispatch();
   let list = useSelector(state => state.showAllPosting.data.data);
 
   return (
     <>
     <Nav />
-    <SearchResult>Korea</SearchResult>
+    <SearchResult>{searchHandler()}</SearchResult>
     <AlbumSection>
       <AddButtonWrapper>
         <Link to='/addcontents'>

@@ -10,15 +10,16 @@ export const searchContent = (word) => async dispatch => {
 }
 /** 초기상태 선언 */
 const initialState = {
+  value: '',
   data: [],
 }
 
 export default function showSearchContent(state = initialState, action){
   switch(action.type) {
     case SEARCH_CONTENT :
-      return {
-        ...state,
-        data : action.searchContent,
+      {
+        const {value} = action
+        
       }
     default : return state;
   }

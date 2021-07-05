@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState }from 'react';
 import styled from 'styled-components';
 import { Link , useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { searchContent } from "../modules/searchReducer"
 
 const Search_Bar = styled.input`
   width: 100%;
@@ -28,6 +30,8 @@ const SearchForm = styled.form`
 `;
 export default function SearchBar({}) {
 
+  const [searchinput, setSearchinput] = useState('');
+
   const history = useHistory();
 
   const onKeyPress = (e) => {
@@ -35,13 +39,18 @@ export default function SearchBar({}) {
       history.push('/search')
     }
   }
-    
+
+  const searchHandler = (e) => {
+    const word = setSearchinput(e.curruntTarget.value)
+    onKeyPress()
+  }
+
   return (
     <>
     {}
       <SearchForm method="post">
         <Search_Bar placeholder=' where do you want to go?' 
-        onKeyPress={onKeyPress}
+        searchHandler={searchHandler}
         ></Search_Bar>
       </SearchForm>
     </>
