@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
-import {likeButton} from '../modules/likeReducer'
-
+import { getUserInfo } from '../modules/loginReducer';
+import { onDeleteFavo }from '../modules/deleteFavo';
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -34,12 +34,13 @@ const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 19em;
+  margin-right: 2rem;
 ` 
 // content text area css
 const ContentTextArea = styled.div`
   height: 100%;
-  padding-top: 1rem;
-  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
 `;
@@ -68,64 +69,73 @@ const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
 `;
-
-const FavoriteCheckWrapper = styled.div`
-  text-align: right;
-  padding-top: 1.5rem;
-  padding-right: 1rem;
-  padding-bottom: 0.5rem;
+// 버튼 래퍼
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+`;
+// 좋아요한 콘텐츠 삭제 핸들러
+const DeleteBtn = styled.button`
+  width: 100px;
+  height: 37px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 12px;
-`
-
-function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
+  outline: none;
+  border: 1px solid #e53635;
+  background-color: #eeeeee;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #000;
+  margin-bottom: 2rem;
+  &:hover{
+    box-shadow: 0px 15px 20px rgba(229, 54, 53, 0.4);
+    background-color: #e53635;
+    color: #eeeeee;
+    border: none;
+  }
+`;
+export default function MyFavoriteModal({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) {
 
   const dispatch = useDispatch();
   
-  const { isLogin, userKey} = useSelector(state => ({
-    isLogin : state.loginReducer.login.isLogin,
-    userKey : state.loginReducer.login.userKey,
-  })); 
-  const { content, hashtag, image, postId, likeUser } = useSelector(state => ({
+  const { content, hashtag, image, } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
-    postId : state.pickPosting.postInfo.postId,
-    likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-  // likebutton click event
-  const handleLikeButton = async(e) => {
-    const like = e.target.id;
-    
-    if(heart === null) {
-      await dispatch(likeButton(like, userKey))
-      setHeart('like');
-    }else if(heart === 'like') {
-      alert('이미 좋아요한 게시물입니다.')
-    }
+  const { postingId} = useSelector(state => ({
+    postingId: state.pickPosting.postInfo.postId,
+  })); 
+  const {accessToken, id} = useSelector(state => ({
+    accessToken: state.loginReducer.login.accessToken,
+    id: state.loginReducer.user.userId,
+  })); 
+
+  if (!favoCtModal) return null;
+
+  // 좋아요한 게시물 삭제
+  const deleteFavoCtHandler = (e) => {
+    console.log('요기')
+    const postId = e.target.id;
+    console.log('postId',postId)
+    console.log('id',id)
+    dispatch(onDeleteFavo(postId,id))
+    dispatch(getUserInfo(accessToken));
+    setFavoCtModal(false);
   }
-
-  if (!ctModal) return null;
-
   return(
     <>
-    {ctModal && (
-      <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
-        <ContentModalDiv className='ctModal'>
+    {favoCtModal && (
+      <BackgroundDark onClick={(e) => handleFavoCtModalOff(e)}>
+        <ContentModalDiv className='myFavoCtModal'>
           <ContentSlider image={image}/>
             <ContentsWrapper >
-              <FavoriteCheckWrapper >
-               {
-                <i 
-                  id={postId} 
-                  className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
-                  style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
-                  onClick={(e) =>{
-                    ! isLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
-                  } 
-                  />
-                }
-              </FavoriteCheckWrapper>  
+              <BtnWrapper>
+                <DeleteBtn id={postingId} onClick={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
+              </BtnWrapper>
               <ContentTextArea>
                 <ContentText>
                   {content}
@@ -144,6 +154,3 @@ function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
   )
 }
 
-
-
-export default ContentModal

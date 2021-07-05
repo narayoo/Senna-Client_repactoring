@@ -1,40 +1,18 @@
-import React from 'react'
-import { Link , useHistory } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
 import { useSelector,shallowEqual, useDispatch } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components';
-import logo from '../img/SennaLogo.png';
 import img from '../img/userImg.png';
-import {withdrawal} from '../modules/withdrawalReducer'
-import {localLogin, localLogout} from '../modules/loginReducer';
+import MyContentModal from '../components/MyContentModal';
+import MyFavoriteModal from '../components/MyFavoriteModal';
+import MypageNav from '../components/MypageNav';
+import { withdrawal } from '../modules/withdrawalReducer'
+import { getPickPosting } from '../modules/pickPosting';
+import { localLogout } from '../modules/loginReducer';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const MyPageNav = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-// 로고 
-const Logo = styled.img`
-  height: 5rem;
-  display: block;
-  margin-left: 3rem;
-  margin-top: 1rem;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-// nav에 있는 버튼 
-const NavButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 15px;
-  margin-right: 30px;
-  
-  &:hover {
-    cursor: pointer;
-  }
 `;
 // 마이페이지 컨테이너
 const ProfileSection = styled.section`
@@ -46,6 +24,10 @@ const ProfileSection = styled.section`
   flex-direction: row;
   justify-content: space-between;
   height: 100vh;
+  background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8) )
+  ,url('https://images.unsplash.com/photo-1595981234522-aa6bae3f0dac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
 `
 // 유저 정보 컨테이너
 const UserInfoSection = styled.section`
@@ -54,6 +36,7 @@ const UserInfoSection = styled.section`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-top: 3rem;
 `;
 // 유저 프로필 박스 랩퍼
 const UserProfileBox = styled.div`
@@ -74,7 +57,7 @@ const UserImage = styled.img`
 `;
 // 유저 이름
 const UserNameText = styled.p`
-  font-size: 20px;
+  font-size: 25px;
   color: #eeeeee;
 `;
 // 회원정보 업데이트 버튼 
@@ -109,7 +92,7 @@ const WithdrawalButton = styled.a`
   border-bottom: 1px solid #eeeeee;
   cursor: pointer;
   outline: none;
-  margin-top : 4rem;
+  margin-top : 5rem;
 
   &:hover{
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
@@ -119,6 +102,7 @@ const WithdrawalButton = styled.a`
 // 유저 콘텐츠 모음 컨테이너
 const UserContentSection = styled.section`
   width: 60%;
+  margin-top: 5rem;
 `;
 // 유저 콘텐트 모음
 const UserTextBox = styled.div`
@@ -129,6 +113,7 @@ const UserTextBox = styled.div`
   margin-bottom: 1rem;
   padding-bottom: 2rem;
   border: 1px solid rgba(238, 238, 238, 0.5);
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7);
 `
 const SlideWrapper = styled.div`
   display: flex;
@@ -147,11 +132,21 @@ const StyledSlider = styled.div` //carousel
   text-align: center;
   transform: translate3d(0, 0, 0); 
   transition: transform 0.7s;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 const MyContentImg = styled.img`
   width: auto;
   height: 100%;
   padding-right: 1rem;
+  transition: all 0.4s ease-in-out;
+  &:hover{
+    transform:scale(1.03);  
+    -webkit-transform:scale(1.03);   
+    -moz-transform:scale(1.03);
+    -o-transform:scale(1.03);  
+  }
 `
 const SliderBtn = styled.button`
   display: flex;
@@ -180,20 +175,20 @@ const UserFavoriteBox = styled.div`
   overflow: hidden;
   border: 1px solid rgba(238, 238, 238, 0.5);
   padding-bottom: 2rem;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7);
 `
 let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 
 const carousel2 = document.getElementsByClassName('carousel2'); 
 
-
-
-export default function Mypage ( ) {
-  const history = useHistory();
-  const dispatch = useDispatch();
+export default function Mypage () {
   
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin);
-
-  const {userId,profileImg,favorite,id, uploadList} = useSelector(state => ({
+  const dispatch = useDispatch();
+  const history = useHistory();
+    
+  const [myCtModal, setMyCtModal] = useState(false);
+  const [favoCtModal, setFavoCtModal] = useState(false);
+  const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
     favorite: state.loginReducer.user.favorite,
@@ -206,81 +201,87 @@ export default function Mypage ( ) {
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
-
-  console.log('userId:',userId)
-  console.log('profileImg:',profileImg)
-  console.log('favorite:',favorite)
-  console.log('id:',id)
-  console.log('uploadList:',uploadList)
-
-  const photoList = uploadList.map((e, index) =>
-    <MyContentImg key={index} src={e.image[0]} loading="lazy" />
-  )
-  const favoriteList = favorite.map((e, index) =>
-    {/* <MyContentImg key={index} src={e.image[0]} loading="lazy" /> */}
-  )
-
-  // Logo 클릭 시 메인화면 새로고침 이동
-  const clickLogo = () => {
-    window.location.replace("/")
+  // 내 콘텐트 모달 열기
+  const myContentOpenHandler = async(e) => {
+    const postId = e.target.id;
+    setMyCtModal(true);
+    await dispatch(getPickPosting(postId));
   }
-  //  이전 버튼
+  // 콘텐츠 모달 외부 클릭 시 닫기
+  const handleMyCtModalOff = (e) => {
+    const clicked = e.target.closest('.myCtModal');
+    if (clicked) return;
+    else {
+      setMyCtModal(false);
+    }
+  };
+  const myFavoriteOpenHandler = async(e) => {
+    const postId = e.target.id;
+    setFavoCtModal(true);
+    await dispatch(getPickPosting(postId));
+  }
+  // 콘텐츠 모달 외부 클릭 시 닫기
+  const handleFavoCtModalOff = (e) => {
+    const clicked = e.target.closest('.myFavoCtModal');
+    if (clicked) return;
+    else {
+      setFavoCtModal(false);
+    }
+  };
+  const photoList = uploadList.filter((e) => e.status === true)
+  //  Mycontent이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
     index -= 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   }
-  // 다음 버튼
+  // Mycontent다음 버튼
   const onNext = () => {
     if (index === 2) return; 
     index += 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   } 
-  //  이전 버튼
+  //  MyFavorite이전 버튼
   const onPrev2 = () => {
     if (index === 0) return; 
     index -= 1; 
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   }
-  // 다음 버튼
+  // MyFavorite다음 버튼
   const onNext2 = () => {
     if (index === 2) return; 
     index += 1; 
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   } 
-
-
   const handleWithdrawal = () => { 
     dispatch(withdrawal(id))
     alert("회원 탈퇴가 완료되었습니다.")
     history.push('./')
     logout()
   }
+  // user logout 
+  const logout = () => {
+    dispatch(localLogout(accessToken))
+    history.push('./')
+  }
+  // 프로필 업데이트 핸들러
+  const updateProfileHandler = () => {
 
-    // user logout 
-    const logout = () => {
-      dispatch(localLogout(accessToken))
-      history.push('./')
-    }
+  }
 
   return (
     <>
     <Container>
-      <MyPageNav>
-        <>
-        <Link to='./'>
-          <Logo src={logo} onClick={clickLogo}/>
-        </Link>
-          <NavButton onClick={() => logout()}>Logout </NavButton>
-          </>
-        </MyPageNav>
+      <MypageNav logout={logout}/>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
             <UserImage src={ profileImg === undefined ? img : profileImg }/> 
           </UserProfileBox>
           <UserNameText>{userId}</UserNameText>
-          <UpdateInfoButton>EDIT</UpdateInfoButton>
+          <Link to='/profileupdate'>
+            <UpdateInfoButton onClick={() => updateProfileHandler()}>EDIT</UpdateInfoButton>
+          </Link>
           <WithdrawalButton onClick={() => handleWithdrawal()}>Withdrawal</WithdrawalButton>
         </UserInfoSection>
         <UserContentSection>
@@ -290,7 +291,15 @@ export default function Mypage ( ) {
               <SliderBtn onClick={() => onPrev()}></SliderBtn>
               <Wrapper>
                 <StyledSlider className='carousel1'>
-                  {photoList}
+                  { 
+                  // test77 로 로그인해야함.
+                  // 이외 모든 계정은 마이페이지 누를 시 에러발생
+                  photoList.length === 0 ? 
+                  <p style={{margin:'0 auto'}}>No Contents</p> :
+                  photoList.map((e, index) => {
+                    return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                  })
+                  }
                 </StyledSlider>
               </Wrapper>
               <SliderBtn onClick={() => onNext()}></SliderBtn>
@@ -302,7 +311,13 @@ export default function Mypage ( ) {
               <SliderBtn onClick={() => onPrev2()}></SliderBtn>
               <Wrapper>
                 <StyledSlider className='carousel2'>
-                  {favoriteList}
+                  {
+                    favorite.length === 0 ? 
+                    <p style={{margin:'0 auto'}}>No Contents</p> :
+                    favorite.map((e, index) => {
+                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                    })
+                  }
                 </StyledSlider>
               </Wrapper>
               <SliderBtn onClick={() => onNext2()}></SliderBtn>
@@ -310,6 +325,19 @@ export default function Mypage ( ) {
           </UserFavoriteBox>
         </UserContentSection>
       </ProfileSection>
+      <MyContentModal
+        logout={logout}
+        handleMyCtModalOff={handleMyCtModalOff}
+        myCtModal={myCtModal}
+        setMyCtModal={setMyCtModal}
+        >
+      </MyContentModal>
+      <MyFavoriteModal
+        handleFavoCtModalOff={handleFavoCtModalOff}
+        favoCtModal={favoCtModal}
+        setFavoCtModal={setFavoCtModal}
+        >
+      </MyFavoriteModal>
     </Container>
    </>
   );

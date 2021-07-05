@@ -18,14 +18,14 @@ const NavSection = styled.div`
   align-items: center;
   z-index: 3;
   transition: all 0.3s ease-in-out;
-  height: 8rem;
 `;
 // 로고 
 const Logo = styled.img`
   height: 5rem;
   display: block;
   margin-left: 3rem;
-  
+  margin-top: 1rem;
+  position: absolute;
   &:hover {
     cursor: pointer;
   }
@@ -62,26 +62,36 @@ function Nav({ openModal, scrollTop, logout, gridFunc }) {
   
   return (
     <>
-      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : '' }>
-        <Link to='./'>
-          <Logo src={logo} onClick={clickLogo}/>
-        </Link>
-        <SearchBar />
-        <ButtonGroup>
-          { isLogin === true ? 
+      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : 'original' }>
+        { scrollTop  > 0.01 ? 
           <>
-            <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
-            <NavButton onClick={() => logout()}>Logout</NavButton>
-          </>
-          :
-          <>
-            <Link to='/signup'>
-              <NavButton>Join Free</NavButton>
-            </Link>
-            <NavButton onClick={openModal}>Login</NavButton>
-          </>
-          }
-        </ButtonGroup>
+          <Link to='./'>
+            <Logo src={logo} onClick={clickLogo} style={scrollTop > 0.01 ? {position:'static', marginTop:0} : {position:'absolute'}}/>
+          </Link>
+          <SearchBar />
+          <ButtonGroup>
+            { isLogin === true ? 
+            <>
+              <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+              <NavButton onClick={() => logout()}>Logout</NavButton>
+            </>
+            :
+            <>
+              <Link to='/signup'>
+                <NavButton>Join Free</NavButton>
+              </Link>
+              <NavButton onClick={openModal}>Login</NavButton>
+            </>
+            }
+          </ButtonGroup>
+        </>
+        :
+        <>
+           <Link to='./'>
+            <Logo src={logo} onClick={clickLogo}/>
+          </Link>
+        </>
+        }
       </NavSection>
     </>
   )

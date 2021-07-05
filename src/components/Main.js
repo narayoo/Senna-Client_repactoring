@@ -19,13 +19,17 @@ function Main() {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
-  const [heart , setHeart] = useState(false); // 선택한 포스트의 좋아요 상태
+  const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
   
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
+  const { likeUser } = useSelector(state => ({
+    likeUser : state.pickPosting.postInfo.likeUser,
+  })); 
+
   // 모든 포스팅 얻어오기 디스패치
   useEffect(() => {
     dispatch(getAllOfPosting());
@@ -81,22 +85,33 @@ function Main() {
       setModal(false);
     }
   };
+
+   // content modal 열기
+   const openCtModal = async (e) => {
+    const postId = e.target.id;
+    setCtModal(true);
+    await dispatch(getPickPosting(postId));
+
+    if(likeUser.includes(userId)){
+      setHeart('like');
+      console.log('열림 트루',heart)
+    }
+  }
   // 콘텐츠 모달 외부 클릭 시 닫기
-  const handleCtModalOff = (e) => {
+  const handleCtModalOff = async(e) => {
     const clicked = e.target.closest('.ctModal');
     if (clicked) return;
     else {
       setCtModal(false);
-      setHeart(false);
-      console.log('닫힘:',heart)
+      if(heart === 'like'){
+        setHeart(null);
+        console.log('닫힘',heart)
+      }else{
+        setHeart(null);
+      }
     }
   };
-  // content modal 열기
-  const openCtModal = (e) => {
-    const postId = e.target.id;
-    setCtModal(true);
-    dispatch(getPickPosting(postId));
-  }
+ 
   // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
@@ -106,10 +121,7 @@ function Main() {
   return (
     <>
     {
-      scrollTop > 0.2 ? 
       <Nav openModal={openModal} scrollTop={scrollTop} logout={logout}/>
-      :
-      <></>
     }
       <Slider />
       <div className='topBtnWrapper'>
