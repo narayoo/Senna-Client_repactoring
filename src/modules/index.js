@@ -6,6 +6,7 @@ import withdrawalReducer from './withdrawalReducer'
 import showAllPosting from './showAllPosting';
 import pickPosting from './pickPosting';
 import searchReducer from './searchReducer'
+import deleteMyPosting from './deleteMyPosting';
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   showAllPosting,
   pickPosting,
   searchReducer
+  deleteMyPosting,
 })
 
 export default rootReducer;

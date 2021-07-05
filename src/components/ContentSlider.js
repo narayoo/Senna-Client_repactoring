@@ -16,6 +16,7 @@ export default function ContentSlider({image}) {
     width: 500px; 
     height: 100%;
     overflow: hidden;
+    background: black;
   `;
   
   const StyledSlider = styled.div` //carousel
