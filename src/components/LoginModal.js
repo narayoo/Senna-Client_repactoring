@@ -110,9 +110,9 @@ const Title = styled.p`
   
 `
 
-export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle}) {
+export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) {
   if (!visible) return null;
-  
+
   return(
     <>
     {visible && (
@@ -128,7 +128,7 @@ export default function LoginModal({ loading, changePwd, changeId, userId, passw
             loading ? 
             <Loading /> : 'Login'}
               </LoginBtn>
-            <SocialBtn>Kakao Login</SocialBtn>
+            <SocialBtn onClick={(e) => onSocialLogin(e)}>Kakao Login</SocialBtn>
           </ButtonGroup>
         </LoginModalDiv>
       </BackgroundDark>

@@ -28,13 +28,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Scada:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <title>Senna</title>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+      Kakao.init(`%REACT_APP_CLIENT_ID%`);
+      Kakao.isInitialized();
+      // SDK 초기화 여부를 판단합니다.
+      console.log(`%REACT_APP_CLIENT_ID%`);
+      console.log(Kakao.isInitialized());
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script async>
         
-     </script> 
     <script src="https://kit.fontawesome.com/221cfea39f.js" crossorigin="anonymous"></script>
   </body>
 </html>

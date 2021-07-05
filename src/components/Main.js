@@ -10,6 +10,11 @@ import Album from './Album';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+const {Kakao} = window;
 
 function Main() {
   
@@ -118,6 +123,35 @@ function Main() {
     history.push('./')
   }
 
+  // 카카오 로그인
+  const onSocialLogin = () => {
+    Kakao.Auth.authorize({
+      redirectUri: `${process.env.REACT_APP_REDIRECT_URI}`,
+    });
+
+    /* Kakao.API.request({
+      success: function (authObj) {
+        fetch(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`, {
+          method: 'POST',
+          body: JSON.stringify({
+            access_token: authObj.access_token,
+          }),
+        })
+        .then(res => res.json())
+        .then(res => {
+          localStorage.setItem('Kakao_token', res.access_token);
+          if(res.access_token) {
+            alert('Senna에 오신걸 환영합니다 :D')
+
+          }
+        })
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err))
+      },
+    }) */
+  }
+
   return (
     <>
     {
@@ -139,7 +173,9 @@ function Main() {
         handleModalOff={handleModalOff}
         visible={modal}
         onConfirm={onConfirm}
-        onCancle={onCancle}>
+        onCancle={onCancle}
+        onSocialLogin={onSocialLogin}
+        >
         <input type='text'></input>  
       </LoginModal>
       <Album openCtModal={openCtModal} />
