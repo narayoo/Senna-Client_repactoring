@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   withdrawalReducer,
   showAllPosting,
   pickPosting,
-  searchReducer
+  searchReducer,
   deleteMyPosting,
 })
 
