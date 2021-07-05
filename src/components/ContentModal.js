@@ -16,7 +16,7 @@ const BackgroundDark = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0,0,0,0.7);
-  z-index: 2;
+  z-index: 3;
 `;
 // content modal div
 const ContentModalDiv = styled.div`
