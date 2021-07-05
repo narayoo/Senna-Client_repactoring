@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
 import Nav from './Nav'
 import { addContent } from '../modules/addContentReducer';
+import { getAllOfPosting } from '../modules/showAllPosting';
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -125,6 +126,7 @@ function UpdateMycontents() {
   const imgArr = [];
 
   const userId = useSelector(state => state.loginReducer.login.userId);
+  
   // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
     window.location.replace("/")
@@ -156,6 +158,7 @@ function UpdateMycontents() {
     if(ok){
       dispatch(addContent(hash,text,userId,photo));
       alert('등록되었습니다.')
+      dispatch(getAllOfPosting());
       history.push('./');
     }else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
