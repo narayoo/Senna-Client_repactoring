@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import Palms from '../video/Palms.mp4'
+import main1 from '../video/main1.mp4'
 import styled,{ keyframes } from 'styled-components';
 import Man from '../video/Man.mp4';
 import v from '../img/Group 1.png';
@@ -61,10 +62,10 @@ function Slider() {
         </Container>
         <Container>
           <MainImg src={main4}></MainImg>
-          <MainFont>설명 동영상이 있으면 참 좋겠다 </MainFont>
-       {/*  <video controls autoplay="autoplay" loop="loop" muted >
-          <source src={Palms} type="video/mp4" />
-        </video> */}
+          <MainFont>나의 기억 속 여행지를 <br />사람들과 공유할 수 있습니다</MainFont>
+        <video controls autoplay="autoplay" loop="loop" muted >
+          <source src={main1} type="video/mp4" />
+        </video>
         </Container> 
       </Carousel>
     </CarouselWrapper>

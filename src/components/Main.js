@@ -34,7 +34,6 @@ function Main() {
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-
   // 모든 포스팅 얻어오기 디스패치
   useEffect(() => {
     dispatch(getAllOfPosting());
