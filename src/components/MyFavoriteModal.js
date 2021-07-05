@@ -109,20 +109,18 @@ export default function MyFavoriteModal({favoCtModal, setFavoCtModal, handleFavo
   const { postingId} = useSelector(state => ({
     postingId: state.pickPosting.postInfo.postId,
   })); 
-  const {accessToken, id} = useSelector(state => ({
+  const {accessToken, userKey} = useSelector(state => ({
     accessToken: state.loginReducer.login.accessToken,
-    id: state.loginReducer.user.userId,
+    userKey: state.loginReducer.user.id,
   })); 
 
   if (!favoCtModal) return null;
 
   // 좋아요한 게시물 삭제
   const deleteFavoCtHandler = (e) => {
-    console.log('요기')
+    alert('해당 게시물 좋아요를 취소합니다.')
     const postId = e.target.id;
-    console.log('postId',postId)
-    console.log('id',id)
-    dispatch(onDeleteFavo(postId,id))
+    dispatch(onDeleteFavo(postId,userKey))
     dispatch(getUserInfo(accessToken));
     setFavoCtModal(false);
   }

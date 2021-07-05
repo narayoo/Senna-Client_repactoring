@@ -229,6 +229,7 @@ export default function Mypage () {
     }
   };
   const photoList = uploadList.filter((e) => e.status === true)
+
   //  Mycontent이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
@@ -271,6 +272,7 @@ export default function Mypage () {
 
   return (
     <>
+    {  console.log('favorite:::',favorite)}
     <Container>
       <MypageNav logout={logout}/>
       <ProfileSection>
