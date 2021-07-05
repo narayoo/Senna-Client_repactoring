@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
+import { getUserInfo } from '../modules/loginReducer';
+import { onDeleteFavo }from '../modules/deleteFavo';
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -95,7 +97,7 @@ const DeleteBtn = styled.button`
     border: none;
   }
 `;
-export default function MyFavoriteModal({favoCtModal, handleFavoCtModalOff}) {
+export default function MyFavoriteModal({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) {
 
   const dispatch = useDispatch();
   
@@ -104,11 +106,25 @@ export default function MyFavoriteModal({favoCtModal, handleFavoCtModalOff}) {
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
   })); 
+  const { postingId} = useSelector(state => ({
+    postingId: state.pickPosting.postInfo.postId,
+  })); 
+  const {accessToken, id} = useSelector(state => ({
+    accessToken: state.loginReducer.login.accessToken,
+    id: state.loginReducer.user.userId,
+  })); 
 
   if (!favoCtModal) return null;
 
+  // 좋아요한 게시물 삭제
   const deleteFavoCtHandler = (e) => {
-
+    console.log('요기')
+    const postId = e.target.id;
+    console.log('postId',postId)
+    console.log('id',id)
+    dispatch(onDeleteFavo(postId,id))
+    dispatch(getUserInfo(accessToken));
+    setFavoCtModal(false);
   }
   return(
     <>
@@ -118,7 +134,7 @@ export default function MyFavoriteModal({favoCtModal, handleFavoCtModalOff}) {
           <ContentSlider image={image}/>
             <ContentsWrapper >
               <BtnWrapper>
-                <DeleteBtn Click={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
+                <DeleteBtn id={postingId} onClick={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
               </BtnWrapper>
               <ContentTextArea>
                 <ContentText>

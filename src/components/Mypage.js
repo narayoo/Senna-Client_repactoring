@@ -186,7 +186,6 @@ export default function Mypage () {
   const dispatch = useDispatch();
   const history = useHistory();
     
-  const [filterPhoto, setFilterPhoto] = useState([])
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
   const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
@@ -230,9 +229,6 @@ export default function Mypage () {
     }
   };
   const photoList = uploadList.filter((e) => e.status === true)
-  const favoriteList = favorite.map((e, index) =>
-    <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
-  )
   //  Mycontent이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
@@ -315,7 +311,13 @@ export default function Mypage () {
               <SliderBtn onClick={() => onPrev2()}></SliderBtn>
               <Wrapper>
                 <StyledSlider className='carousel2'>
-                  {favoriteList}
+                  {
+                    favorite.length === 0 ? 
+                    <p style={{margin:'0 auto'}}>No Contents</p> :
+                    favorite.map((e, index) => {
+                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                    })
+                  }
                 </StyledSlider>
               </Wrapper>
               <SliderBtn onClick={() => onNext2()}></SliderBtn>
@@ -328,12 +330,12 @@ export default function Mypage () {
         handleMyCtModalOff={handleMyCtModalOff}
         myCtModal={myCtModal}
         setMyCtModal={setMyCtModal}
-        setFilterPhoto={setFilterPhoto}
         >
       </MyContentModal>
       <MyFavoriteModal
         handleFavoCtModalOff={handleFavoCtModalOff}
         favoCtModal={favoCtModal}
+        setFavoCtModal={setFavoCtModal}
         >
       </MyFavoriteModal>
     </Container>
