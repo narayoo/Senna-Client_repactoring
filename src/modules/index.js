@@ -7,6 +7,7 @@ import showAllPosting from './showAllPosting';
 import pickPosting from './pickPosting';
 import searchReducer from './searchReducer'
 import deleteMyPosting from './deleteMyPosting';
+import kakaoReducer from './kakaoReducer'
 
 const rootReducer = combineReducers({
   loginReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   pickPosting,
   searchReducer,
   deleteMyPosting,
+  kakaoReducer,
 })
 
 export default rootReducer;

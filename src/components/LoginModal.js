@@ -1,4 +1,5 @@
 import React ,{ useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { darken, lighten } from 'polished';
 import Loading from './Loading';
 import styled from 'styled-components';
@@ -111,6 +112,8 @@ const Title = styled.p`
 `
 
 export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) {
+  
+  
   if (!visible) return null;
 
   return(
