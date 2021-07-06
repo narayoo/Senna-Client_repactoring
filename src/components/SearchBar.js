@@ -33,24 +33,31 @@ export default function SearchBar({}) {
   const [searchinput, setSearchinput] = useState('');
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onKeyPress = (e) => {
     if(e.key == 'Enter') {
-      history.push('/search')
+      dispatch(searchContent(searchinput))
+      history.push('/search') 
     }
   }
 
   const searchHandler = (e) => {
-    const word = setSearchinput(e.curruntTarget.value)
-    onKeyPress()
+    const word = setSearchinput(e.target.value)
+    console.log('요후', word)
   }
 
+
+
+  console.log("누구냐너어", searchinput)
   return (
     <>
     {}
       <SearchForm method="post">
         <Search_Bar placeholder=' where do you want to go?' 
-        searchHandler={searchHandler}
+        onKeyPress={onKeyPress}
+        onChange={searchHandler}
+        searchinput={searchinput}
         ></Search_Bar>
       </SearchForm>
     </>
