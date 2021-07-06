@@ -4,8 +4,9 @@ import axios from "axios";
 export const SEARCH_CONTENT = 'searchReducer/SEARCH_CONTENT';
 
 /** 액션생성함수 & API 요청 */
-export const searchContent = (word) => async dispatch => {
-  const searchContent = await axios.get(`http://54.180.151.176/get/search?sch=${word}`, {sch : word} );
+export const searchContent = (searchinput) => async dispatch => {
+  const searchContent = await axios.get(`http://54.180.151.176/search?sch=${searchinput}`,);
+  console.log('제발나와랏', searchinput)
   dispatch({type: SEARCH_CONTENT,searchContent});
 }
 /** 초기상태 선언 */
@@ -17,9 +18,10 @@ const initialState = {
 export default function showSearchContent(state = initialState, action){
   switch(action.type) {
     case SEARCH_CONTENT :
-      {
-        const {value} = action
-        
+      return{
+        ...state,
+        word : action.searchContent.data.word,
+        data : action.searchContent.data.data
       }
     default : return state;
   }

@@ -7,6 +7,7 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
+import Search from './Search'
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';

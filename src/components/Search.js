@@ -5,8 +5,7 @@ import "../style/grid.css";
 import styled from 'styled-components';
 import Nav from './Nav'
 import StackGrid from "react-stack-grid";
-import { searchContent } from "../modules/searchReducer"
-import searchBar from "./SearchBar"
+
 
 // album section css
 const AlbumSection = styled.section`
@@ -61,27 +60,30 @@ const SearchResult = styled.div`
 
 
 
-function Search({openCtModal , searchHandler }) {
+function Search({openCtModal}) {
 
-  const dispatch = useDispatch();
-  let list = useSelector(state => state.showAllPosting.data.data);
+ 
+  const word = useSelector(state => state.searchReducer.word);
+  const data = useSelector(state => state.searchReducer.data);
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
+  
 
   return (
     <>
     <Nav />
-    <SearchResult>{searchHandler()}</SearchResult>
+    <SearchResult>{word}</SearchResult>
     <AlbumSection>
       <AddButtonWrapper>
-        <Link to='/addcontents'>
-          <AddButton>Add</AddButton>
-        </Link>
+          <Link to='/addcontents'>
+            <AddButton>Add</AddButton>
+          </Link>
       </AddButtonWrapper>
       <StackGrid 
         columnWidth={400}
         gutterWidth={25}
         gutterHeight={25}
         style={{ width: "100%" }}>
-        { list?.map((photo,index)=> {
+        { data?.map((photo,index)=> {
           return <div key={index} onClick={(el) => openCtModal(el)}>
             <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
           </div>
