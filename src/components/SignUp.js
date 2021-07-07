@@ -183,7 +183,7 @@ const IdSection = styled.div`
   min-width: 250px;
 `;
 
-export default function SignUp() {
+const SignUp = React.memo(() => {
 
   const [previewURL, setPreviewURL] = useState('');
   const [img, setImg] = useState('');
@@ -327,5 +327,6 @@ export default function SignUp() {
     </Wrapper>
     </>
   )
-}
+})
 
+export default SignUp

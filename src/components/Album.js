@@ -58,8 +58,7 @@ const AddButton = styled.button`
 // total contents Css
 const TotalComponent = styled.p`
 `;
-
-export default function Album({ openCtModal }) {
+const Album = React.memo(({ openCtModal }) => {
 
   let list = useSelector(state => state.showAllPosting.data.data);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
@@ -81,7 +80,7 @@ export default function Album({ openCtModal }) {
         }
       </AddButtonWrapper>
       <StackGrid 
-        columnWidth={400}
+        columnWidth={300}
         gutterWidth={25}
         gutterHeight={25}
         style={{ width: "100%" }}>
@@ -95,4 +94,6 @@ export default function Album({ openCtModal }) {
     </AlbumSection>
     </>
   )
-}
+})
+
+export default Album;

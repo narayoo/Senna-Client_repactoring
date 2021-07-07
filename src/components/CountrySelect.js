@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CountrySelect() {
+const CountrySelect = React.memo(() => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -71,7 +71,9 @@ export default function CountrySelect() {
       )}
     />
   );
-}
+})
+
+export default CountrySelect;
 
 const countries = [
   { code: 'AD', label: 'Andorra', phone: '376' },

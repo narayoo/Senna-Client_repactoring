@@ -97,7 +97,7 @@ const DeleteBtn = styled.button`
     border: none;
   }
 `;
-export default function MyFavoriteModal({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) {
+const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) => {
 
   const dispatch = useDispatch();
   
@@ -150,5 +150,6 @@ export default function MyFavoriteModal({favoCtModal, setFavoCtModal, handleFavo
     )}
     </>
   )
-}
+})
+export default MyFavoriteModal
 

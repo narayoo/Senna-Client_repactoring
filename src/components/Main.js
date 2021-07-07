@@ -17,8 +17,7 @@ dotenv.config()
 
 const {Kakao} = window;
 
-function Main() {
-  
+const Main = React.memo(() => {
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
@@ -41,10 +40,13 @@ function Main() {
   // 모든 포스팅 얻어오기 디스패치
   useEffect(async() => {
     await dispatch(getAllOfPosting());
-  },[]);
+  },[scrollTop]);
   // scrollTop 상태값 감지
-  useEffect(async() => {
-    await window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [scrollTop]);
   
   const changeId = async(e) => {
@@ -181,7 +183,7 @@ function Main() {
       </ContentModal>
     </>
   )
-}
+})
 
 export default Main;
 

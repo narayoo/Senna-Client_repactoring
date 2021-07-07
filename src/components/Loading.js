@@ -1,6 +1,6 @@
 import Loader from 'react-loader-spinner';
 
-export default function Loading() {
+const Loading = (() => {
   return(
     <>
       <Loader
@@ -12,4 +12,5 @@ export default function Loading() {
       />
       </>
   )
-}
+})
+export default Loading;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function ContentSlider({image}) {
+const ContentSlider = (({image}) => {
   
   const Container = styled.div`
     display: flex;
@@ -93,4 +93,5 @@ export default function ContentSlider({image}) {
       </Container>
     </>
   );
-}
+})
+export default ContentSlider;
