@@ -1,11 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import "../style/grid.css";
-import styled from 'styled-components';
-import Nav from './Nav'
+import { useHistory,Link } from 'react-router-dom'
 import StackGrid from "react-stack-grid";
+import dotenv from 'dotenv';
+import '../style/main.css';
+import '../style/nav.css';
+import SearchBar from '../components/SearchBar';
+import logo from '../img/SennaLogo.png';
+import styled from 'styled-components';
+import LoginModal from './LoginModal';
+import ContentModal from './ContentModal';
+import { localLogin, localLogout } from '../modules/loginReducer';
+import { getAllOfPosting } from '../modules/showAllPosting';
+import { getPickPosting } from '../modules/pickPosting';
+import { kakaoLogin } from '../modules/kakaoReducer';
+import { getUserInfo } from '../modules/loginReducer';
 
+dotenv.config()
+
+const {Kakao} = window;
 
 // album section css
 const AlbumSection = styled.section`
@@ -13,10 +26,15 @@ const AlbumSection = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
 `;
 // Img css
 const PhotoImg = styled.img`
   width:100%;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 // add 버튼 css
 const AddButton = styled.button`
@@ -34,6 +52,7 @@ const AddButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-bottom: 2rem;
+  margin-right: 11rem;
 
   &:hover{
     background-color: #00acc1;
@@ -44,53 +63,289 @@ const AddButton = styled.button`
 `;
 // add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
-  width: 65%;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+const SearchResult = styled.div`
+  text-transform: uppercase;
+  font-size: 5rem;
+  margin-left: 20rem;
+  margin-top: 5rem;
+`
+// total contents Css
+const TotalComponent = styled.p`
+  margin-left: 11rem;
+`;
+// 네비바 영역
+const NavSection = styled.div`
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+  transition: all 0.3s ease-in-out;
+  padding-top: 2rem;
+`;
+// 로고 
+const Logo = styled.img`
+  height: 5rem;
+  display: block;
+  margin-left: 3rem;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+// nav에 있는 버튼 
+const NavButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 15px;
+  margin-right: 30px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const ButtonGroup = styled.div`
+  margin-right: 2rem;
 `;
 
-
-const SearchResult = styled.div`
-  margin-top: 5rem;
-  margin-left: 20rem;
-  width: 200px;
-  height: 100px;
-  font-weight: bold;
-  font-size: 60px;
-`
-
-
-
-function Search({openCtModal}) {
-
- 
+function Search() {
   const word = useSelector(state => state.searchReducer.word);
   const data = useSelector(state => state.searchReducer.data);
+  const [scrollTop, setScrollTop] = useState(0); 
+  const [modal, setModal] = useState(false);
+  const [ctModal, setCtModal] = useState(false);
+  const [userId, setUserId] = useState('')
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(null);
+  const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
+  const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+  const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
-  
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
 
+  const { accessToken } = useSelector(state => ({
+    accessToken : state.loginReducer.login.accessToken,
+  })); 
+  const { likeUser } = useSelector(state => ({
+    likeUser : state.pickPosting.postInfo.likeUser,
+  })); 
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  // Logo 클릭 시 메인화면 새로고침 이동
+  const clickLogo = () => {
+    window.location.replace("/")
+  }
+  const gotoMypage = () => {
+    history.push('./mypage');
+    dispatch(getUserInfo(accessToken));
+  }
+  // 모든 포스팅 얻어오기 디스패치
+  useEffect(() => {
+    dispatch(getAllOfPosting());
+  },[]);
+  // scrollTop 상태값 감지
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, [scrollTop]);
+  const changeId = (e) => {
+    setUserId(e.target.value);
+  }
+  const changePwd = (e) => {
+    setPassword(e.target.value);
+  }
+  // top 버튼 함수
+  const handleTop = () => {  
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+    setScrollTop(0); 
+  }
+  // 스크롤 감지 함수
+  const handleScroll = () => {
+    const scroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const { scrollHeight, clientHeight } = document.documentElement;
+    const scrollTop = scroll / (scrollHeight - clientHeight);
+    setScrollTop(scrollTop);
+  };
+  // modal 열기
+  const openModal = () => {
+    setModal(true);
+  }
+  // 로그인 서밋 후 모달 닫기
+  const onConfirm = async(e) => {
+    const body = {
+      userId: userId,
+      password: password,
+    }
+    dispatch(localLogin(body));
+    setModal(false);
+  }
+  // modal 취소 후 닫기
+  const onCancle = () => {
+    setModal(false);
+  }
+  // 로그인 모달 외부 클릭 시 닫기
+  const handleModalOff = (e) => {
+    const clicked = e.target.closest('.modal');
+    if (clicked) return;
+    else {
+      setModal(false);
+    }
+  };
+
+   // content modal 열기
+   const openCtModal = async (e) => {
+    const postId = e.target.id;
+    setCtModal(true);
+    await dispatch(getPickPosting(postId));
+
+    if(likeUser.includes(userId)){
+      setHeart('like');
+      console.log('열림 트루',heart)
+    }
+  }
+  // 콘텐츠 모달 외부 클릭 시 닫기
+  const handleCtModalOff = async(e) => {
+    const clicked = e.target.closest('.ctModal');
+    if (clicked) return;
+    else {
+      setCtModal(false);
+      if(heart === 'like'){
+        setHeart(null);
+        console.log('닫힘',heart)
+      }else{
+        setHeart(null);
+      }
+    }
+  };
+ 
+  // user logout 
+  const logout = () => {
+    dispatch(localLogout(accessToken))
+    history.push('./')
+  }
+
+  // 카카오 로그인
+  const onSocialLogin = () => {
+    Kakao.Auth.login({
+      success: function(authObj) {
+        console.log(authObj)
+        let ac = authObj.access_token;
+        let socialAC = `Bearer ${ac}`;
+        setkakaoAT(socialAC)
+        dispatch(kakaoLogin(socialAC));
+        setModal(false);
+      },
+      fail: function(err) {
+        console.log(err)
+      },
+    })
+  }
+   // 카카오 로그아웃
+  const kakaoLogout = () => {
+    Kakao.Auth.logout(function() {
+      dispatch(kakaoLogout(kakaoAT, localAT))
+    })
+  }
+  
   return (
     <>
-    <Nav />
-    <SearchResult>{word}</SearchResult>
-    <AlbumSection>
-      <AddButtonWrapper>
-          <Link to='/addcontents'>
-            <AddButton>Add</AddButton>
-          </Link>
-      </AddButtonWrapper>
-      <StackGrid 
-        columnWidth={400}
-        gutterWidth={25}
-        gutterHeight={25}
-        style={{ width: "100%" }}>
-        { data?.map((photo,index)=> {
-          return <div key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
-          </div>
+      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : 'original' }>
+        <Link to='./'>
+          <Logo src={logo} onClick={clickLogo} />
+        </Link>
+        <SearchBar />
+        <ButtonGroup>
+          { 
+          (() => {
+            if(isLogin) {
+              return (
+                <>
+                <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                <NavButton onClick={() => logout()}>Logout</NavButton>
+                </>
+            )}else if(kakaoIsLogin){
+              return (
+                <>
+                <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
+                </>
+            )}else{
+              return (
+                <>
+                <Link to='/signup'>
+                  <NavButton>Join Free</NavButton>
+                </Link>
+                <NavButton onClick={openModal}>Login</NavButton>
+                </>
+              )}
+          })()
           }
-        )}
-      </StackGrid>
-    </AlbumSection>
+        </ButtonGroup>
+      </NavSection>
+      <SearchResult>{word}</SearchResult>
+      <AlbumSection>
+        <AddButtonWrapper>
+          <TotalComponent>
+            <i className="fas fa-feather-alt">&nbsp;&nbsp;{data?.length}</i>
+          </TotalComponent>
+          {
+            isLogin ? 
+            <Link to='/addcontents'>
+              <AddButton>Add</AddButton>
+            </Link>
+            :
+            <></>
+          }
+        </AddButtonWrapper>
+        <StackGrid 
+          columnWidth={400}
+          gutterWidth={25}
+          gutterHeight={25}
+          style={{ width: "100%" }}>
+          { data?.map((photo,index)=> {
+            return <div key={index} onClick={(el) => openCtModal(el)}>
+              <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
+            </div>
+            }
+          )}
+        </StackGrid>
+      </AlbumSection>
+      <div className='topBtnWrapper'>
+        <button 
+        className='topBtn' 
+        style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
+        onClick={() => handleTop()}>Top</button>
+      </div> 
+      <LoginModal
+        loading={loading}
+        changePwd={changePwd}
+        changeId={changeId}
+        userId={userId}
+        password={password}
+        handleModalOff={handleModalOff}
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancle={onCancle}
+        onSocialLogin={onSocialLogin}
+        >
+        <input type='text'></input>  
+      </LoginModal>
+      <ContentModal
+        heart={heart}
+        setHeart={setHeart}
+        handleCtModalOff={handleCtModalOff}
+        ctModal={ctModal}
+        >
+      </ContentModal>
     </>
   )
 }

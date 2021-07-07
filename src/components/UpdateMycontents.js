@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
-import { addContent } from '../modules/addContentReducer';
 import MypageNav from '../components/MypageNav';
 import { localLogout } from '../modules/loginReducer';
+import { getUserInfo } from '../modules/loginReducer';
+import { onUpdatePosting } from '../modules/updatePosting';
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -127,13 +128,13 @@ export default function UpdateMycontents() {
   const userId = useSelector(state => state.loginReducer.login.userId);
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
+    userId : state.loginReducer.login.userId,
   }));
-  const { content, hashtag, image, } = useSelector(state => ({
+  const { content, hashtag, postingId } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
-    image: state.pickPosting.postInfo.image,
+    postingId: state.pickPosting.postInfo.postId,
   }));  
-
   const [ text, setText ] = useState(content);
   const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
   const [ photo, setPhoto ] = useState([]);
@@ -171,13 +172,13 @@ export default function UpdateMycontents() {
     }
     setPhoto(photo.concat(imgArr));
   }
-  const onAddContent = (e) => {
-    // 업데이트 디스패치
-
+  // 게시물 업데이트 수정
+  const onUpdateContent = async(e) => {
     if(ok){
-      dispatch(addContent(hash,text,userId,photo));
-      alert('등록되었습니다.')
-      history.push('./');
+      await dispatch(onUpdatePosting(userId,photo,text,hash,postingId));
+      await dispatch(getUserInfo(accessToken));
+      alert('수정이 완료되었습니다.')
+      history.push('./mypage');
     }else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
     }
@@ -187,7 +188,6 @@ export default function UpdateMycontents() {
     dispatch(localLogout(accessToken))
     history.push('./')
   }
-
 
   return (
     <>
@@ -199,9 +199,9 @@ export default function UpdateMycontents() {
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <ButtonGroup>
           <Link to='./'>
-            <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn>
+            <CancleBtn onClick={(e) => cancle(e)}>Cancle</CancleBtn>
           </Link>
-          <SubmitBtn onClick={() => onAddContent()}>Submit</SubmitBtn>
+          <SubmitBtn onClick={(e) => onUpdateContent(e)}>Submit</SubmitBtn>
       </ButtonGroup>
     </AddCtWrapper>
   </>

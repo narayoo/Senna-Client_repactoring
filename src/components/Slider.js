@@ -59,6 +59,7 @@ function Slider() {
         <Container>
           <MainImg src={main2}></MainImg>
           <MainFont>나의 기억 속 여행지를 <br />사람들과 공유할 수 있습니다</MainFont>
+        <a href="#" className='scrollAni'><span></span><span></span><span></span>Scroll</a>
         </Container>
         <Container>
           <MainImg src={main4}></MainImg>
@@ -66,6 +67,7 @@ function Slider() {
         {/* <video controls autoplay="autoplay" loop="loop" muted >
           <source src={main1} type="video/mp4" />
         </video>  */}
+        <a href="#" className='scrollAni'><span></span><span></span><span></span>Scroll</a>
         </Container>
       </Carousel>
     </CarouselWrapper>

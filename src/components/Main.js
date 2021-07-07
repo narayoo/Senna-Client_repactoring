@@ -7,10 +7,10 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import Search from './Search'
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
+import { kakaoLogin } from '../modules/kakaoReducer';
 import dotenv from 'dotenv';
 
 dotenv.config()
@@ -26,7 +26,8 @@ function Main() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
   const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
-  
+  const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
@@ -35,38 +36,41 @@ function Main() {
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
+  const localAT = useSelector(state => state.kakaoReducer.login.localToken);
+
   // 모든 포스팅 얻어오기 디스패치
-  useEffect(() => {
-    dispatch(getAllOfPosting());
+  useEffect(async() => {
+    await dispatch(getAllOfPosting());
   },[]);
   // scrollTop 상태값 감지
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  useEffect(async() => {
+    await window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
-  const changeId = (e) => {
-    setUserId(e.target.value);
+  
+  const changeId = async(e) => {
+    await setUserId(e.target.value);
   }
-  const changePwd = (e) => {
-    setPassword(e.target.value);
+  const changePwd = async(e) => {
+    await setPassword(e.target.value);
   }
   // top 버튼 함수
-  const handleTop = () => {  
-    window.scrollTo({
+  const handleTop = async() => {  
+    await window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
     setScrollTop(0); 
   }
   // 스크롤 감지 함수
-  const handleScroll = () => {
+  const handleScroll = async() => {
     const scroll = document.body.scrollTop || document.documentElement.scrollTop;
     const { scrollHeight, clientHeight } = document.documentElement;
     const scrollTop = scroll / (scrollHeight - clientHeight);
-    setScrollTop(scrollTop);
+    await setScrollTop(scrollTop);
   };
   // modal 열기
-  const openModal = () => {
-    setModal(true);
+  const openModal = async() => {
+    await setModal(true);
   }
   // 로그인 서밋 후 모달 닫기
   const onConfirm = async(e) => {
@@ -74,23 +78,21 @@ function Main() {
       userId: userId,
       password: password,
     }
-    dispatch(localLogin(body));
-    setModal(false);
+    await dispatch(localLogin(body));
+    await setModal(false);
   }
   // modal 취소 후 닫기
-  const onCancle = () => {
-    console.log('취소')
-    setModal(false);
+  const onCancle = async() => {
+    await setModal(false);
   }
   // 로그인 모달 외부 클릭 시 닫기
-  const handleModalOff = (e) => {
+  const handleModalOff = async(e) => {
     const clicked = e.target.closest('.modal');
     if (clicked) return;
     else {
-      setModal(false);
+      await setModal(false);
     }
   };
-
    // content modal 열기
    const openCtModal = async (e) => {
     const postId = e.target.id;
@@ -98,8 +100,7 @@ function Main() {
     await dispatch(getPickPosting(postId));
 
     if(likeUser.includes(userId)){
-      setHeart('like');
-      console.log('열림 트루',heart)
+      await setHeart('like');
     }
   }
   // 콘텐츠 모달 외부 클릭 시 닫기
@@ -125,38 +126,30 @@ function Main() {
 
   // 카카오 로그인
   const onSocialLogin = () => {
-    Kakao.Auth.authorize({
-      redirectUri: `${process.env.REACT_APP_REDIRECT_URI}`,
-    });
-
-    /* Kakao.API.request({
-      success: function (authObj) {
-        fetch(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`, {
-          method: 'POST',
-          body: JSON.stringify({
-            access_token: authObj.access_token,
-          }),
-        })
-        .then(res => res.json())
-        .then(res => {
-          localStorage.setItem('Kakao_token', res.access_token);
-          if(res.access_token) {
-            alert('Senna에 오신걸 환영합니다 :D')
-
-          }
-        })
+    Kakao.Auth.login({
+      success: function(authObj) {
+        console.log(authObj)
+        let ac = authObj.access_token;
+        let socialAC = `Bearer ${ac}`;
+        setkakaoAT(socialAC)
+        dispatch(kakaoLogin(socialAC));
+        setModal(false);
       },
       fail: function(err) {
-        alert(JSON.stringify(err))
+        console.log(err)
       },
-    }) */
+    })
+  }
+   // 카카오 로그아웃
+  const kakaoLogout = () => {
+    Kakao.Auth.logout(function() {
+      dispatch(kakaoLogout(kakaoAT, localAT))
+    })
   }
 
   return (
     <>
-    {
-      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout}/>
-    }
+      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout} kakaoLogout={kakaoLogout} />
       <Slider />
       <div className='topBtnWrapper'>
         <button 
