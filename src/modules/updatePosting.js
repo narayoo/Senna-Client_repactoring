@@ -40,15 +40,15 @@ export default function updatePosting(state = initialState, action){
   switch(action.type) {
     case UPDATE_POSTING :
       return {
-        /* ...state,
-        postingId: action.updatePostingInfo, 
-        userId: '', 
-        image: [], 
-        content: '',
-        likes: 0,
-        hashtag: [],
-        created_date: Date,
-        status: true, */
+        ...state,
+        postingId: action.updatePostingInfo.data.data._id, 
+        userId: action.updatePostingInfo.data.data.userId, 
+        image: action.updatePostingInfo.data.data.image, 
+        content: action.updatePostingInfo.data.data.content,
+        likes: action.updatePostingInfo.data.data.likes,
+        hashtag: action.updatePostingInfo.data.data.hashtag,
+        created_date: action.updatePostingInfo.data.data.created_date,
+        status: true,
       }
     default : return state;
   }
