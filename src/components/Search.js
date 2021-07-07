@@ -5,7 +5,7 @@ import StackGrid from "react-stack-grid";
 import dotenv from 'dotenv';
 import '../style/main.css';
 import '../style/nav.css';
-import SearchBar from '../components/SearchBar';
+import AutoCompleteSearch from '../components/AutoCompleteSearch';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
 import LoginModal from './LoginModal';
@@ -262,7 +262,7 @@ function Search() {
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo} />
         </Link>
-        <SearchBar />
+        <AutoCompleteSearch />
         <ButtonGroup>
           { 
           (() => {
