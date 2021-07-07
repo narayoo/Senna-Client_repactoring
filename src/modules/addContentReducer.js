@@ -3,8 +3,6 @@ import axios from "axios";
 /** 액션타입 */
 export const ADD_CONTENT = 'addComtentReducer/ADD_CONTENT';
 
-
-
 export const addContent = (hashtag,content,userId,images) => async dispatch => {
   let formData = new FormData()
   const config = {
