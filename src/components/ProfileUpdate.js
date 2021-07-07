@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import demo5 from '../img/demo5.jpg';
+import userImg from '../img/userImg.png';
 import MypageNav from '../components/MypageNav';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom'
+import { updateProfile } from "../modules/updateProfileReducer"
+import { localLogout } from '../modules/loginReducer';
+import { getUserInfo } from '../modules/loginReducer';
 
 
 const UpdateUserBox = styled.div`
@@ -102,18 +107,66 @@ const UpdateUserInfoComplete = styled.button`
 `
 
 function ProfileUpdate () {
+  
+  const [previewURL, setPreviewURL] = useState('');
+  const [img, setImg] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const id  = useSelector(state => state.loginReducer.login.userKey)
+  const accessToken = useSelector(state => state.loginReducer.login.accessToken)
+ 
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  }
+
+  const updateProfileHandler = () => {
+    dispatch(updateProfile(id,img,password))
+    alert('프로필이 수정되었습니다.')
+    history.push('/mypage');
+    dispatch(getUserInfo(accessToken));
+  }
+
+  
+  const handleFileOnChange = async (event) => {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      setImg(file)
+      setPreviewURL(reader.result);
+    };
+    reader.readAsDataURL(file)
+  } 
+
+  // const logout = () => {
+  //   dispatch(localLogout(accessToken))
+  //   history.push('./')
+  // }
+
+  // 유저 이미지 미리보기 적용 조건문 
+  let profile_preview = null;
+  if(img !== ''){
+    profile_preview = <img className='profile_preview' src={previewURL}></img>
+  }else{
+    profile_preview = <img className='profile_preview' src={userImg}></img>
+  }
+ 
+
+
   return (
     <>
       <MypageNav />
       <UpdateUserBox>
         <UserNewImage>
-          <DemoImage src={demo5} />
+        {profile_preview}
         </UserNewImage>
-        <AddNewFile type='file'/>
-        <PrevPasswords type='password' placeholder="기존 비밀번호" />
-        <ChangeNewPasswords type='password' placeholder="새 비밀번호" />
+        <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
+        <ChangeNewPasswords type='password' placeholder="새 비밀번호" value={password} onChange={onChangePassword}/>
         <ChangeNewPasswords type='password' placeholder="새 비밀번호 확인" />
-        <UpdateUserInfoComplete type='submit'>Submit</UpdateUserInfoComplete>
+        <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
       </UpdateUserBox>
     </> 
   )
