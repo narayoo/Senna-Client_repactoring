@@ -122,11 +122,11 @@ function ProfileUpdate () {
     setPassword(e.target.value);
   }
 
-  const updateProfileHandler = () => {
-    dispatch(updateProfile(id,img,password))
+  const updateProfileHandler = async() => {
+    await dispatch(updateProfile(id,img,password))
     alert('프로필이 수정되었습니다.')
     history.push('/mypage');
-    dispatch(getUserInfo(accessToken));
+    await dispatch(getUserInfo(accessToken));
   }
 
   
