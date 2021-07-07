@@ -10,6 +10,7 @@ import { withdrawal } from '../modules/withdrawalReducer'
 import { getPickPosting } from '../modules/pickPosting';
 import { localLogout } from '../modules/loginReducer';
 
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -267,18 +268,19 @@ export default function Mypage () {
   }
   // 프로필 업데이트 핸들러
   const updateProfileHandler = () => {
-
+    history.push('/profileupdate')
   }
+
+
 
   return (
     <>
-    {  console.log('favorite:::',favorite)}
     <Container>
       <MypageNav logout={logout}/>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
-            <UserImage src={ profileImg === undefined ? img : profileImg }/> 
+            <UserImage src={ profileImg === undefined ? img : profileImg } /> 
           </UserProfileBox>
           <UserNameText>{userId}</UserNameText>
           <Link to='/profileupdate'>
@@ -294,8 +296,6 @@ export default function Mypage () {
               <Wrapper>
                 <StyledSlider className='carousel1'>
                   { 
-                  // test77 로 로그인해야함.
-                  // 이외 모든 계정은 마이페이지 누를 시 에러발생
                   photoList.length === 0 ? 
                   <p style={{margin:'0 auto'}}>No Contents</p> :
                   photoList.map((e, index) => {

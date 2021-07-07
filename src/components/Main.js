@@ -129,27 +129,6 @@ function Main() {
       redirectUri: `${process.env.REACT_APP_REDIRECT_URI}`,
     });
 
-    /* Kakao.API.request({
-      success: function (authObj) {
-        fetch(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`, {
-          method: 'POST',
-          body: JSON.stringify({
-            access_token: authObj.access_token,
-          }),
-        })
-        .then(res => res.json())
-        .then(res => {
-          localStorage.setItem('Kakao_token', res.access_token);
-          if(res.access_token) {
-            alert('Senna에 오신걸 환영합니다 :D')
-
-          }
-        })
-      },
-      fail: function(err) {
-        alert(JSON.stringify(err))
-      },
-    }) */
   }
 
   return (
