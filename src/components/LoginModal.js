@@ -1,5 +1,4 @@
-import React ,{ useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { darken, lighten } from 'polished';
 import Loading from './Loading';
 import styled from 'styled-components';
@@ -113,7 +112,6 @@ const Title = styled.p`
 
 export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) {
   
-  
   if (!visible) return null;
 
   return(
@@ -131,7 +129,7 @@ export default function LoginModal({ loading, changePwd, changeId, userId, passw
             loading ? 
             <Loading /> : 'Login'}
               </LoginBtn>
-            <SocialBtn onClick={(e) => onSocialLogin(e)}>Kakao Login</SocialBtn>
+              <SocialBtn onClick={(e) => onSocialLogin(e)}>Kakao Login</SocialBtn>
           </ButtonGroup>
         </LoginModalDiv>
       </BackgroundDark>

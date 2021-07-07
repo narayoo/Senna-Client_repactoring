@@ -44,8 +44,9 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop, logout, gridFunc }) {
+function Nav({ openModal, scrollTop, logout, kakaoLogout }) {
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
+  const kakaoLogin = useSelector(state => state.kakaoReducer.login.isLogin);
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
 
   const dispatch = useDispatch();
@@ -70,18 +71,30 @@ function Nav({ openModal, scrollTop, logout, gridFunc }) {
           </Link>
           <SearchBar />
           <ButtonGroup>
-            { isLogin === true ? 
-            <>
-              <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
-              <NavButton onClick={() => logout()}>Logout</NavButton>
-            </>
-            :
-            <>
-              <Link to='/signup'>
-                <NavButton>Join Free</NavButton>
-              </Link>
-              <NavButton onClick={openModal}>Login</NavButton>
-            </>
+            { 
+            (() => {
+              if(isLogin) {
+                return (
+                  <>
+                  <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                  <NavButton onClick={() => logout()}>Logout</NavButton>
+                  </>
+              )}else if(kakaoLogin){
+                return (
+                  <>
+                  <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                  <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
+                  </>
+              )}else{
+                return (
+                  <>
+                  <Link to='/signup'>
+                    <NavButton>Join Free</NavButton>
+                  </Link>
+                  <NavButton onClick={openModal}>Login</NavButton>
+                  </>
+                )}
+            })()
             }
           </ButtonGroup>
         </>

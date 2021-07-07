@@ -44,12 +44,8 @@ export default function SearchBar({}) {
 
   const searchHandler = (e) => {
     const word = setSearchinput(e.target.value)
-    console.log('요후', word)
   }
 
-
-
-  console.log("누구냐너어", searchinput)
   return (
     <>
     {}

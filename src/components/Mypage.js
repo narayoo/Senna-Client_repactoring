@@ -272,7 +272,6 @@ export default function Mypage () {
 
   return (
     <>
-    {  console.log('favorite:::',favorite)}
     <Container>
       <MypageNav logout={logout}/>
       <ProfileSection>
