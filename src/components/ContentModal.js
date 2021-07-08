@@ -78,7 +78,7 @@ const FavoriteCheckWrapper = styled.div`
   font-size: 12px;
 `
 
-function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
+const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
 
   const dispatch = useDispatch();
   
@@ -142,8 +142,5 @@ function ContentModal({ ctModal, handleCtModalOff, heart, setHeart}) {
     )}
     </>
   )
-}
-
-
-
-export default ContentModal
+})
+export default ContentModal;

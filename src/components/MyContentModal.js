@@ -122,7 +122,7 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function MyContentModal({myCtModal, setMyCtModal, handleMyCtModalOff}) {
+const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}) => {
 
   const dispatch = useDispatch();
   const { content, hashtag, image, postingId} = useSelector(state => ({
@@ -177,5 +177,6 @@ export default function MyContentModal({myCtModal, setMyCtModal, handleMyCtModal
     )}
     </>
   )
-}
+})
 
+export default MyContentModal;

@@ -5,7 +5,7 @@ import StackGrid from "react-stack-grid";
 import dotenv from 'dotenv';
 import '../style/main.css';
 import '../style/nav.css';
-import SearchBar from '../components/SearchBar';
+import CountrySelect from '../components/CountrySelect';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
 import LoginModal from './LoginModal';
@@ -113,7 +113,7 @@ const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
 
-function Search() {
+const Search = React.memo(() => {
   const word = useSelector(state => state.searchReducer.word);
   const data = useSelector(state => state.searchReducer.data);
   const [scrollTop, setScrollTop] = useState(0); 
@@ -262,7 +262,7 @@ function Search() {
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo} />
         </Link>
-        <SearchBar />
+        <CountrySelect />
         <ButtonGroup>
           { 
           (() => {
@@ -348,5 +348,5 @@ function Search() {
       </ContentModal>
     </>
   )
-}
+})
 export default Search;

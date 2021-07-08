@@ -1,7 +1,7 @@
 import React  from 'react';
 import { Link } from 'react-router-dom'
 import '../style/nav.css';
-import SearchBar from '../components/SearchBar';
+import CountrySelect from './CountrySelect';
 import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
 import { useSelector,useDispatch } from 'react-redux';
@@ -69,7 +69,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogout }) {
           <Link to='./'>
             <Logo src={logo} onClick={clickLogo} style={scrollTop > 0.01 ? {position:'static', marginTop:0} : {position:'absolute'}}/>
           </Link>
-          <SearchBar />
+          <CountrySelect />
           <ButtonGroup>
             { 
             (() => {

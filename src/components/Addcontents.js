@@ -114,8 +114,7 @@ const HashTagBox = styled.input`
     background: #ffffff;
   }
 `;
-function UpdateMycontents() {
-
+const UpdateMycontents = React.memo(() => {
   const [ text, setText ] = useState('');
   const [ hash, setHash ] = useState([]);
   const [ photo, setPhoto ] = useState([]);
@@ -154,11 +153,11 @@ function UpdateMycontents() {
     }
     setPhoto(photo.concat(imgArr));
   }
-  const onAddContent = (e) => {
+  const onAddContent = async(e) => {
     if(ok){
-      dispatch(addContent(hash,text,userId,photo));
+      await dispatch(addContent(hash,text,userId,photo));
       alert('등록되었습니다.')
-      dispatch(getAllOfPosting());
+      await dispatch(getAllOfPosting());
       history.push('./');
     }else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
@@ -181,7 +180,7 @@ function UpdateMycontents() {
     </AddCtWrapper>
   </>
   );
-}
+})
 
 
 export default UpdateMycontents;

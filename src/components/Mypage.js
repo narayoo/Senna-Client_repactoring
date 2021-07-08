@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { useSelector,shallowEqual, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components';
@@ -9,7 +9,6 @@ import MypageNav from '../components/MypageNav';
 import { withdrawal } from '../modules/withdrawalReducer'
 import { getPickPosting } from '../modules/pickPosting';
 import { localLogout } from '../modules/loginReducer';
-
 
 const Container = styled.div`
   display: flex;
@@ -182,7 +181,7 @@ let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 
 const carousel2 = document.getElementsByClassName('carousel2'); 
 
-export default function Mypage () {
+const Mypage = React.memo(() => {
   
   const dispatch = useDispatch();
   const history = useHistory();
@@ -281,9 +280,6 @@ export default function Mypage () {
   const updateProfileHandler = () => {
     history.push('/profileupdate')
   }
-
-
-
   return (
     <>
     <Container>
@@ -354,5 +350,6 @@ export default function Mypage () {
     </Container>
    </>
   );
-}
+})
 
+export default Mypage;

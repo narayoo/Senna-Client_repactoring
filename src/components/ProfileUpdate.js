@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import userImg from '../img/userImg.png';
 import MypageNav from '../components/MypageNav';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { updateProfile } from "../modules/updateProfileReducer"
-import { localLogout } from '../modules/loginReducer';
 import { getUserInfo } from '../modules/loginReducer';
-
 
 const UpdateUserBox = styled.div`
   display: flex;
@@ -49,8 +47,7 @@ const AddNewFile = styled.input`
     cursor: pointer;
     background: #494949;
   }
-`;
-  
+`; 
 const ChangeNewPasswords = styled.input`
   margin: 0 auto;
   margin-top: 1rem;
@@ -111,25 +108,20 @@ function ProfileUpdate () {
   const [previewURL, setPreviewURL] = useState('');
   const [img, setImg] = useState('');
   const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
   const history = useHistory();
-
   const id  = useSelector(state => state.loginReducer.login.userKey)
   const accessToken = useSelector(state => state.loginReducer.login.accessToken)
  
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   }
-
   const updateProfileHandler = async() => {
     await dispatch(updateProfile(id,img,password))
     alert('프로필이 수정되었습니다.')
     history.push('/mypage');
     await dispatch(getUserInfo(accessToken));
   }
-
-  
   const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -140,12 +132,6 @@ function ProfileUpdate () {
     };
     reader.readAsDataURL(file)
   } 
-
-  // const logout = () => {
-  //   dispatch(localLogout(accessToken))
-  //   history.push('./')
-  // }
-
   // 유저 이미지 미리보기 적용 조건문 
   let profile_preview = null;
   if(img !== ''){
@@ -153,8 +139,6 @@ function ProfileUpdate () {
   }else{
     profile_preview = <img className='profile_preview' src={userImg}></img>
   }
- 
-
 
   return (
     <>

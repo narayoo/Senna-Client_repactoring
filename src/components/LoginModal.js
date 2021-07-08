@@ -110,7 +110,7 @@ const Title = styled.p`
   
 `
 
-export default function LoginModal({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) {
+const LoginModal = React.memo(({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) => {
   
   if (!visible) return null;
 
@@ -136,4 +136,5 @@ export default function LoginModal({ loading, changePwd, changeId, userId, passw
     )}
     </>
   )
-}
+})
+export default LoginModal;

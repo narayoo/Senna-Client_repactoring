@@ -123,7 +123,7 @@ const Warning = styled.p`
   margin-top: 1.2rem;
   justify-content: left;
 `;
-export default function UpdateMycontents() {
+const UpdateMycontents = React.memo(() => {
 
   const userId = useSelector(state => state.loginReducer.login.userId);
   const { accessToken } = useSelector(state => ({
@@ -206,4 +206,5 @@ export default function UpdateMycontents() {
     </AddCtWrapper>
   </>
   );
-}
+})
+export default UpdateMycontents;
