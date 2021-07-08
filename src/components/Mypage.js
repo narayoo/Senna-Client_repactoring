@@ -199,6 +199,17 @@ export default function Mypage () {
   shallowEqual
   ); 
 
+  const {kakaoUserId, kakaoProfileImg, kakaoFavorite, kakaoId, kakaoUploadList} = useSelector(state => ({
+    kakaoUserId : state.kakaoReducer.login.userId,
+    kakaoProfileImg : state.kakaoReducer.login.profileImg,
+    kakaoFavorite : state.kakaoReducer.login.favorite,
+    kakaoId : state.kakaoReducer.login.userKey,
+    kakaoUploadList : state.kakaoReducer.login.uploadList
+  }),
+  shallowEqual
+  );
+
+
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 

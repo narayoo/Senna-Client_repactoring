@@ -29,6 +29,7 @@ const initialState = {
     profileImg: '',
     favorite: [],
     localToken: '',
+    uploadList: [],
   },
 }
 
@@ -45,6 +46,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
             profileImg: action.kakaoLoginSuccess.data.profileImg,
             favorite: action.kakaoLoginSuccess.data.favorite,
             localToken: action.kakaoLoginSuccess.data.localToken,
+            uploadList: action.kakaoLoginSuccess.data.uploadList,
           }
         }
         case KAKAO_LOGOUT : 
@@ -58,6 +60,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
             profileImg: null,
             favorite: [],
             localToken: null,
+            uploadList:[],
           }
         }
         default : return state;
