@@ -268,7 +268,7 @@ const SignUp = React.memo(() => {
       formData.append("avatar", img);
       formData.append("userId", userId);
       formData.append("password", password);
-      await axios.post('http://54.180.151.176/user/signup',
+      await axios.post('https://www.senna-server.shop/user/signup',
       formData, config)
       .then(res => {
         alert('회원가입이 완료되었습니다');
@@ -283,7 +283,7 @@ const SignUp = React.memo(() => {
   const doubleCheckId = async(e) => {
     e.preventDefault()
     const id = { id : userId}
-    await axios.post('http://54.180.151.176/user/checkid',id)
+    await axios.post('https://www.senna-server.shop/user/checkid',id)
     .then(res => {
       if(userId !== ''){
         console.log(res)

@@ -15,7 +15,7 @@ export const addContent = (hashtag,content,userId,images) => async dispatch => {
   formData.append("content", content);
   formData.append("userId", userId);
   
-  const userAddContent = await axios.post('http://54.180.151.176/post/upload', formData, config)
+  const userAddContent = await axios.post('https://www.senna-server.shop/post/upload', formData, config)
   dispatch({type:ADD_CONTENT, userAddContent })
 }
 

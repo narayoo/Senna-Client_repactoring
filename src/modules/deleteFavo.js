@@ -5,12 +5,12 @@ export const DELETE_FAVO = 'deleteFavo/DELETE_FAVO';
 export const DELETE_KAKAO_FAVO ='deleteFavo/DELETE_KAKAO_FAVO';
 /** 액션생성함수 & API 요청 */
 export const onDeleteFavo = (postingId,id) => async dispatch => {
-  const deleteFavoInfo = await axios.delete(`http://54.180.151.176/user/favorite/${id}` ,{data: {postingId:postingId}});
+  const deleteFavoInfo = await axios.delete(`https://www.senna-server.shop/user/favorite/${id}` ,{data: {postingId:postingId}});
   dispatch({type: DELETE_FAVO, deleteFavoInfo});
 }
 
 export const onDeleteKakaoFavo = (postingId,id) => async dispatch => {
-  const deleteKakaoFavoInfo = await axios.delete(`http://54.180.151.176/user/favorite/${id}` ,{data: {postingId:postingId}});
+  const deleteKakaoFavoInfo = await axios.delete(`https://www.senna-server.shop/user/favorite/${id}` ,{data: {postingId:postingId}});
   dispatch({type: DELETE_KAKAO_FAVO, deleteKakaoFavoInfo});
 }
 

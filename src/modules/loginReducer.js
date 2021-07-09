@@ -7,11 +7,11 @@ export const USER_INFO = 'loginReducer/USER_INFO';
 
 /** 액션생성함수 & API 요청 */
 export const localLogin = (userId,password) => async dispatch => {
-  const loginSuccess = await axios.post('http://54.180.151.176/user/login', userId,password);
+  const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', userId,password);
   dispatch({type:LOCAL_LOGIN,loginSuccess});
 }
 export const localLogout = (accessToken) => async dispatch => {
-  const logoutSuccess = await axios.get('http://54.180.151.176/user/logout',
+  const logoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
   { headers : { 
     authorization : accessToken ,
     'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export const localLogout = (accessToken) => async dispatch => {
   dispatch({type:LOCAL_LOGOUT, logoutSuccess});
 }
 export const getUserInfo = (accessToken) =>  async dispatch => {
-  const getInfoSuccess =  await axios.get('http://54.180.151.176/user/info',
+  const getInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 
     authorization : accessToken ,
     'Content-Type': 'application/json',
