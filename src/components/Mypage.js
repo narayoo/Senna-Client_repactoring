@@ -208,6 +208,9 @@ const Mypage = React.memo(() => {
   shallowEqual
   );
 
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+ 
 
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
@@ -240,6 +243,7 @@ const Mypage = React.memo(() => {
     }
   };
   const photoList = uploadList.filter((e) => e.status === true)
+  const kakaoPhotoList = kakaoUploadList.filter((e) => e.status === true)
 
   //  Mycontent이전 버튼
   const onPrev = () => {
@@ -287,9 +291,30 @@ const Mypage = React.memo(() => {
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
-            <UserImage src={ profileImg === undefined ? img : profileImg } /> 
+            {
+              (() => {
+                if(isLogin){
+                  return(
+                    <UserImage src={ profileImg === undefined ? img : profileImg } />
+                  )
+                } else if (kakaoIsLogin){
+                  return (
+                    <UserImage src={ kakaoProfileImg === undefined ? img : kakaoProfileImg } />
+                  )
+                }
+              })()
+            }
+            
           </UserProfileBox>
-          <UserNameText>{userId}</UserNameText>
+          <UserNameText>
+            {(()=> {
+              if(isLogin){
+                return userId
+              } else if (kakaoIsLogin){
+                return kakaoUserId
+              }
+            })()}
+            </UserNameText>
           <Link to='/profileupdate'>
             <UpdateInfoButton onClick={() => updateProfileHandler()}>EDIT</UpdateInfoButton>
           </Link>
@@ -301,15 +326,34 @@ const Mypage = React.memo(() => {
             <SlideWrapper>
               <SliderBtn onClick={() => onPrev()}></SliderBtn>
               <Wrapper>
-                <StyledSlider className='carousel1'>
-                  { 
-                  photoList.length === 0 ? 
-                  <p style={{margin:'0 auto'}}>No Contents</p> :
-                  photoList.map((e, index) => {
-                    return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
-                  })
-                  }
-                </StyledSlider>
+                {
+                  (()=> {
+                    if(isLogin){
+                      return(                      
+                      <StyledSlider className='carousel1'>
+                      { 
+                      photoList.length === 0 ? 
+                      <p style={{margin:'0 auto'}}>No Contents</p> :
+                      photoList.map((e, index) => {
+                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                      })
+                      }
+                    </StyledSlider>)
+                    } else if (kakaoIsLogin){
+                      return(                      
+                      <StyledSlider className='carousel1'>
+                      { 
+                      kakaoPhotoList.length === 0 ? 
+                      <p style={{margin:'0 auto'}}>No Contents</p> :
+                      kakaoPhotoList.map((e, index) => {
+                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                      })
+                      }
+                     </StyledSlider>)
+
+                    }
+                  })()
+                }
               </Wrapper>
               <SliderBtn onClick={() => onNext()}></SliderBtn>
             </SlideWrapper>
@@ -319,7 +363,22 @@ const Mypage = React.memo(() => {
             <SlideWrapper>
               <SliderBtn onClick={() => onPrev2()}></SliderBtn>
               <Wrapper>
-                <StyledSlider className='carousel2'>
+              {(()=> {
+              if(isLogin){
+                return (
+                  <StyledSlider className='carousel2'>
+                  {
+                    kakaoFavorite.length === 0 ? 
+                    <p style={{margin:'0 auto'}}>No Contents</p> :
+                    kakaoFavorite.map((e, index) => {
+                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                    })
+                  }
+                </StyledSlider>
+                )
+              } else if (kakaoIsLogin){
+                return (
+                  <StyledSlider className='carousel2'>
                   {
                     favorite.length === 0 ? 
                     <p style={{margin:'0 auto'}}>No Contents</p> :
@@ -328,6 +387,9 @@ const Mypage = React.memo(() => {
                     })
                   }
                 </StyledSlider>
+                )
+              }
+              })()}
               </Wrapper>
               <SliderBtn onClick={() => onNext2()}></SliderBtn>
             </SlideWrapper>

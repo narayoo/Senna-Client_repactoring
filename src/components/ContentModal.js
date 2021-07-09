@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
-import {likeButton} from '../modules/likeReducer'
+import {likeButton, kakaoLikeButton} from '../modules/likeReducer'
 
 
 // 모달 뒷배경
@@ -86,6 +86,10 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
     isLogin : state.loginReducer.login.isLogin,
     userKey : state.loginReducer.login.userKey,
   })); 
+
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
+
   const { content, hashtag, image, postId, likeUser } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -97,8 +101,11 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
   const handleLikeButton = async(e) => {
     const like = e.target.id;
     
-    if(heart === null) {
+    if(isLogin && heart === null) {
       await dispatch(likeButton(like, userKey))
+      setHeart('like');
+    }else if (kakaoIsLogin && heart === null) {
+      await dispatch(kakaoLikeButton(like, kakaoUserKey))
       setHeart('like');
     }else if(heart === 'like') {
       alert('이미 좋아요한 게시물입니다.')
@@ -114,18 +121,40 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
         <ContentModalDiv className='ctModal'>
           <ContentSlider image={image}/>
             <ContentsWrapper >
-              <FavoriteCheckWrapper >
-               {
-                <i 
-                  id={postId} 
-                  className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
-                  style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
-                  onClick={(e) =>{
-                    ! isLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
-                  } 
-                  />
-                }
-              </FavoriteCheckWrapper>  
+            {(()=> {
+              if(isLogin){
+                return (
+                  <FavoriteCheckWrapper >
+                  {
+                   <i 
+                     id={postId} 
+                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     onClick={(e) =>{
+                       ! isLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                     } 
+                     />
+                   }
+                 </FavoriteCheckWrapper>  
+                )
+              } else if (kakaoIsLogin){
+                return (
+                  <FavoriteCheckWrapper >
+                  {
+                   <i 
+                     id={postId} 
+                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     onClick={(e) =>{
+                       ! kakaoIsLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                     } 
+                     />
+                   }
+                 </FavoriteCheckWrapper>  
+                )
+              }
+            })()}
+
               <ContentTextArea>
                 <ContentText>
                   {content}

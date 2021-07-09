@@ -3,8 +3,10 @@ import { useSelector , useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
-import { onDeleteMypost }from '../modules/deleteMyPosting';
+import { onDeleteMypost, onDeleteKakaoMypost }from '../modules/deleteMyPosting';
 import { getUserInfo } from '../modules/loginReducer';
+import { getKakaoUserInfo } from '../modules/kakaoReducer'
+
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -132,14 +134,27 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
     postingId: state.pickPosting.postInfo.postId,
   })); 
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
+
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+
   
   // 내 콘텐츠 삭제 핸들러
   const deleteMyctHandler = (e) => {
     alert('삭제 후 게시물은 복구할 수 없습니다.')
     const postId = e.target.id;
-    dispatch(onDeleteMypost(postId))
-    dispatch(getUserInfo(accessToken));
-    setMyCtModal(false);
+    if(isLogin){
+      dispatch(onDeleteMypost(postId))
+      dispatch(getUserInfo(accessToken));
+      setMyCtModal(false);
+    } else if (kakaoIsLogin){
+      dispatch(onDeleteKakaoMypost(postId))
+      dispatch(getKakaoUserInfo(kakaoAcToken))
+      setMyCtModal(false);
+    }
+    
+
   }
   
   // 내 콘텐츠 업데이트 핸들러
