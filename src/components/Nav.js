@@ -58,14 +58,15 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
   const clickLogo = () => {
     window.location.replace("/")
   }
-  const gotoMypage = () => {
-    if(isLogin){
+  const gotoMypage = async() => {
       history.push('./mypage');
-      dispatch(getUserInfo(accessToken));
-    }else if (kakaoLogin){
-      history.push('./mypage');
-      dispatch(getKakaoUserInfo(kakaoAcToken));
-    }
+      await dispatch(getUserInfo(accessToken));
+  }
+
+
+  const gotoKakaoMypage = async() => {
+    history.push('./mypage');
+    await dispatch(getKakaoUserInfo(kakaoAcToken));
   }
   
   return (
@@ -89,7 +90,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
               )}else if(kakaoLogin){
                 return (
                   <>
-                  <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                  <NavButton onClick={() => gotoKakaoMypage()}>Mypage</NavButton>
                   <NavButton onClick={() => kakaoLogoutHandler()}>Logout</NavButton>
                   </>
               )}else if (!isLogin && !kakaoLogin){
