@@ -15,6 +15,7 @@ import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin } from '../modules/kakaoReducer';
 import { getUserInfo } from '../modules/loginReducer';
+import useIntersect from './useIntersect';
 
 dotenv.config()
 
@@ -127,7 +128,8 @@ const Search = React.memo(() => {
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
-
+  const [state, setState] = useState({ itemCount: 0, isLoading: false });
+  
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
@@ -255,6 +257,29 @@ const Search = React.memo(() => {
       dispatch(kakaoLogout(kakaoAT, localAT))
     })
   }
+
+ 
+
+  const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
+  /* fake async fetch */
+  const fetchItems = async () => {
+    setState(prev => ({ ...prev, isLoading: true }));
+    await fakeFetch();
+    setState(prev => ({
+      itemCount: prev.itemCount + 5,
+      isLoading: false
+    }));
+  };
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  const [_, setRef] = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    await fetchItems();
+    observer.observe(entry.target);
+  }, {});
+  const { itemCount, isLoading } = state;
+  if (!itemCount) return null;
   
   return (
     <>
@@ -307,16 +332,17 @@ const Search = React.memo(() => {
           }
         </AddButtonWrapper>
         <StackGrid 
-          columnWidth={400}
+          columnWidth={300}
           gutterWidth={25}
           gutterHeight={25}
           style={{ width: "100%" }}>
-          { data?.map((photo,index)=> {
+          { data?.slice(0,itemCount).map((photo,index)=> {
             return <div key={index} onClick={(el) => openCtModal(el)}>
               <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
             </div>
             }
           )}
+        <div ref={setRef} />
         </StackGrid>
       </AlbumSection>
       <div className='topBtnWrapper'>
