@@ -8,10 +8,8 @@ import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
 import {localLogin, localLogout} from '../modules/loginReducer';
-import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin } from '../modules/kakaoReducer';
-import Loading from './Loading';
 import dotenv from 'dotenv';
 
 dotenv.config()
@@ -27,6 +25,8 @@ const Main = React.memo(() => {
   const [loading, setLoading] = useState(null);
   const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
   const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+  const [showPosting, setShowPosting] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,10 +38,6 @@ const Main = React.memo(() => {
   })); 
   const localAT = useSelector(state => state.kakaoReducer.login.localToken);
 
-  // 모든 포스팅 얻어오기 디스패치
-  useEffect(async() => {
-    await dispatch(getAllOfPosting());
-  },[]);
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -49,13 +45,13 @@ const Main = React.memo(() => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollTop]);
-  
-  const changeId = async(e) => {
-    await setUserId(e.target.value);
-  }
-  const changePwd = async(e) => {
-    await setPassword(e.target.value);
-  }
+  // 스크롤 감지 함수
+  const handleScroll = async() => {
+    const scroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const { scrollHeight, clientHeight } = document.documentElement;
+    const scrollTop = scroll / (scrollHeight - clientHeight);
+    await setScrollTop(scrollTop);
+  };
   // top 버튼 함수
   const handleTop = async() => {  
     await window.scrollTo({
@@ -64,13 +60,12 @@ const Main = React.memo(() => {
     });
     setScrollTop(0); 
   }
-  // 스크롤 감지 함수
-  const handleScroll = async() => {
-    const scroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const { scrollHeight, clientHeight } = document.documentElement;
-    const scrollTop = scroll / (scrollHeight - clientHeight);
-    await setScrollTop(scrollTop);
-  };
+  const changeId = async(e) => {
+    await setUserId(e.target.value);
+  }
+  const changePwd = async(e) => {
+    await setPassword(e.target.value);
+  }
   // modal 열기
   const openModal = async() => {
     await setModal(true);
@@ -122,13 +117,11 @@ const Main = React.memo(() => {
       }
     }
   };
- 
   // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
   }
-
   // 카카오 로그인
   const onSocialLogin = () => {
     Kakao.Auth.login({
@@ -151,6 +144,7 @@ const Main = React.memo(() => {
       dispatch(kakaoLogout(kakaoAT, localAT))
     })
   }
+
 
   return (
     <>
@@ -176,7 +170,7 @@ const Main = React.memo(() => {
         >
         <input type='text'></input>  
       </LoginModal>
-      <Album openCtModal={openCtModal} />
+      <Album openCtModal={openCtModal} total={total} showPosting={showPosting}/>
       <ContentModal
         heart={heart}
         setHeart={setHeart}

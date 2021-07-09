@@ -13,7 +13,7 @@ export const updateProfile = (id,profileImg,password) => async dispatch => {
   formData.append('profileImg', profileImg);
   formData.append("password", password);
 
-  const updateProfile = await axios.patch(`http://54.180.151.176/user/profile/${id}`,formData, config);
+  const updateProfile = await axios.patch(`https://www.senna-server.shop/user/profile/${id}`,formData, config);
   dispatch({type: UPDATE_PROFILE,updateProfile});
 }
 
@@ -25,7 +25,7 @@ export const updateKakaoProfile = (id,profileImg) => async dispatch => {
   }
   formData.append('profileImg', profileImg);
 
-  const updateKakaoProfile = await axios.patch(`http://54.180.151.176/user/profile/${id}`,formData, config);
+  const updateKakaoProfile = await axios.patch(`https://www.senna-server.shop/user/profile/${id}`,formData, config);
   dispatch({type: KAKAO_UPDATE_PROFILE,updateKakaoProfile});
 }
 

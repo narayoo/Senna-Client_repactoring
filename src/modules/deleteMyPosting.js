@@ -5,12 +5,12 @@ export const DELETE_MY_POSTING = 'deleteMyPosting/DELETE_MY_POSTING';
 export const DELETE_KAKAO_MY_POSTING = 'deleteMyPosting/DELETE_KAKAO_MY_POSTING';
 /** 액션생성함수 & API 요청 */
 export const onDeleteMypost = (postingId) => async dispatch => {
-  const deleteMypost = await axios.delete(`http://54.180.151.176/post/d/${postingId}`);
+  const deleteMypost = await axios.delete(`https://www.senna-server.shop/post/d/${postingId}`);
   dispatch({type: DELETE_MY_POSTING ,deleteMypost});
 }
 
 export const onDeleteKakaoMypost = (postingId) => async dispatch => {
-  const deleteKakaoMypost = await axios.delete(`http://54.180.151.176/post/d/${postingId}`);
+  const deleteKakaoMypost = await axios.delete(`https://www.senna-server.shop/post/d/${postingId}`);
   dispatch({type: DELETE_KAKAO_MY_POSTING ,deleteKakaoMypost});
 }
 

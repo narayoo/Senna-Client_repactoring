@@ -5,7 +5,7 @@ export const SEARCH_CONTENT = 'searchReducer/SEARCH_CONTENT';
 
 /** 액션생성함수 & API 요청 */
 export const searchContent = (searchinput) => async dispatch => {
-  const searchContent = await axios.get(`http://54.180.151.176/search?sch=${searchinput}`,);
+  const searchContent = await axios.get(`https://www.senna-server.shop/search?sch=${searchinput}`,);
   dispatch({type: SEARCH_CONTENT,searchContent});
 }
 /** 초기상태 선언 */

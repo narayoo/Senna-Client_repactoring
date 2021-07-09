@@ -19,7 +19,7 @@ export const onUpdatePosting = (userId,images,content,hashtag,id) => async dispa
   formData.append("hashtag", hashtag);
   formData.append("content", content);
   formData.append("userId", userId);
-  const updatePostingInfo = await axios.patch(`http://54.180.151.176/post/m/${id}`, formData, config);
+  const updatePostingInfo = await axios.patch(`https://www.senna-server.shop/post/m/${id}`, formData, config);
   dispatch({type: UPDATE_POSTING, updatePostingInfo});
 }
 const initialState = {
