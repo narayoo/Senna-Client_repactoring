@@ -9,7 +9,8 @@ import Nav from '../components/Nav';
 import Album from './Album';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin } from '../modules/kakaoReducer';
+import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
+import Loading from './Loading';
 import dotenv from 'dotenv';
 
 dotenv.config()
@@ -28,6 +29,7 @@ const Main = React.memo(() => {
   const [showPosting, setShowPosting] = useState([]);
   const [total, setTotal] = useState(0);
 
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
@@ -36,7 +38,8 @@ const Main = React.memo(() => {
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-  const localAT = useSelector(state => state.kakaoReducer.login.localToken);
+  const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
+
 
   // scrollTop 상태값 감지
   useEffect(() => {
@@ -139,16 +142,14 @@ const Main = React.memo(() => {
     })
   }
    // 카카오 로그아웃
-  const kakaoLogout = () => {
-    Kakao.Auth.logout(function() {
+  const kakaoLogoutHandler = () => {
       dispatch(kakaoLogout(kakaoAT, localAT))
-    })
   }
 
 
   return (
     <>
-      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout} kakaoLogout={kakaoLogout} />
+      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout} kakaoLogoutHandler={kakaoLogoutHandler} />
       <Slider />
       <div className='topBtnWrapper'>
         <button 

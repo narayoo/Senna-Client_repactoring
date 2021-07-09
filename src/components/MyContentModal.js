@@ -139,18 +139,19 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
 
-  
+
+
   // 내 콘텐츠 삭제 핸들러
   const deleteMyctHandler = (e) => {
     alert('삭제 후 게시물은 복구할 수 없습니다.')
     const postId = e.target.id;
     if(isLogin){
-      dispatch(onDeleteMypost(postId))
-      dispatch(getUserInfo(accessToken));
+       dispatch(onDeleteMypost(postId))
+       dispatch(getUserInfo(accessToken));
       setMyCtModal(false);
     } else if (kakaoIsLogin){
-      dispatch(onDeleteKakaoMypost(postId))
-      dispatch(getKakaoUserInfo(kakaoAcToken))
+       dispatch(onDeleteKakaoMypost(postId))
+       dispatch(getKakaoUserInfo(kakaoAcToken))
       setMyCtModal(false);
     }
     

@@ -120,6 +120,8 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
 
+
+
   if (!favoCtModal) return null;
 
   // 좋아요한 게시물 삭제
