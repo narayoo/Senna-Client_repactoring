@@ -10,8 +10,7 @@ export const kakaoLogin = (acToken) => async dispatch => {
   dispatch({type:KAKAO_LOGIN, kakaoLoginSuccess})
 }
 export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
-  console.log('카카오키', kakaoAcToken)
-  console.log('로컬키', localAcToken)
+
   const kakaoLogoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
   { headers : { 
     authorization : localAcToken ,
@@ -22,6 +21,7 @@ export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
   });
   dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess})
 }
+
 export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
   const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 

@@ -10,7 +10,7 @@ export const getAllOfPosting = () => async dispatch => {
 }
 /** 초기상태 선언 */
 const initialState = {
-  data: [],
+  postingList: [],
 }
 
 export default function showAllPosting(state = initialState, action){
@@ -18,7 +18,7 @@ export default function showAllPosting(state = initialState, action){
     case ALL_OR_POSTING :
       return {
         ...state,
-        data : action.getAllPosting.data,
+        postingList : action.getAllPosting.data,
       }
     default : return state;
   }
