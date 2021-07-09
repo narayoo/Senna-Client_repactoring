@@ -5,7 +5,7 @@ const Loading = (() => {
     <>
       <Loader
         type='Oval'
-        color='#3d66ba'
+        color='#fff9c4'
         height={30}
         width={30}
         timeout={2000}

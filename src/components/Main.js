@@ -11,6 +11,7 @@ import {localLogin, localLogout} from '../modules/loginReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin } from '../modules/kakaoReducer';
+import Loading from './Loading';
 import dotenv from 'dotenv';
 
 dotenv.config()
@@ -40,7 +41,7 @@ const Main = React.memo(() => {
   // 모든 포스팅 얻어오기 디스패치
   useEffect(async() => {
     await dispatch(getAllOfPosting());
-  },[scrollTop]);
+  },[]);
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -80,7 +81,9 @@ const Main = React.memo(() => {
       userId: userId,
       password: password,
     }
+    setLoading(true);
     await dispatch(localLogin(body));
+    setLoading(false);
     await setModal(false);
   }
   // modal 취소 후 닫기
