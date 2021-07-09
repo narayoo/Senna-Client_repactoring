@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     color: #f5f5f5;
   }
   ::-webkit-scrollbar { 
-    display: none; 
+    //display: none; 
   }
   html{
     scroll-behavior: smooth;
