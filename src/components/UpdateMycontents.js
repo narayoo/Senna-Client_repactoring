@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import MypageNav from '../components/MypageNav';
 import { localLogout } from '../modules/loginReducer';
 import { getUserInfo } from '../modules/loginReducer';
+import { getKakaoUserInfo } from '../modules/kakaoReducer'
 import { onUpdatePosting } from '../modules/updatePosting';
 
 const AddCtWrapper = styled.div`
@@ -125,11 +126,14 @@ const Warning = styled.p`
 `;
 const UpdateMycontents = React.memo(() => {
 
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const userId = useSelector(state => state.loginReducer.login.userId);
+  const kakaoUserId = useSelector(state => state.kakaoReducer.login.userId)
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
-    userId : state.loginReducer.login.userId,
   }));
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const { content, hashtag, postingId } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -174,12 +178,18 @@ const UpdateMycontents = React.memo(() => {
   }
   // 게시물 업데이트 수정
   const onUpdateContent = async(e) => {
-    if(ok){
+    if(ok && isLogin){
       await dispatch(onUpdatePosting(userId,photo,text,hash,postingId));
       await dispatch(getUserInfo(accessToken));
       alert('수정이 완료되었습니다.')
       history.push('./mypage');
-    }else{
+    }else if (ok && kakaoIsLogin){
+      await dispatch(onUpdatePosting(kakaoUserId,photo,text,hash,postingId));
+      await dispatch(getKakaoUserInfo(kakaoAcToken));
+      alert('수정이 완료되었습니다.')
+      history.push('./mypage');
+    }
+    else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
     }
   }

@@ -202,11 +202,11 @@ const Mypage = React.memo( ( ) => {
   ); 
 
   const {kakaoUserId, kakaoProfileImg, kakaoFavorite, kakaoId, kakaoUploadList} = useSelector(state => ({
-    kakaoUserId : state.kakaoReducer.login.userId,
-    kakaoProfileImg : state.kakaoReducer.login.profileImg,
-    kakaoFavorite : state.kakaoReducer.login.favorite,
+    kakaoUserId : state.kakaoReducer.user.userId,
+    kakaoProfileImg : state.kakaoReducer.user.profileImg,
+    kakaoFavorite : state.kakaoReducer.user.favorite,
     kakaoId : state.kakaoReducer.login.userKey,
-    kakaoUploadList : state.kakaoReducer.login.uploadList
+    kakaoUploadList : state.kakaoReducer.user.uploadList
   }),
   shallowEqual
   );
@@ -301,6 +301,7 @@ const Mypage = React.memo( ( ) => {
   // 카카오 로그아웃
   const kakaoLogoutHandler = () => {
       dispatch(kakaoLogout(kakaoAT, localAT))
+      history.push('./')
   }
   
    // 카카오 로그인
@@ -412,7 +413,7 @@ const Mypage = React.memo( ( ) => {
               <SliderBtn onClick={() => onPrev2()}></SliderBtn>
               <Wrapper>
               {(()=> {
-              if(isLogin){
+              if(kakaoIsLogin){
                 return (
                   <>
                   <StyledSlider className='carousel2'>
@@ -426,7 +427,7 @@ const Mypage = React.memo( ( ) => {
                 </StyledSlider>
                 </>
                 )
-              } else if (kakaoIsLogin){
+              } else if (isLogin){
                 return (
                   <>
                   <StyledSlider className='carousel2'>

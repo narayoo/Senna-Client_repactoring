@@ -125,19 +125,23 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
   if (!favoCtModal) return null;
 
   // 좋아요한 게시물 삭제
-  const deleteFavoCtHandler = (e) => {
+  const deleteFavoCtHandler = async(e) => {
     alert('해당 게시물 좋아요를 취소합니다.')
     const postId = e.target.id;
-    if(isLogin){
-      dispatch(onDeleteFavo(postId,userKey))
-      dispatch(getUserInfo(accessToken));
+      await dispatch(onDeleteFavo(postId,userKey))
+      await dispatch(getUserInfo(accessToken));
       setFavoCtModal(false);
-    } else if (kakaoIsLogin){
-      dispatch(onDeleteKakaoFavo(postId,kakaoUserKey))
-      dispatch(getKakaoUserInfo(kakaoAcToken))
-      setFavoCtModal(false);
-    }
   }
+
+  const deleteKakaoFavoCtHandler = async(e) => {
+    alert('해당 게시물 좋아요를 취소합니다.')
+    const postId = e.target.id;
+    await dispatch(onDeleteKakaoFavo(postId,kakaoUserKey))
+    await dispatch(getKakaoUserInfo(kakaoAcToken))
+    setFavoCtModal(false);
+
+  }
+
   return(
     <>
     {favoCtModal && (
@@ -146,7 +150,17 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
           <ContentSlider image={image}/>
             <ContentsWrapper >
               <BtnWrapper>
-                <DeleteBtn id={postingId} onClick={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
+              {(()=> {
+              if(isLogin){
+                return (
+                  <DeleteBtn id={postingId} onClick={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
+                )
+              } else if (kakaoIsLogin){
+                return (
+                  <DeleteBtn id={postingId} onClick={(e) => deleteKakaoFavoCtHandler(e)}>Delete</DeleteBtn>
+                )
+              }
+            })()}
               </BtnWrapper>
               <ContentTextArea>
                 <ContentText>

@@ -6,6 +6,7 @@ export const DELETE_KAKAO_FAVO ='deleteFavo/DELETE_KAKAO_FAVO';
 /** 액션생성함수 & API 요청 */
 export const onDeleteFavo = (postingId,id) => async dispatch => {
   const deleteFavoInfo = await axios.delete(`https://www.senna-server.shop/user/favorite/${id}` ,{data: {postingId:postingId}});
+  console.log('postingId들어오나유', postingId)
   dispatch({type: DELETE_FAVO, deleteFavoInfo});
 }
 

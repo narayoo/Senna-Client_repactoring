@@ -152,6 +152,22 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
                    }
                  </FavoriteCheckWrapper>  
                 )
+              } else if (!isLogin || !kakaoIsLogin){
+                return (
+                 <FavoriteCheckWrapper >
+                   {
+                   <i 
+                     id={postId} 
+                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     onClick={(e) =>{
+                       ! kakaoIsLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                     } 
+                     />
+                    }
+                 </FavoriteCheckWrapper>
+                 
+                )
               }
             })()}
 
