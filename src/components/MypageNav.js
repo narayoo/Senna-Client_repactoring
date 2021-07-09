@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import logo from '../img/SennaLogo.png';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const MyPageNavWrapper = styled.div`
   position: relative;
@@ -32,7 +33,12 @@ const NavButton = styled.button`
   }
 `;
 
-export default function MypageNav({logout}) {
+
+export default function MypageNav({logout, kakaoLogoutHandler}) {
+
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+
 
   // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
@@ -44,7 +50,19 @@ export default function MypageNav({logout}) {
       <Link to='./'>
         <Logo src={logo} onClick={clickLogo}/>
       </Link>
-      <NavButton onClick={() => logout()}>Logout </NavButton>
+           {(()=> {
+              if(isLogin){
+                return (
+                  <NavButton onClick={() => logout()}>Logout </NavButton>
+
+                )
+              } else if (kakaoIsLogin){
+                return (
+                  <NavButton onClick={() => kakaoLogoutHandler()}>Logout </NavButton>
+                )
+              }
+            })()}
+      
     </MyPageNavWrapper>
   )
 }

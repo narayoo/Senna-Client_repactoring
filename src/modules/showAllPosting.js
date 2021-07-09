@@ -5,7 +5,7 @@ export const ALL_OR_POSTING = 'showAllPosting/ALL_OR_POSTING';
 
 /** 액션생성함수 & API 요청 */
 export const getAllOfPosting = () => async dispatch => {
-  const getAllPosting = await axios.get('http://54.180.151.176/post/all');
+  const getAllPosting = await axios.get('https://www.senna-server.shop/post/all');
   dispatch({type: ALL_OR_POSTING,getAllPosting});
 }
 /** 초기상태 선언 */

@@ -122,19 +122,20 @@ function ProfileUpdate () {
     setPassword(e.target.value);
   }
   const updateProfileHandler = async() => {
-    if(isLogin){
       await dispatch(updateProfile(id,img,password))
       alert('프로필이 수정되었습니다.')
       history.push('/mypage');
-      await dispatch(getUserInfo(accessToken));
-    } else if (kakaoIsLogin) {
-      await dispatch(updateKakaoProfile(kakaoUserKey,img))
-      alert('프로필이 수정되었습니다.')
-      history.push('/mypage');
-      await dispatch(getKakaoUserInfo(kakaoAcToken));
-    }
-
+      await dispatch(getUserInfo(accessToken)); 
   }
+
+
+  const updateKakaoUserProfileHandler = async() => {
+    await dispatch(updateKakaoProfile(kakaoUserKey,img))
+    alert('프로필이 수정되었습니다.')
+    history.push('/mypage');
+    await dispatch(getKakaoUserInfo(kakaoAcToken));
+  }
+
   const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -177,7 +178,7 @@ function ProfileUpdate () {
                  {profile_preview}
                  </UserNewImage>
                  <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
-                 <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
+                 <UpdateUserInfoComplete type='submit' onClick={updateKakaoUserProfileHandler}>Submit</UpdateUserInfoComplete>
                  </>
                 )
               }

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useSelector,useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { getUserInfo } from '../modules/loginReducer';
+import { getKakaoUserInfo} from '../modules/kakaoReducer'
 
 // 네비바 영역
 const NavSection = styled.div`
@@ -44,10 +45,11 @@ const NavButton = styled.button`
 const ButtonGroup = styled.div`
   margin-right: 2rem;
 `;
-function Nav({ openModal, scrollTop, logout, kakaoLogout }) {
+function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
   const isLogin = useSelector(state => state.loginReducer.login.isLogin);
   const kakaoLogin = useSelector(state => state.kakaoReducer.login.isLogin);
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -57,8 +59,13 @@ function Nav({ openModal, scrollTop, logout, kakaoLogout }) {
     window.location.replace("/")
   }
   const gotoMypage = () => {
-    history.push('./mypage');
-    dispatch(getUserInfo(accessToken));
+    if(isLogin){
+      history.push('./mypage');
+      dispatch(getUserInfo(accessToken));
+    }else if (kakaoLogin){
+      history.push('./mypage');
+      dispatch(getKakaoUserInfo(kakaoAcToken));
+    }
   }
   
   return (
@@ -83,9 +90,9 @@ function Nav({ openModal, scrollTop, logout, kakaoLogout }) {
                 return (
                   <>
                   <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
-                  <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
+                  <NavButton onClick={() => kakaoLogoutHandler()}>Logout</NavButton>
                   </>
-              )}else{
+              )}else if (!isLogin && !kakaoLogin){
                 return (
                   <>
                   <Link to='/signup'>

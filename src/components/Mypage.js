@@ -6,9 +6,10 @@ import img from '../img/userImg.png';
 import MyContentModal from '../components/MyContentModal';
 import MyFavoriteModal from '../components/MyFavoriteModal';
 import MypageNav from '../components/MypageNav';
-import { withdrawal } from '../modules/withdrawalReducer'
+import { withdrawal , kakaoUserWithdrawal} from '../modules/withdrawalReducer'
 import { getPickPosting } from '../modules/pickPosting';
 import { localLogout } from '../modules/loginReducer';
+import { kakaoLogout } from '../modules/kakaoReducer'
 
 const Container = styled.div`
   display: flex;
@@ -181,11 +182,13 @@ let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 
 const carousel2 = document.getElementsByClassName('carousel2'); 
 
-const Mypage = React.memo(() => {
+const {Kakao} = window;
+
+const Mypage = React.memo( ( ) => {
   
   const dispatch = useDispatch();
   const history = useHistory();
-    
+  const [kakaoAT , setkakaoAT] = useState('');
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
   const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
@@ -210,11 +213,13 @@ const Mypage = React.memo(() => {
 
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
- 
+  const localAT = useSelector(state => state.kakaoReducer.login.localToken);
 
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
+
+
   // 내 콘텐트 모달 열기
   const myContentOpenHandler = async(e) => {
     const postId = e.target.id;
@@ -276,18 +281,47 @@ const Mypage = React.memo(() => {
     logout()
   }
   // user logout 
-  const logout = () => {
-    dispatch(localLogout(accessToken))
-    history.push('./')
+  const logout = async() => {
+      await dispatch(localLogout(accessToken))
+      history.push('./')
   }
   // 프로필 업데이트 핸들러
   const updateProfileHandler = () => {
     history.push('/profileupdate')
   }
+  
+  // 카카오유저 회원탈퇴 
+  const kakaoWidrawalHandler = async () => {
+    await dispatch(kakaoUserWithdrawal(kakaoId))
+    alert("회원 탈퇴가 완료되었습니다.")
+    history.push('./')
+    kakaoLogoutHandler()
+  }
+
+  // 카카오 로그아웃
+  const kakaoLogoutHandler = () => {
+      dispatch(kakaoLogout(kakaoAT, localAT))
+  }
+  
+   // 카카오 로그인
+   const onSocialLogin = () => {
+    Kakao.Auth.login({
+      success: function(authObj) {
+        console.log(authObj)
+        let ac = authObj.access_token;
+        let socialAC = `Bearer ${ac}`;
+        setkakaoAT(socialAC)
+      },
+      fail: function(err) {
+        console.log(err)
+      },
+    })
+  }
+
   return (
     <>
     <Container>
-      <MypageNav logout={logout}/>
+      <MypageNav logout={logout} kakaoLogoutHandler={kakaoLogoutHandler} kakaoAt={kakaoAT} onSocialLogin={onSocialLogin}/>
       <ProfileSection>
         <UserInfoSection>
           <UserProfileBox>
@@ -318,7 +352,18 @@ const Mypage = React.memo(() => {
           <Link to='/profileupdate'>
             <UpdateInfoButton onClick={() => updateProfileHandler()}>EDIT</UpdateInfoButton>
           </Link>
-          <WithdrawalButton onClick={() => handleWithdrawal()}>Withdrawal</WithdrawalButton>
+          {(()=> {
+              if(isLogin){
+                return (
+                  <WithdrawalButton onClick={() => handleWithdrawal()}>Withdrawal</WithdrawalButton>
+                )
+              } else if (kakaoIsLogin){
+                return (
+                  <WithdrawalButton onClick={() => kakaoWidrawalHandler()}>Withdrawal</WithdrawalButton>
+                )
+              }
+            })()}
+         
         </UserInfoSection>
         <UserContentSection>
           <UserTextBox>
@@ -329,7 +374,8 @@ const Mypage = React.memo(() => {
                 {
                   (()=> {
                     if(isLogin){
-                      return(                      
+                      return(    
+                        <>                  
                       <StyledSlider className='carousel1'>
                       { 
                       photoList.length === 0 ? 
@@ -338,9 +384,11 @@ const Mypage = React.memo(() => {
                         return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
                       })
                       }
-                    </StyledSlider>)
-                    } else if (kakaoIsLogin){
-                      return(                      
+                    </StyledSlider>
+                    </>
+                    )} else if (kakaoIsLogin){
+                      return( 
+                        <>                     
                       <StyledSlider className='carousel1'>
                       { 
                       kakaoPhotoList.length === 0 ? 
@@ -349,9 +397,9 @@ const Mypage = React.memo(() => {
                         return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
                       })
                       }
-                     </StyledSlider>)
-
-                    }
+                     </StyledSlider>
+                     </>
+                     )}
                   })()
                 }
               </Wrapper>
@@ -366,6 +414,7 @@ const Mypage = React.memo(() => {
               {(()=> {
               if(isLogin){
                 return (
+                  <>
                   <StyledSlider className='carousel2'>
                   {
                     kakaoFavorite.length === 0 ? 
@@ -375,9 +424,11 @@ const Mypage = React.memo(() => {
                     })
                   }
                 </StyledSlider>
+                </>
                 )
               } else if (kakaoIsLogin){
                 return (
+                  <>
                   <StyledSlider className='carousel2'>
                   {
                     favorite.length === 0 ? 
@@ -387,6 +438,7 @@ const Mypage = React.memo(() => {
                     })
                   }
                 </StyledSlider>
+                </>
                 )
               }
               })()}

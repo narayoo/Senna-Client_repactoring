@@ -3,14 +3,21 @@ import axios from "axios";
 
 /** 액션타입 */
 export const USER_WITHDRAWAL = 'withdrawalReducer/USER_WITHDRAWAL';
+export const KAKAO_USER_WITHDRAWAL = 'withdrawalReducer/KAKAO_USER_WITHDRAWAL';
 
 /** 액션생성함수 & API 요청 */
-export const withdrawal = ( id) => async dispatch => {
+export const withdrawal = (id) => async dispatch => {
     const password = prompt('비밀번호를 입력하세요', '');
-    const withdrawalSuccess = await axios.patch(`http://54.180.151.176/user/d/${id}`, {password : password} );
+    const withdrawalSuccess = await axios.patch(`https://www.senna-server.shop/user/d/${id}`, {password : password} );
     dispatch({type:USER_WITHDRAWAL,withdrawalSuccess});
   }
-    
+
+
+  export const kakaoUserWithdrawal = (id) => async dispatch => {
+    const kakaoUserWithdrawalSuccess = await axios.delete(`https://www.senna-server.shop/oauth/d/${id}`);
+    dispatch({type:KAKAO_USER_WITHDRAWAL,kakaoUserWithdrawalSuccess});
+  }
+
   const initialState = {
     user : {
       id: '',
@@ -36,6 +43,18 @@ export const withdrawal = ( id) => async dispatch => {
             status: false
           }
         }
+        case KAKAO_USER_WITHDRAWAL :
+          return {
+            ...state,
+            user : {
+              id: null,
+              userId: null,
+              profileImg: null,
+              favorite: null,
+              status: false
+            }
+          }
+
       default : return state;
     }
   }

@@ -10,7 +10,7 @@ import Album from './Album';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin } from '../modules/kakaoReducer';
+import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
 import Loading from './Loading';
 import dotenv from 'dotenv';
 
@@ -26,7 +26,7 @@ const Main = React.memo(() => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
   const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
-  const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+  const [kakaoAT , setkakaoAT] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -36,7 +36,8 @@ const Main = React.memo(() => {
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-  const localAT = useSelector(state => state.kakaoReducer.login.localToken);
+  const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
+
 
   // 모든 포스팅 얻어오기 디스패치
   useEffect(async() => {
@@ -146,15 +147,14 @@ const Main = React.memo(() => {
     })
   }
    // 카카오 로그아웃
-  const kakaoLogout = () => {
-    Kakao.Auth.logout(function() {
+  const kakaoLogoutHandler = () => {
       dispatch(kakaoLogout(kakaoAT, localAT))
-    })
   }
+
 
   return (
     <>
-      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout} kakaoLogout={kakaoLogout} />
+      <Nav openModal={openModal} scrollTop={scrollTop} logout={logout} kakaoLogoutHandler={kakaoLogoutHandler} />
       <Slider />
       <div className='topBtnWrapper'>
         <button 
