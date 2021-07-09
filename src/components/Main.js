@@ -40,7 +40,7 @@ const Main = React.memo(() => {
   // 모든 포스팅 얻어오기 디스패치
   useEffect(async() => {
     await dispatch(getAllOfPosting());
-  },[scrollTop]);
+  },[]);
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

@@ -4,8 +4,9 @@ import userImg from '../img/userImg.png';
 import MypageNav from '../components/MypageNav';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { updateProfile } from "../modules/updateProfileReducer"
+import { updateProfile , updateKakaoProfile} from "../modules/updateProfileReducer"
 import { getUserInfo } from '../modules/loginReducer';
+import { getKakaoUserInfo } from '../modules/kakaoReducer'
 
 const UpdateUserBox = styled.div`
   display: flex;
@@ -112,15 +113,27 @@ function ProfileUpdate () {
   const history = useHistory();
   const id  = useSelector(state => state.loginReducer.login.userKey)
   const accessToken = useSelector(state => state.loginReducer.login.accessToken)
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
  
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   }
   const updateProfileHandler = async() => {
-    await dispatch(updateProfile(id,img,password))
-    alert('프로필이 수정되었습니다.')
-    history.push('/mypage');
-    await dispatch(getUserInfo(accessToken));
+    if(isLogin){
+      await dispatch(updateProfile(id,img,password))
+      alert('프로필이 수정되었습니다.')
+      history.push('/mypage');
+      await dispatch(getUserInfo(accessToken));
+    } else if (kakaoIsLogin) {
+      await dispatch(updateKakaoProfile(kakaoUserKey,img))
+      alert('프로필이 수정되었습니다.')
+      history.push('/mypage');
+      await dispatch(getKakaoUserInfo(kakaoAcToken));
+    }
+
   }
   const handleFileOnChange = async (event) => {
     event.preventDefault();
@@ -144,13 +157,32 @@ function ProfileUpdate () {
     <>
       <MypageNav />
       <UpdateUserBox>
-        <UserNewImage>
-        {profile_preview}
-        </UserNewImage>
-        <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
-        <ChangeNewPasswords type='password' placeholder="새 비밀번호" value={password} onChange={onChangePassword}/>
-        <ChangeNewPasswords type='password' placeholder="새 비밀번호 확인" />
-        <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
+         {(()=> {
+              if(isLogin){
+                return (
+                  <>
+                  <UserNewImage>
+                 {profile_preview}
+                 </UserNewImage>
+                 <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
+                 <ChangeNewPasswords type='password' placeholder="새 비밀번호" value={password} onChange={onChangePassword}/>
+                 <ChangeNewPasswords type='password' placeholder="새 비밀번호 확인" />
+                 <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
+                 </>
+                )
+              } else if (kakaoIsLogin){
+                return (
+                <>
+                 <UserNewImage>
+                 {profile_preview}
+                 </UserNewImage>
+                 <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
+                 <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
+                 </>
+                )
+              }
+            })()}
+        
       </UpdateUserBox>
     </> 
   )

@@ -62,6 +62,7 @@ const Album = React.memo(({ openCtModal }) => {
 
   let list = useSelector(state => state.showAllPosting.data.data);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
  
   return (
     <>
@@ -70,14 +71,19 @@ const Album = React.memo(({ openCtModal }) => {
         <TotalComponent>
           <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
         </TotalComponent>
-        {
-          isLogin ? 
-          <Link to='/addcontents'>
-            <AddButton>Add</AddButton>
-          </Link>
-          :
-          <></>
-        }
+        {(()=> {
+              if(isLogin || kakaoIsLogin){
+                return (
+                <Link to='/addcontents'>
+                <AddButton>Add</AddButton>
+                </Link>
+                )
+              } else if (!isLogin || !kakaoIsLogin){
+                return (
+                  <></>
+                )
+              }
+            })()}
       </AddButtonWrapper>
       <StackGrid 
         columnWidth={300}

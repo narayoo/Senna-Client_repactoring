@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const KAKAO_LOGIN = 'kakaoReducer/KAKAO_LOGIN';
 export const KAKAO_LOGOUT = 'kakaoReducer/KAKAO_LOGOUT';
+export const KAKAO_INFO = 'kakaoReducer/KAKAO_INFO';
 
 export const kakaoLogin = (acToken) => async dispatch => {
   const kakaoLoginSuccess = await axios.get(`http://54.180.151.176/oauth/callback/kakao`,
@@ -19,6 +20,16 @@ export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
   });
   dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess})
 }
+export const getKakaoUserInfo = (accessToken) =>  async dispatch => {
+  const getKakaoInfoSuccess =  await axios.get('http://54.180.151.176/user/info',
+  { headers : { 
+    authorization : accessToken ,
+    'Content-Type': 'application/json',
+    withCredentials: true 
+    } 
+  });
+  dispatch({type:KAKAO_INFO, getKakaoInfoSuccess});
+}
 
 const initialState = {
   login : {
@@ -29,6 +40,13 @@ const initialState = {
     profileImg: '',
     favorite: [],
     localToken: '',
+    uploadList: [],
+  },
+  user : {
+    id: '',
+    userId: '',
+    profileImg: '',
+    favorite: [],
     uploadList: [],
   },
 }
@@ -63,6 +81,17 @@ export default function kakaoLoginReducer(state = initialState, action) {
             uploadList:[],
           }
         }
+        case KAKAO_INFO :
+          return {
+            ...state,
+            user : {
+              id: action.getKakaoInfoSuccess.data.data._id,
+              userId: action.getKakaoInfoSuccess.data.data.userId,
+              profileImg: action.getKakaoInfoSuccess.data.data.profileImg,
+              favorite: action.getKakaoInfoSuccess.data.data.favorite,
+              uploadList: action.getKakaoInfoSuccess.data.data.uploadList,
+            }
+          }
         default : return state;
     }
 }

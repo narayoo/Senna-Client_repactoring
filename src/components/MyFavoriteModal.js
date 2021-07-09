@@ -3,7 +3,8 @@ import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 import { getUserInfo } from '../modules/loginReducer';
-import { onDeleteFavo }from '../modules/deleteFavo';
+import { onDeleteFavo , onDeleteKakaoFavo }from '../modules/deleteFavo';
+import { getKakaoUserInfo } from '../modules/kakaoReducer'
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -114,15 +115,26 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
     userKey: state.loginReducer.user.id,
   })); 
 
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
+  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
+  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+
   if (!favoCtModal) return null;
 
   // 좋아요한 게시물 삭제
   const deleteFavoCtHandler = (e) => {
     alert('해당 게시물 좋아요를 취소합니다.')
     const postId = e.target.id;
-    dispatch(onDeleteFavo(postId,userKey))
-    dispatch(getUserInfo(accessToken));
-    setFavoCtModal(false);
+    if(isLogin){
+      dispatch(onDeleteFavo(postId,userKey))
+      dispatch(getUserInfo(accessToken));
+      setFavoCtModal(false);
+    } else if (kakaoIsLogin){
+      dispatch(onDeleteKakaoFavo(postId,kakaoUserKey))
+      dispatch(getKakaoUserInfo(kakaoAcToken))
+      setFavoCtModal(false);
+    }
   }
   return(
     <>
