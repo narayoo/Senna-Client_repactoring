@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     color: #f5f5f5;
   }
   ::-webkit-scrollbar { 
-    display: none; 
+    //display: none; 
   }
   html{
     scroll-behavior: smooth;

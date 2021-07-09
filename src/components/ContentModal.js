@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 import {likeButton, kakaoLikeButton} from '../modules/likeReducer'
-
+import Loading from './Loading';
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -78,7 +78,7 @@ const FavoriteCheckWrapper = styled.div`
   font-size: 12px;
 `
 
-const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
+const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
 
   const dispatch = useDispatch();
   
@@ -118,6 +118,9 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
     <>
     {ctModal && (
       <BackgroundDark onClick={(e) => handleCtModalOff(e)}>
+        {
+          postLoading ?
+          <Loading /> :
         <ContentModalDiv className='ctModal'>
           <ContentSlider image={image}/>
             <ContentsWrapper >
@@ -167,6 +170,8 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart}) => {
             </ContentTextArea>
           </ContentsWrapper>
         </ContentModalDiv>
+
+        } 
       </BackgroundDark>
     )}
     </>

@@ -10,7 +10,8 @@ import Album from './Album';
 import {localLogin, localLogout} from '../modules/loginReducer';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
-import Loading from './Loading';
+import { getAllOfPosting } from '../modules/showAllPosting';
+
 import dotenv from 'dotenv';
 
 dotenv.config()
@@ -24,6 +25,7 @@ const Main = React.memo(() => {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
+  const [postLoading, setPostLoading ] = useState(null);
   const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
   const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
   const [showPosting, setShowPosting] = useState([]);
@@ -40,7 +42,9 @@ const Main = React.memo(() => {
   })); 
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
 
-
+  useEffect(async() => {
+    await dispatch(getAllOfPosting());
+  },[])
   // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -100,8 +104,9 @@ const Main = React.memo(() => {
    const openCtModal = async (e) => {
     const postId = e.target.id;
     setCtModal(true);
+    setPostLoading(true);
     await dispatch(getPickPosting(postId));
-
+    setPostLoading(false);
     if(likeUser.includes(userId)){
       await setHeart('like');
     }
@@ -177,6 +182,7 @@ const Main = React.memo(() => {
         setHeart={setHeart}
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
+        postLoading={postLoading}
         >
       </ContentModal>
     </>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import "../style/grid.css";
 import styled from 'styled-components';
 import StackGrid from "react-stack-grid";
 import useIntersect from './useIntersect';
-import { getAllOfPosting } from '../modules/showAllPosting';
 // album section css
 const AlbumSection = styled.section`
   display: flex;
@@ -59,14 +58,14 @@ const AddButton = styled.button`
 // total contents Css
 const TotalComponent = styled.p`
 `;
-const fakeFetch = (delay = 300) => new Promise(res => setTimeout(res, delay));
 
-const Album = React.memo(({ openCtModal }) => {
+const Album = React.memo(({ openCtModal,  }) => {
   let list = useSelector(state => state.showAllPosting.postingList.data);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
-  const dispatch = useDispatch();
+
+  const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
   /* fake async fetch */
   const fetchItems = async () => {
     setState(prev => ({ ...prev, isLoading: true }));
@@ -77,7 +76,6 @@ const Album = React.memo(({ openCtModal }) => {
     }));
   };
   useEffect(() => {
-    dispatch(getAllOfPosting());
     fetchItems();
   }, []);
   const [_, setRef] = useIntersect(async (entry, observer) => {
@@ -90,43 +88,41 @@ const Album = React.memo(({ openCtModal }) => {
 
   return (
     <>
-    <AlbumSection>
-      <AddButtonWrapper>
-        <TotalComponent>
-          <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
-        </TotalComponent>
-        {(()=> {
-          if(isLogin || kakaoIsLogin){
-            return (
-            <Link to='/addcontents'>
-            <AddButton>Add</AddButton>
-            </Link>
-            )
-          } else if (!isLogin || !kakaoIsLogin){
-            return (
-              <></>
-            )
-          }
-        })()}
-      </AddButtonWrapper>
-      
-      <StackGrid 
-        columnWidth={300}
-        gutterWidth={25}
-        gutterHeight={25}
-        style={{ width: "100%" }}>
-       { 
-        list.slice(0,itemCount)?.map((photo,index)=> {
-          return <div key={index} onClick={(el) => openCtModal(el)}>
-            <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
-          </div>
-          }
-        )}
+      <AlbumSection>
+        <AddButtonWrapper>
+          <TotalComponent>
+            <i className="fas fa-feather-alt">&nbsp;&nbsp;{list?.length}</i>
+          </TotalComponent>
+          {(()=> {
+            if(isLogin || kakaoIsLogin){
+              return (
+              <Link to='/addcontents'>
+              <AddButton>Add</AddButton>
+              </Link>
+              )
+            } else if (!isLogin || !kakaoIsLogin){
+              return (
+                <></>
+              )
+            }
+          })()}
+        </AddButtonWrapper>
         
+        <StackGrid 
+          columnWidth={300}
+          gutterWidth={25}
+          gutterHeight={25}
+          style={{ width: "100%" }}>
+          { 
+          list?.slice(0,itemCount).map((photo,index)=> {
+            return <div key={index} onClick={(el) => openCtModal(el)}>
+              <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy" />
+            </div>
+            }
+          )}
         <div ref={setRef} />
-      </StackGrid>
-   
-    </AlbumSection>
+        </StackGrid>
+      </AlbumSection>
     </>
   )
 })

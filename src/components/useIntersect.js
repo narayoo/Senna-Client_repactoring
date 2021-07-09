@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 
 const useIntersect = (onIntersect, option) => {
   const [ref, setRef] = useState(null);
@@ -13,12 +13,14 @@ const useIntersect = (onIntersect, option) => {
     let observer;
     if (ref) {
       observer = new IntersectionObserver(checkIntersect, {
-        ...option
+        root:null,
+        threshold: 0,
+        rootMargin: '200px',
       });
       observer.observe(ref);
     }
     return () => observer && observer.disconnect();
-  }, [ref, option.root, option.threshold, option.rootMargin, checkIntersect]);
+  }, [ref, checkIntersect]);
 	// setRef를 넘겨주어서 ref를 변경시킬 수 있도록 한다.
   return [ref, setRef];
 };

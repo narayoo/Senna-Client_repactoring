@@ -11,6 +11,7 @@ import searchReducer from './searchReducer'
 import deleteMyPosting from './deleteMyPosting';
 import kakaoReducer from './kakaoReducer';
 import updateProfileReducer from './updateProfileReducer';
+import hotkeywordReducer from './hotkeywordReducer';
 
 const persistConfig = {
   key: "root",
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   deleteMyPosting,
   kakaoReducer,
   updateProfileReducer,
+  hotkeywordReducer,
 })
 
 export default persistReducer(persistConfig, rootReducer);
