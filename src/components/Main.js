@@ -119,7 +119,6 @@ const Main = React.memo(() => {
       setCtModal(false);
       if(heart === 'like'){
         setHeart(null);
-        console.log('닫힘',heart)
       }else{
         setHeart(null);
       }
