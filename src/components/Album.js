@@ -102,7 +102,8 @@ const Album = React.memo(({ openCtModal,  }) => {
               )
             } else if (!isLogin || !kakaoIsLogin){
               return (
-                <></>
+                <>
+                </>
               )
             }
           })()}
