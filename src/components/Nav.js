@@ -77,7 +77,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
           <Link to='./'>
             <Logo src={logo} onClick={clickLogo} style={scrollTop > 0.01 ? {position:'static', marginTop:0} : {position:'absolute'}}/>
           </Link>
-          <CountrySelect />
+          <CountrySelect/>
           <ButtonGroup>
             { 
             (() => {

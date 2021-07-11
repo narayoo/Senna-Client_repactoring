@@ -39,6 +39,7 @@ const initialState = {
     accessToken : '',
     profileImg: '',
     favorite: [],
+    suggest: '',
   },
   user : {
     id: '',
@@ -61,6 +62,7 @@ export default function loginReducer(state = initialState, action){
             accessToken: `Bearer ${action.loginSuccess.data.accessToken}`,
             profileImg: action.loginSuccess.data.profileImg,
             favorite: action.loginSuccess.data.favorite,
+            suggest: action.loginSuccess.data.keyword,
           },
       }
     case LOCAL_LOGOUT :

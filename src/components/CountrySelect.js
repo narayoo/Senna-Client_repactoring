@@ -1,11 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useHistory, } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
 import { searchContent } from "../modules/searchReducer"
 import { TextField } from '@material-ui/core';
 import { Autocomplete }from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-
 function countryToFlag(isoCode) {
   return typeof String.fromCodePoint !== 'undefined'
     ? isoCode
@@ -32,6 +31,9 @@ const useStyles = makeStyles({
 const CountrySelect = React.memo(() => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const hot = useSelector(state => state.hotkeywordReducer.hot);
+  const suggest = useSelector(state => state.loginReducer.login.suggest);
+  const keyword = `추천 검색어:${suggest==='' ? ' 없습니다':suggest} ${hot==='' ? '': hot}`;
 
   const onKeyPress = (e) => {
     if(e.key == 'Enter') {
@@ -42,6 +44,7 @@ const CountrySelect = React.memo(() => {
   const classes = useStyles();
 
   return (
+    <>
     <Autocomplete
       id="country-select-demo"
       style={{ width: '50%', background: '#eeeeee', borderRadius: '2rem',}}
@@ -61,7 +64,7 @@ const CountrySelect = React.memo(() => {
         <TextField
           {...params}
           onKeyPress={onKeyPress}
-          label="Where do you want to go?"
+          label={keyword}
           variant="filled"
           inputProps={{
             ...params.inputProps,
@@ -70,6 +73,7 @@ const CountrySelect = React.memo(() => {
         />
       )}
     />
+    </>
   );
 })
 

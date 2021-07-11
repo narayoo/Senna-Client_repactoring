@@ -11,6 +11,7 @@ import {localLogin, localLogout} from '../modules/loginReducer';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
+import { getHotkeyword } from '../modules/getKeywordReducer';
 
 import dotenv from 'dotenv';
 
@@ -44,6 +45,9 @@ const Main = React.memo(() => {
 
   useEffect(async() => {
     await dispatch(getAllOfPosting());
+    // 핫 키워드 얻어오기
+    await dispatch(getHotkeyword());
+    
   },[])
   // scrollTop 상태값 감지
   useEffect(() => {
@@ -85,6 +89,7 @@ const Main = React.memo(() => {
     }
     setLoading(true);
     await dispatch(localLogin(body));
+    
     setLoading(false);
     await setModal(false);
   }
