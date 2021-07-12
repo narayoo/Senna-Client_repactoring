@@ -29,6 +29,9 @@ const ContentModalDiv = styled.div`
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: row;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    height: 550px;
+  }
 `;
 // 좋아요아이콘 
 const ContentsWrapper = styled.div`

@@ -47,9 +47,9 @@ const MainFont = styled.p`
   color: #eeeeee;
   animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
   text-shadow: 8px 6px 6px #5d4037;
-  /* left: 50%;
-  top: 50%;
-  transform: translate(-30%, -70%); */
+  @media all and (max-width:767px) {
+    font-size: 1rem;
+  }
 `;
 
 function Slider() {

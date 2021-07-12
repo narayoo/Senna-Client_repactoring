@@ -19,6 +19,11 @@
   display: flex;
   justify-content: flex-end;
 }
+@media all and (max-width:767px) {
+  .topBtnWrapper{
+    display: none;
+  }
+}
 .profile_preview{
   width: 100%;
   height: auto;

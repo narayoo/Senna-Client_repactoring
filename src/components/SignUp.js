@@ -32,6 +32,7 @@ const ProfileCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
 `;
 const FileWrapper = styled.label`
   display: flex;
@@ -102,6 +103,10 @@ const PhotoSection = styled.div`
 const Photo = styled.img`
   max-height: 100%;
   width: auto;
+
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    display: none;
+  }
 
 `;
 const ButtonGroup = styled.section`

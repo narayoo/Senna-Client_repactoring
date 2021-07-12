@@ -29,6 +29,10 @@ const AlbumSection = styled.section`
   margin-top: 5rem;
   padding-left: 10rem;
   padding-right: 10rem;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
 `;
 // Img css
 const PhotoImg = styled.img`
@@ -61,6 +65,9 @@ const AddButton = styled.button`
     color: #fff;
     transform: translateY(-7px);
   }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-right: 5rem;
+  }
 `;
 // add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
@@ -73,10 +80,16 @@ const SearchResult = styled.div`
   font-size: 5rem;
   margin-left: 20rem;
   margin-top: 5rem;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-left: 5rem;
+  }
 `
 // total contents Css
 const TotalComponent = styled.p`
   margin-left: 11rem;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-left: 5rem;
+  }
 `;
 // 네비바 영역
 const NavSection = styled.div`
@@ -112,6 +125,15 @@ const NavButton = styled.button`
 `;
 const ButtonGroup = styled.div`
   margin-right: 2rem;
+`;
+
+const CountrySelectSection = styled.div`
+  width: 50%;
+  @media all and (max-width:767px) {
+    width: 80%;
+    padding-right: 1rem;
+    display: none;
+  }
 `;
 
 const Search = React.memo(() => {
@@ -287,7 +309,9 @@ const Search = React.memo(() => {
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo} />
         </Link>
-        <CountrySelect />
+        <CountrySelectSection>
+          <CountrySelect />
+        </CountrySelectSection>
         <ButtonGroup>
           { 
           (() => {

@@ -29,6 +29,8 @@ const ProfileSection = styled.section`
   ,url('https://images.unsplash.com/photo-1595981234522-aa6bae3f0dac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
   background-repeat: no-repeat;
   background-size: cover;
+
+ 
 `
 // 유저 정보 컨테이너
 const UserInfoSection = styled.section`
@@ -38,6 +40,9 @@ const UserInfoSection = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-right: 3rem;
+  }
 `;
 // 유저 프로필 박스 랩퍼
 const UserProfileBox = styled.div`

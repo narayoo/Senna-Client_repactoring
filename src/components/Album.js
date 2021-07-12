@@ -13,6 +13,14 @@ const AlbumSection = styled.section`
   margin-top: 5rem;
   padding-left: 10rem;
   padding-right: 10rem;
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
+  @media all and (max-width:767px) {
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
 `;
 // Img css
 const PhotoImg = styled.img`
