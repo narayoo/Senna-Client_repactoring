@@ -29,11 +29,13 @@ const UserNewImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+ 
+  @media all and (max-width:767px) {
+    width: 150px;
+    height: 150px;
+  }
 `
-const DemoImage = styled.img`
-  width: 100%;
-  height: auto;
-`
+
 const AddNewFile = styled.input`
   margin-top: 1.5rem;
   padding: 0.7rem;
@@ -47,6 +49,10 @@ const AddNewFile = styled.input`
     color: #fff;
     cursor: pointer;
     background: #494949;
+  }
+  @media all and (max-width:767px) {
+    max-width: 500px;
+    width: 60%;
   }
 `; 
 const ChangeNewPasswords = styled.input`
@@ -64,21 +70,9 @@ const ChangeNewPasswords = styled.input`
   &:focus{
     outline: none;
   }
-`
-const PrevPasswords = styled.input`
-  margin: 0 auto;
-  margin-top: 5rem;
-  width: 30%;
-  max-width: 300px;
-  height: 40px;
-  border: none;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  color: #1b1b1b;
-  background: #eeeeee;
-  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.8), 0 10px 10px 0 rgba(0, 0, 0, 0.8);
-  &:focus{
-    outline: none;
+  @media all and (max-width:767px) {
+    max-width: 500px;
+    width: 60%;
   }
 `;
 const UpdateUserInfoComplete = styled.button`

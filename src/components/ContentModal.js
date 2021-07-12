@@ -32,12 +32,21 @@ const ContentModalDiv = styled.div`
   @media all and (min-width:768px) and (max-width:1023px) { 
     height: 550px;
   }
+  @media all and (max-width:767px) {
+    flex-direction: column;
+    min-width: 350px;
+    height: 500px;
+    overflow: scroll;
+  }
 `;
 // 좋아요아이콘 
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 19em;
+  @media all and (max-width:767px) {
+    width: 100%;
+  }
 ` 
 // content text area css
 const ContentTextArea = styled.div`
@@ -46,6 +55,11 @@ const ContentTextArea = styled.div`
   padding-right: 1.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
+  @media all and (max-width:767px) {
+    padding: 0rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 // content text css
 const ContentText = styled.div`
@@ -55,10 +69,13 @@ const ContentText = styled.div`
   color: #1b1b1b;
   overflow-y: scroll;
   &:focus {
-  outline:none;
+    outline:none;
   }
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
+  }
+  @media all and (max-width:767px) {
+    height: 100%;
   }
 `;
 // 해시태그 
@@ -71,6 +88,9 @@ const HashTagWrapper = styled.div`
 const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
+  @media all and (min-width:768px) and (max-width:1023px){
+    width: 100%;
+  }
 `;
 
 const FavoriteCheckWrapper = styled.div`
@@ -80,6 +100,10 @@ const FavoriteCheckWrapper = styled.div`
   padding-bottom: 0.5rem;
   cursor: pointer;
   font-size: 12px;
+  @media all and (max-width:767px) {
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+  }
 `
 
 const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {

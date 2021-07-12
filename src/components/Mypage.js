@@ -29,8 +29,14 @@ const ProfileSection = styled.section`
   ,url('https://images.unsplash.com/photo-1595981234522-aa6bae3f0dac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80');
   background-repeat: no-repeat;
   background-size: cover;
-
- 
+  @media all and (max-width:767px) {
+    flex-direction: column;
+    background-image: none;
+    background-size: 0px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0rem;
+  } 
 `
 // 유저 정보 컨테이너
 const UserInfoSection = styled.section`
@@ -43,6 +49,10 @@ const UserInfoSection = styled.section`
   @media all and (min-width:768px) and (max-width:1023px) { 
     margin-right: 3rem;
   }
+  @media all and (max-width:767px) {
+    width: 100%;
+    margin-top: 6rem;
+  } 
 `;
 // 유저 프로필 박스 랩퍼
 const UserProfileBox = styled.div`
@@ -55,6 +65,10 @@ const UserProfileBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media all and (max-width:767px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 // 유저 이미지
 const UserImage = styled.img`
@@ -104,11 +118,20 @@ const WithdrawalButton = styled.a`
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
     color: #eeeeee;
   }
+  @media all and (max-width:767px) {
+    margin-top: 0;
+  }
 `;
 // 유저 콘텐츠 모음 컨테이너
 const UserContentSection = styled.section`
   width: 60%;
   margin-top: 5rem;
+  
+  @media all and (max-width:767px) {
+    width: 100%;
+    height: 100%;
+    margin-top: 4rem;
+  }
 `;
 // 유저 콘텐트 모음
 const UserTextBox = styled.div`
@@ -120,6 +143,11 @@ const UserTextBox = styled.div`
   padding-bottom: 2rem;
   border: 1px solid rgba(238, 238, 238, 0.5);
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7);
+  @media all and (max-width:767px) {
+    height: 50%;
+    flex-direction: column;
+    border: 1px solid rgba(238, 238, 238, 0.2);
+  }
 `
 const SlideWrapper = styled.div`
   display: flex;
@@ -182,6 +210,11 @@ const UserFavoriteBox = styled.div`
   border: 1px solid rgba(238, 238, 238, 0.5);
   padding-bottom: 2rem;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7);
+  @media all and (max-width:767px) {
+    height: 50%;
+    flex-direction: column;
+    border: 1px solid rgba(238, 238, 238, 0.2);
+  }
 `
 let index = 0;
 const carousel1 = document.getElementsByClassName('carousel1'); 

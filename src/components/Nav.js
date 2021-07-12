@@ -19,11 +19,6 @@ const NavSection = styled.div`
   align-items: center;
   z-index: 3;
   transition: all 0.3s ease-in-out;
-
-  @media all and (max-width:767px) {
-
-
-  }
 `;
 // 로고 
 const Logo = styled.img`
@@ -41,6 +36,10 @@ const Logo = styled.img`
     margin-left: 1rem;
     margin-right: 0rem;
   }
+  @media all and (min-width:768px) and (max-width:1023px){
+    margin-left: 2rem;
+    margin-right: 0rem;
+  }
 `;
 // nav에 있는 버튼 
 const NavButton = styled.button`
@@ -55,6 +54,10 @@ const NavButton = styled.button`
   @media all and (max-width:767px) {
     font-size: 13px;
     margin-top: 1rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px){
+    margin-top: 1rem;
+    margin-right: 5px;
   }
 `;
 const ButtonGroup = styled.div`

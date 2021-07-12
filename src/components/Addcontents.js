@@ -14,6 +14,13 @@ const AddCtWrapper = styled.div`
   max-width: 700px;
   margin: 0 auto;
   margin-top: 14rem;
+  @media all and (max-width:767px) {
+    width: 100%;
+    margin-top: 8rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    width: 100%;
+  }
 `;
 const AddFile = styled.input`
   margin-top: 1rem;
@@ -28,6 +35,9 @@ const AddFile = styled.input`
     color: #fff;
     cursor: pointer;
     background: #494949;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-top: 2rem;
   }
 `;
 const AddCtText = styled.textarea`
@@ -50,6 +60,11 @@ const ButtonGroup = styled.section`
   width: 80%;
   margin-top: 3rem;
   text-align: right;
+  @media all and (max-width:767px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
 `;
 const CancleBtn = styled.button`
   width: 100px;
@@ -92,10 +107,8 @@ const SubmitBtn = styled.button`
 
   &:hover{
     color: #000;
-  background-color: #fff;
- 
-  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
-    
+    background-color: #fff;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
     transform: translateY(-7px);
   }
 `;
@@ -112,6 +125,9 @@ const HashTagBox = styled.input`
   &:focus{
     outline: none;
     background: #ffffff;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    margin-top: 1rem;
   }
 `;
 const UpdateMycontents = React.memo(() => {

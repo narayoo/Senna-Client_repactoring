@@ -16,6 +16,7 @@ import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin } from '../modules/kakaoReducer';
 import { getUserInfo } from '../modules/loginReducer';
 import useIntersect from './useIntersect';
+import { getKakaoUserInfo} from '../modules/kakaoReducer'
 
 dotenv.config()
 
@@ -30,6 +31,10 @@ const AlbumSection = styled.section`
   padding-left: 10rem;
   padding-right: 10rem;
   @media all and (min-width:768px) and (max-width:1023px) { 
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
+  @media all and (max-width:767px) {
     padding-left: 0rem;
     padding-right: 0rem;
   }
@@ -68,6 +73,9 @@ const AddButton = styled.button`
   @media all and (min-width:768px) and (max-width:1023px) { 
     margin-right: 5rem;
   }
+  @media all and (max-width:767px) {
+    margin-right: 4rem;
+  }
 `;
 // add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
@@ -83,12 +91,20 @@ const SearchResult = styled.div`
   @media all and (min-width:768px) and (max-width:1023px) { 
     margin-left: 5rem;
   }
+  @media all and (max-width:767px) {
+    margin-left: 3rem;
+    font-size: 3rem;
+  }
 `
 // total contents Css
 const TotalComponent = styled.p`
   margin-left: 11rem;
   @media all and (min-width:768px) and (max-width:1023px) { 
     margin-left: 5rem;
+  }
+  @media all and (max-width:767px) {
+    margin-left: 4rem;
+    font-size: 11px;
   }
 `;
 // 네비바 영역
@@ -102,6 +118,9 @@ const NavSection = styled.div`
   z-index: 3;
   transition: all 0.3s ease-in-out;
   padding-top: 2rem;
+  @media all and (max-width:767px) {
+    padding-top: 1rem;
+  }
 `;
 // 로고 
 const Logo = styled.img`
@@ -110,6 +129,11 @@ const Logo = styled.img`
   margin-left: 3rem;
   &:hover {
     cursor: pointer;
+  }
+  @media all and (max-width:767px) {
+    height: 2.5rem;
+    margin-left: 1rem;
+    margin-right: 0rem;
   }
 `;
 // nav에 있는 버튼 
@@ -122,9 +146,18 @@ const NavButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media all and (max-width:767px) {
+    font-size: 13px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 const ButtonGroup = styled.div`
   margin-right: 2rem;
+  @media all and (max-width:767px) {
+    margin-right: 0rem;
+    display: none;
+  }
 `;
 
 const CountrySelectSection = styled.div`
@@ -135,7 +168,40 @@ const CountrySelectSection = styled.div`
     display: none;
   }
 `;
-
+const CountrySelectSection2 = styled.div`
+  @media all and (max-width:767px) {
+    width: 80%;
+    padding-right: 1rem;
+    display: block;
+  }
+  display: none;
+`;
+const HambugBtn = styled.div`
+  @media all and (max-width:767px) {
+    display: block;
+    padding-right: 1.7rem;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  display: none;
+`;
+const HambugToggle = styled.div`
+   @media all and (max-width:767px) {
+    width: 100%;
+    position: sticky;
+    top: 3.5rem;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+    transition: all 0.3s ease-in-out;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 5px 7px 6px rgba(0,0,0,0.5);
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  display: none;
+`;
 const Search = React.memo(() => {
   const word = useSelector(state => state.searchReducer.word);
   const data = useSelector(state => state.searchReducer.data);
@@ -150,8 +216,10 @@ const Search = React.memo(() => {
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
-  
+  const [open, setOpen] = useState(false);
+
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
@@ -279,8 +347,14 @@ const Search = React.memo(() => {
       dispatch(kakaoLogout(kakaoAT, localAT))
     })
   }
-
- 
+  const gotoKakaoMypage = async() => {
+    history.push('./mypage');
+    await dispatch(getKakaoUserInfo(kakaoAcToken));
+  }
+  const onHambugBtn = async() => {
+    setOpen(!open);
+  }
+  
 
   const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
   /* fake async fetch */
@@ -312,6 +386,12 @@ const Search = React.memo(() => {
         <CountrySelectSection>
           <CountrySelect />
         </CountrySelectSection>
+        { scrollTop  > 0.01 ?
+        <HambugBtn onClick={(e) => onHambugBtn(e)}>
+            <i className="fas fa-bars"></i>
+          </HambugBtn>
+          :<></>
+        }
         <ButtonGroup>
           { 
           (() => {
@@ -340,6 +420,48 @@ const Search = React.memo(() => {
           }
         </ButtonGroup>
       </NavSection>
+      {scrollTop  > 0.01 && 
+      open
+      ? 
+        <HambugToggle>
+          { 
+            (() => {
+              if(isLogin) {
+                return (
+                  <>
+                  <CountrySelectSection2>
+                    <CountrySelect />
+                  </CountrySelectSection2>
+                  <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                <NavButton onClick={() => logout()}>Logout</NavButton>
+                  </>
+              )}else if(kakaoLogin){
+                return (
+                  <>
+                  <CountrySelectSection2>
+                    <CountrySelect />
+                  </CountrySelectSection2>
+                  <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
+                <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
+                  </>
+              )}else if (!isLogin && !kakaoLogin){
+                return (
+                  <>
+                  <CountrySelectSection2>
+                    <CountrySelect />
+                  </CountrySelectSection2>
+                  <Link to='/signup'>
+                  <NavButton>Join Free</NavButton>
+                  </Link>
+                  <NavButton onClick={openModal}>Login</NavButton>
+                  </>
+                )}
+            })()
+            }
+        </HambugToggle>
+      :
+      <></>
+      }
       <SearchResult>{word}</SearchResult>
       <AlbumSection>
         <AddButtonWrapper>
