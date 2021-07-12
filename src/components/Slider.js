@@ -29,7 +29,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   width : auto;
-  height: 100vh;
+  height: auto;
   align-items: center;
   &:focus{
     outline: none;
@@ -43,6 +43,7 @@ const Picture = styled.picture`
 
 const MainImg = styled.img`
   width: 100%;
+  height: 100%;
   /* opacity: 0.4; */
 `;
 const MainFont = styled.p`
