@@ -1,10 +1,11 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import styled,{ keyframes } from 'styled-components';
-import main2 from '../img/main2 .jpeg';
-import main4 from '../img/main4.jpeg';
-import mainGrid from '../img/mainGrid.png';
-import mainGrid2 from '../img/mainGrid2.png';
+// import main2 from '../img/main2 .jpeg';
+// import main4 from '../img/main4.jpeg';
+import main1 from '../img/1.png';
+import main2 from '../img/2.png';
+import main3 from '../img/3.png';
 
 const ani = keyframes`
   0%{
@@ -31,7 +32,7 @@ const Container = styled.div`
   }
 `; 
 const MainImg = styled.img`
-  opacity: 0.4;
+  /* opacity: 0.4; */
 `;
 const MainFont = styled.p`
   position: absolute;
@@ -57,17 +58,21 @@ function Slider() {
     <CarouselWrapper>
       <Carousel autoplay>
         <Container>
-          <MainImg src={main2}></MainImg>
-          <MainFont>나의 기억 속 여행지를 <br />사람들과 공유할 수 있습니다</MainFont>
-        <a href="#" className='scrollAni'><span></span><span></span><span></span>Scroll</a>
+          <MainImg src={main1}></MainImg>
+          {/* <MainFont>나의 기억 속 여행지를 <br />사람들과 공유할 수 있습니다</MainFont> */}
+        <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
-          <MainImg src={main4}></MainImg>
-          <MainFont>Hello, We are Senna {`:)`}<br />Record your memories<br />And share your memories with people</MainFont>
+          <MainImg src={main2}></MainImg>
+          {/* <MainFont>Hello, We are Senna {`:)`}<br />Record your memories<br />And share your memories with people</MainFont> */}
         {/* <video controls autoplay="autoplay" loop="loop" muted >
           <source src={main1} type="video/mp4" />
         </video>  */}
-        <a href="#" className='scrollAni'><span></span><span></span><span></span>Scroll</a>
+        <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
+        </Container>
+        <Container>
+          <MainImg src={main3}></MainImg>
+        <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
       </Carousel>
     </CarouselWrapper>

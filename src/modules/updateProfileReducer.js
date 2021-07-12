@@ -19,6 +19,8 @@ export const updateProfile = (id,profileImg,password) => async dispatch => {
 
 
 export const updateKakaoProfile = (id,profileImg) => async dispatch => {
+  console.log('유저아이디가올까요',id)
+  console.log('파일이제대로갈까', profileImg)
   let formData = new FormData()
   const config = {
     header: {'content-type': 'multipart/form-data'}
