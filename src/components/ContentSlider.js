@@ -9,14 +9,21 @@ const ContentSlider = (({image}) => {
     text-align: center;
     justify-content: center;
     width: 65%;
+    @media all and (max-width:767px) {
+      width: 100%;
+      height: 300px;
+    }
   `;
-  
   const Wrapper = styled.div`//carousel-wrapper
     display: flex;
     width: 500px; 
     height: 100%;
     overflow: hidden;
     background: black;
+    @media all and (max-width:767px) {
+      width: 350px;
+      height: 100%;
+    }
   `;
   
   const StyledSlider = styled.div` //carousel
@@ -33,13 +40,15 @@ const ContentSlider = (({image}) => {
   const Img = styled.img`
     width: 500px;
     text-align: center;
+    @media all and (max-width:767px) {
+      width: 300px;
+    }
   `;
 
   const SliderBtn = styled.button`
     display: flex;
     width: 2.2rem;
     height: 100%;
-    color: #cfcfcf;
     font-size: 50px;
     align-items: center;
     background: transparent;
@@ -55,12 +64,20 @@ const ContentSlider = (({image}) => {
 
   //  이전 버튼
   const onPrev = () => {
+    let mql = window.matchMedia("screen and (max-width: 768px)");
     if (index === 0) return; 
     index -= 1; 
-    modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+
+    if (mql.matches) {
+      modalcarousel[0].style['transform'] = `translate3d(-${300 * index}px, 0, 0)`; 
+    } else {
+      modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    }
   }
   // 다음 버튼
   const onNext = () => {
+    let mql = window.matchMedia("screen and (max-width: 768px)");
+    
     if(image.length === 1) {
       if (index === 0) return; 
     }else if(image.length === 2){
@@ -73,7 +90,11 @@ const ContentSlider = (({image}) => {
       if (index === 4) return; 
     }
     index += 1; 
-    modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    if (mql.matches) {
+      modalcarousel[0].style['transform'] = `translate3d(-${300 * index}px, 0, 0)`; 
+    } else {
+      modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    }
   } 
 
   const photoList = image.map((e,index) =>

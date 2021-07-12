@@ -32,6 +32,12 @@ const ContentModalDiv = styled.div`
   @media all and (min-width:768px) and (max-width:1023px) { 
     height: 550px;
   }
+  @media all and (max-width:767px) {
+    flex-direction: column;
+    min-width: 350px;
+    height: 500px;
+    overflow: scroll;
+  }
 `;
 // 좋아요아이콘 
 const ContentsWrapper = styled.div`
@@ -39,6 +45,9 @@ const ContentsWrapper = styled.div`
   flex-direction: column;
   width: 19em;
   margin-right: 2rem;
+  @media all and (max-width:767px) {
+    width: 100%;
+  }
 ` 
 // content text area css
 const ContentTextArea = styled.div`
@@ -47,6 +56,11 @@ const ContentTextArea = styled.div`
   padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
+  @media all and (max-width:767px) {
+    padding: 0rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 // content text css
 const ContentText = styled.div`
@@ -60,6 +74,9 @@ const ContentText = styled.div`
   }
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
+  }
+  @media all and (max-width:767px) {
+    height: 100%;
   }
 `;
 // 해시태그 
@@ -78,6 +95,11 @@ const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  @media all and (max-width:767px) {
+    justify-content: space-around;
+    margin-top: 1rem;
+    height: 60px;
+  }
 `;
 // 좋아요한 콘텐츠 삭제 핸들러
 const DeleteBtn = styled.button`
@@ -99,6 +121,10 @@ const DeleteBtn = styled.button`
     background-color: #e53635;
     color: #eeeeee;
     border: none;
+  }
+  @media all and (max-width:767px) {
+    width: 130px;
+    height: 30px;
   }
 `;
 const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) => {

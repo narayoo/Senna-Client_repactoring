@@ -15,7 +15,9 @@ const AddCtWrapper = styled.div`
   width: 50%;
   max-width: 700px;
   margin: 0 auto;
-
+  @media all and (max-width:767px) {
+    width: 100%;
+  }
 `;
 const AddFile = styled.input`
   margin-top: 0.4rem;
@@ -47,12 +49,20 @@ const AddCtText = styled.textarea`
     outline: none;
     background: #ffffff;
   }
+  @media all and (max-width:767px) {
+    margin-top: 6em;
+    height: 15rem;
+  }
 `;
 const ButtonGroup = styled.section`
   max-width: 800px;
   width: 80%;
   margin-top: 3rem;
   text-align: right;
+  @media all and (max-width:767px) {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 const CancleBtn = styled.button`
   width: 100px;

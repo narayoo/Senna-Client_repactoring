@@ -24,6 +24,11 @@
     display: none;
   }
 }
+@media all and (min-width:768px) and (max-width:1023px){
+  .topBtnWrapper{
+    display: none;
+  }
+}
 .profile_preview{
   width: 100%;
   height: auto;

@@ -16,11 +16,15 @@ const Logo = styled.img`
   &:hover {
     cursor: pointer;
   }
+  @media all and (max-width:767px) {
+    height: 2.5rem;
+    margin-left: 1rem;
+    margin-right: 0rem;
+  }
 `;
 // nav에 있는 버튼 
 const NavButton = styled.button`
   right: 0;
-
   position: absolute;
   background: none;
   border: none;
@@ -30,6 +34,11 @@ const NavButton = styled.button`
   
   &:hover {
     cursor: pointer;
+  }
+  @media all and (max-width:767px) {
+    font-size: 13px;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -50,18 +59,18 @@ export default function MypageNav({logout, kakaoLogoutHandler}) {
       <Link to='./'>
         <Logo src={logo} onClick={clickLogo}/>
       </Link>
-           {(()=> {
-              if(isLogin){
-                return (
-                  <NavButton onClick={() => logout()}>Logout </NavButton>
+        {(()=> {
+          if(isLogin){
+            return (
+              <NavButton onClick={() => logout()}>Logout </NavButton>
 
-                )
-              } else if (kakaoIsLogin){
-                return (
-                  <NavButton onClick={() => kakaoLogoutHandler()}>Logout </NavButton>
-                )
-              }
-            })()}
+            )
+          } else if (kakaoIsLogin){
+            return (
+              <NavButton onClick={() => kakaoLogoutHandler()}>Logout </NavButton>
+            )
+          }
+        })()}
       
     </MyPageNavWrapper>
   )
