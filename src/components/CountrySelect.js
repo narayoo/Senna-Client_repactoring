@@ -5,6 +5,7 @@ import { searchContent } from "../modules/searchReducer"
 import { TextField } from '@material-ui/core';
 import { Autocomplete }from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { css } from 'styled-components';
 function countryToFlag(isoCode) {
   return typeof String.fromCodePoint !== 'undefined'
     ? isoCode
@@ -300,7 +301,7 @@ const CountrySelect = React.memo(() => {
     <>
     <Autocomplete
       id="country-select-demo"
-      style={{ width: '50%', background: '#eeeeee', borderRadius: '2rem',}}
+      style={{ width: '100%', background: '#eeeeee', borderRadius: '2rem',}}
       options={countries}
       classes={{
         option: classes.option,

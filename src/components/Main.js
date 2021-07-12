@@ -32,7 +32,6 @@ const Main = React.memo(() => {
   const [showPosting, setShowPosting] = useState([]);
   const [total, setTotal] = useState(0);
 
-
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
