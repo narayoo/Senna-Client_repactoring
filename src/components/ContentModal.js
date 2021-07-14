@@ -38,8 +38,7 @@ const ContentModalDiv = styled.div`
   @media all and (max-width:767px) {
     flex-direction: column;
     min-width: 350px;
-    height: 500px;
-    overflow: scroll;
+    height: 550px;
   }
 `;
 // 좋아요아이콘 
@@ -62,6 +61,11 @@ const ContentTextArea = styled.div`
     padding: 0rem;
     padding-left: 2rem;
     padding-right: 2rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    overflow: scroll;
+    height: 15%;
+    min-height: 50px;
   }
 `;
 // content text css
@@ -77,6 +81,9 @@ const ContentText = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  @media all and (min-width:768px) and (max-width:1023px){
+    height: 100%;
+  }
   @media all and (max-width:767px) {
     height: 100%;
   }
@@ -86,6 +93,10 @@ const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 10%;
+  @media all and (max-width:767px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 // 해시태그
 const HashTag = styled.p`
@@ -93,6 +104,10 @@ const HashTag = styled.p`
   width: 30%;
   @media all and (min-width:768px) and (max-width:1023px){
     width: 100%;
+  }
+  @media all and (max-width:767px) {
+    width: 30%;
+    margin-top: 1.5rem;
   }
 `;
 
@@ -103,6 +118,12 @@ const PlaceWrapper = styled.div`
   align-items: center;
   height: 20%;
   margin-bottom: 1rem;
+  @media all and (max-width:767px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 10%;
+  }
+  
 `
 const Place = styled.p`
   color: #1b1b1b;
@@ -111,7 +132,6 @@ const Place = styled.p`
   width: 100%;
   }
 `
-
 
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
@@ -125,14 +145,15 @@ const FavoriteCheckWrapper = styled.div`
     padding-bottom: 1rem;
   }
 `
-
-
-
 //카카오톡 공유하기
 
 const KakaoShare = styled.div`
  display: flex;
- padding-left: 84%;
+ justify-content: flex-end;
+ margin-right: 20px;
+ @media all and (max-width:767px) {
+  justify-content: flex-end;
+ }
 `
 
 const KakaoShareWrapper = styled.img`
@@ -141,7 +162,7 @@ const KakaoShareWrapper = styled.img`
   margin-bottom: 1rem;
   cursor: pointer;
   @media all and (max-width:767px) {
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
   }
 `
 

@@ -58,6 +58,12 @@ const FileWrapper = styled.label`
     transform: translateY(-7px);
     background-color: rgba(0, 0, 0, 0.1);
   }
+  @media all and (max-width:767px) {
+    max-width: 300px;
+    min-width: 250px;
+    width: 30%;
+    height: 35px;
+  }
 `;
 const ProfileInput = styled.input`
   position: absolute; 
@@ -107,6 +113,9 @@ const Photo = styled.img`
   @media all and (min-width:768px) and (max-width:1023px) { 
     display: none;
   }
+  @media all and (max-width:767px) {
+    display: none;
+  }
 
 `;
 const ButtonGroup = styled.section`
@@ -115,6 +124,9 @@ const ButtonGroup = styled.section`
   display: flex;
   justify-content: center;
   margin-top: 5rem;
+  @media all and (max-width:767px) {
+    margin-bottom: 5rem;
+  }
 `;
 const CancleBtn = styled.button`
   width: 100px;

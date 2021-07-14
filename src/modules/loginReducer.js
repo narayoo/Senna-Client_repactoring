@@ -4,11 +4,17 @@ import axios from "axios";
 export const LOCAL_LOGIN = 'loginReducer/LOCAL_LOGIN';
 export const LOCAL_LOGOUT = 'loginReducer/LOCAL_LOGOUT';
 export const USER_INFO = 'loginReducer/USER_INFO';
+export const ERROR = 'loginReducer/ERROR';
 
 /** 액션생성함수 & API 요청 */
 export const localLogin = (userId,password) => async dispatch => {
-  const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', userId,password);
-  dispatch({type:LOCAL_LOGIN,loginSuccess});
+  try {
+    const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', userId,password);
+    dispatch({type:LOCAL_LOGIN,loginSuccess});
+  } catch(err) {
+    console.log('err', err.response)
+    alert(err.response.data)
+  }
 }
 export const localLogout = (accessToken) => async dispatch => {
   const logoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
@@ -51,6 +57,7 @@ const initialState = {
 }
 
 export default function loginReducer(state = initialState, action){
+  console.log('acctions:::',action)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {
