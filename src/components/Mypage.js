@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector,shallowEqual, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components';
@@ -8,8 +8,11 @@ import MyFavoriteModal from '../components/MyFavoriteModal';
 import MypageNav from '../components/MypageNav';
 import { withdrawal , kakaoUserWithdrawal} from '../modules/withdrawalReducer'
 import { getPickPosting } from '../modules/pickPosting';
-import { localLogout } from '../modules/loginReducer';
-import { kakaoLogout } from '../modules/kakaoReducer'
+import { localLogout, autoRefreshLogin} from '../modules/loginReducer';
+import { kakaoLogout, autoRefreshKakaoLogin } from '../modules/kakaoReducer'
+import jwt_decode from 'jwt-decode';
+
+
 
 const Container = styled.div`
   display: flex;
@@ -254,6 +257,36 @@ const Mypage = React.memo( ( ) => {
     accessToken : state.loginReducer.login.accessToken,
   })); 
 
+  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken)
+
+  let newAccessToken = accessToken.split(' ')[1];
+  let newKakaoAccessToken = kakaoAcToken.split(' ')[1];
+  
+
+    useEffect(async() => {
+      
+      let now = new Date()
+      if (newAccessToken !== undefined) {
+        let decoded = jwt_decode(newAccessToken)
+        let expiry = decoded.exp - Number(now.getTime().toString().substr(0, 10));
+        if(expiry < 600){
+          return  await dispatch(autoRefreshLogin())
+        }
+       
+       } else if (newKakaoAccessToken !== undefined) {
+        let decodedKakao = jwt_decode(newKakaoAccessToken)
+        let kakaoExpiry = decodedKakao.exp - Number(now.getTime().toString().substr(0, 10));
+        console.log('카카오리프레싀', newKakaoAccessToken)
+        console.log('카카오리프레싀22', decodedKakao)
+        if (kakaoExpiry < 600 ){
+          return await dispatch(autoRefreshKakaoLogin())
+        }
+       }
+    })
+
+    
+
+  
 
   // 내 콘텐트 모달 열기
   const myContentOpenHandler = async(e) => {
