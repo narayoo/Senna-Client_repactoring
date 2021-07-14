@@ -7,6 +7,8 @@ import { localLogout } from '../modules/loginReducer';
 import { getUserInfo } from '../modules/loginReducer';
 import { getKakaoUserInfo } from '../modules/kakaoReducer'
 import { onUpdatePosting } from '../modules/updatePosting';
+import Autocomplete from "react-google-autocomplete";
+import '../style/google.css'
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -144,7 +146,7 @@ const UpdateMycontents = React.memo(() => {
     accessToken : state.loginReducer.login.accessToken,
   }));
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
-  const { content, hashtag, postingId } = useSelector(state => ({
+  const { content, hashtag, postingId, } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     postingId: state.pickPosting.postInfo.postId,
@@ -153,6 +155,7 @@ const UpdateMycontents = React.memo(() => {
   const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
+  const [ place, setPlace] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -189,12 +192,12 @@ const UpdateMycontents = React.memo(() => {
   // 게시물 업데이트 수정
   const onUpdateContent = async(e) => {
     if(ok && isLogin){
-      await dispatch(onUpdatePosting(userId,photo,text,hash,postingId));
+      await dispatch(onUpdatePosting(userId,photo,text,hash,postingId,place));
       await dispatch(getUserInfo(accessToken));
       alert('수정이 완료되었습니다.')
       history.push('./mypage');
     }else if (ok && kakaoIsLogin){
-      await dispatch(onUpdatePosting(kakaoUserId,photo,text,hash,postingId));
+      await dispatch(onUpdatePosting(kakaoUserId,photo,text,hash,postingId,place));
       await dispatch(getKakaoUserInfo(kakaoAcToken));
       alert('수정이 완료되었습니다.')
       history.push('./mypage');
@@ -217,6 +220,14 @@ const UpdateMycontents = React.memo(() => {
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         <Warning> ⚠️ 사진은 모두 다시 선택해주셔야 합니다 </Warning>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
+        <>
+        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Ij.formattedPrediction)}} 
+          options={{
+            types: [],
+            fields: ['geometry.location','address_components','place_id','formatted_address']
+          }}
+        id='autocomplete'/>
+        </>
         <ButtonGroup>
           <Link to='./'>
             <CancleBtn onClick={(e) => cancle(e)}>Cancle</CancleBtn>

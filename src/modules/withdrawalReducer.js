@@ -8,13 +8,13 @@ export const KAKAO_USER_WITHDRAWAL = 'withdrawalReducer/KAKAO_USER_WITHDRAWAL';
 /** 액션생성함수 & API 요청 */
 export const withdrawal = (id) => async dispatch => {
     const password = prompt('비밀번호를 입력하세요', '');
-    const withdrawalSuccess = await axios.patch(`https://www.senna-server.shop/user/d/${id}`, {password : password} );
+    const withdrawalSuccess = await axios.patch(`https://www.senna-server.shop/user/${id}`, {password : password} );
     dispatch({type:USER_WITHDRAWAL,withdrawalSuccess});
   }
 
 
   export const kakaoUserWithdrawal = (id) => async dispatch => {
-    const kakaoUserWithdrawalSuccess = await axios.delete(`https://www.senna-server.shop/oauth/d/${id}`);
+    const kakaoUserWithdrawalSuccess = await axios.delete(`https://www.senna-server.shop/oauth/${id}`);
     dispatch({type:KAKAO_USER_WITHDRAWAL,kakaoUserWithdrawalSuccess});
   }
 

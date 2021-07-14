@@ -8,6 +8,8 @@ import { getUserInfo } from '../modules/loginReducer';
 import { getKakaoUserInfo } from '../modules/kakaoReducer'
 
 
+const {Kakao} = window;
+
 // 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
@@ -158,14 +160,50 @@ const DeleteBtn = styled.button`
   }
 `;
 
+
+//위치
+const PlaceWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 20%;
+  margin-bottom: 1rem;
+`
+const Place = styled.p`
+  color: #1b1b1b;
+  font-size: 13px;
+  @media all and (min-width:768px) and (max-width:1023px){
+  width: 100%;
+  }
+`
+
+
+//카카오톡 공유하기
+
+const KakaoShare = styled.div`
+ display: flex;
+ padding-left: 84%;
+`
+
+const KakaoShareWrapper = styled.img`
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  @media all and (max-width:767px) {
+    margin-bottom: 1rem;
+  }
+`
+
 const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}) => {
 
   const dispatch = useDispatch();
-  const { content, hashtag, image, postingId} = useSelector(state => ({
+  const { content, hashtag, image, postingId, place} = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
     postingId: state.pickPosting.postInfo.postId,
+    place : state.pickPosting.postInfo.place
   })); 
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
@@ -197,6 +235,30 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
     
   }
 
+  //카카오 공유하기
+  const KakaoShareHandler = () => {
+    Kakao.Link.createDefaultButton({
+      container: '#create-kakao-link-btn',
+      objectType: 'feed',
+      content: {
+        title: 'Senna, 사진을 타고 날아가는',
+        description: `${hashtag}`,
+        imageUrl: image[0],
+        link: {
+          webUrl: 'https://senna.world',
+        },
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            webUrl: 'https://senna.world',
+          },
+        },
+      ],
+    })
+  }
+
   if (!myCtModal) return null;
   return(
     <>
@@ -215,12 +277,20 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
               <ContentText>
                 {content}
               </ContentText>
-              <HashTagWrapper>
+          </ContentTextArea>
+            <HashTagWrapper>
               {hashtag.map((e, index) => {
                 return <HashTag key={index}>{`#${e}`}</HashTag>
               })}
-            </HashTagWrapper>
-          </ContentTextArea>
+             </HashTagWrapper>
+            <PlaceWrapper>
+              <Place>{place}</Place>
+            </PlaceWrapper>
+            <KakaoShare onClick={()=>KakaoShareHandler()}> 
+              <a id="create-kakao-link-btn" href="javascript:;" >
+                <KakaoShareWrapper src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+              </a>
+            </KakaoShare>
         </ContentsWrapper>
         </ContentModalDiv>
       </BackgroundDark>

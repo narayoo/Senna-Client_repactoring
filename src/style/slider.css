@@ -1,0 +1,103 @@
+@media all and (min-width:1023px) {
+    #pc{
+        width: 100%;
+        height: auto;
+      }
+    #ipad{
+        display: none;
+      }
+    #iphone{
+        display: none;
+      }
+    #pc2{
+        width: 100%;
+        height: auto;
+      }
+    #ipad2{
+        display: none;
+      }
+    #iphone2{
+        display: none;
+      }
+    #pc3{
+        width: 100%;
+        height: auto;
+      }
+    #ipad3{
+        display: none;
+      }
+    #iphone3{
+        display: none;
+      }
+   
+  }
+
+@media (min-width:768px) {
+    #pc{
+      display: none;
+    }
+    #ipad{
+      display: none;
+    }
+    #iphone{
+      width: 100%;
+      height: 100vh;
+    }
+    #pc2{
+        display: none;
+      }
+    #ipad2{
+        display: none;
+      }
+    #iphone2{
+        width: 100%;
+        height: auto;
+      }
+    #pc3{
+        display: none;
+      }
+    #ipad3{
+        display: none;
+      }
+    #iphone3{
+        width: 100%;
+        height: auto;
+      }
+  }
+  
+
+  @media (min-width:768px) and (min-width:1023px) {
+    #pc{
+        display: none;
+      }
+    #ipad{
+        width: 100%;
+        height: auto;
+      }
+    #iphone{
+        display: none;
+      }
+
+    #pc2{
+      display: none;
+    }
+    #ipad2{
+      width: 100%;
+      height: auto;
+    }
+    #iphone2{
+      display: none;
+    }
+
+    #pc3{
+        display: none;
+      }
+    #ipad3{
+        width: 100%;
+        height: auto;
+      }
+    #iphone3{
+        display: none;
+      }
+  }
+
