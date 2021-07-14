@@ -216,9 +216,6 @@ const UserFavoriteBox = styled.div`
     border: 1px solid rgba(238, 238, 238, 0.2);
   }
 `
-let index = 0;
-const carousel1 = document.getElementsByClassName('carousel1'); 
-const carousel2 = document.getElementsByClassName('carousel2'); 
 
 const {Kakao} = window;
 
@@ -287,18 +284,23 @@ const Mypage = React.memo( ( ) => {
   };
   const photoList = uploadList.filter((e) => e.status === true)
   const kakaoPhotoList = kakaoUploadList.filter((e) => e.status === true)
-
+  let index = 0;
+  const carousel1 = document.getElementsByClassName('carousel1'); 
+  const carousel2 = document.getElementsByClassName('carousel2'); 
+  
   //  Mycontent이전 버튼
   const onPrev = () => {
     if (index === 0) return; 
     index -= 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    
   }
   // Mycontent다음 버튼
   const onNext = () => {
-    if (index === 2) return; 
+    if (index === 100) return; 
     index += 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    console.log('index::',index)
   } 
   //  MyFavorite이전 버튼
   const onPrev2 = () => {
@@ -308,7 +310,7 @@ const Mypage = React.memo( ( ) => {
   }
   // MyFavorite다음 버튼
   const onNext2 = () => {
-    if (index === 2) return; 
+    if (index === 100) return; 
     index += 1; 
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
   } 
