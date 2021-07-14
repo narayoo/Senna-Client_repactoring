@@ -5,6 +5,10 @@ import { Link, useHistory } from 'react-router-dom'
 import Nav from './Nav'
 import { addContent , kakaoAddContent} from '../modules/addContentReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
+import Autocomplete from "react-google-autocomplete";
+import '../style/google.css'
+
+
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -130,11 +134,15 @@ const HashTagBox = styled.input`
     margin-top: 1rem;
   }
 `;
+
+ 
+
 const UpdateMycontents = React.memo(() => {
   const [ text, setText ] = useState('');
   const [ hash, setHash ] = useState([]);
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
+  const [ place, setPlace] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -155,6 +163,8 @@ const UpdateMycontents = React.memo(() => {
   const onChangeHash = (e) => {
     setHash(e.target.value);
   }
+  
+
   const handleFileOnChange = (e) => {
     let file = e.target.files;
     if(file.length > 5 || file.length < 1) {
@@ -174,12 +184,12 @@ const UpdateMycontents = React.memo(() => {
   }
   const onAddContent = async(e) => {
     if(ok && isLogin){
-      await dispatch(addContent(hash,text,userId,photo));
+      await dispatch(addContent(hash,text,userId,photo,place));
       alert('등록되었습니다.')
       await dispatch(getAllOfPosting());
       history.push('./');
     } else if (ok && kakaoIsLogin) {
-      await dispatch(kakaoAddContent(hash,text,kakoUserId,photo));
+      await dispatch(kakaoAddContent(hash,text,kakoUserId,photo,place));
       alert('등록되었습니다.')
       await dispatch(getAllOfPosting());
       history.push('./');
@@ -196,6 +206,14 @@ const UpdateMycontents = React.memo(() => {
         <AddCtText placeholder='Write Your Memories' value={text} onChange={onChangeText}/>
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
+        <>
+        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Ij.formattedPrediction)}} 
+          options={{
+            types: [],
+            fields: ['geometry.location','address_components','place_id','formatted_address']
+          }}
+        id='autocomplete'/>
+        </>
         <ButtonGroup>
           <Link to='./'>
             <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn>
@@ -209,4 +227,5 @@ const UpdateMycontents = React.memo(() => {
 
 
 export default UpdateMycontents;
+
 

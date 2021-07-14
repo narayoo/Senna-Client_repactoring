@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 import {likeButton, kakaoLikeButton} from '../modules/likeReducer'
 import Loading from './Loading';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom';
+
+const {Kakao} = window;
 
 // 모달 뒷배경
 const BackgroundDark = styled.div`
@@ -82,7 +85,7 @@ const ContentText = styled.div`
 const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 20%;
+  height: 10%;
 `;
 // 해시태그
 const HashTag = styled.p`
@@ -92,6 +95,23 @@ const HashTag = styled.p`
     width: 100%;
   }
 `;
+
+//위치
+const PlaceWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 20%;
+  margin-bottom: 1rem;
+`
+const Place = styled.p`
+  color: #1b1b1b;
+  font-size: 13px;
+  @media all and (min-width:768px) and (max-width:1023px){
+  width: 100%;
+  }
+`
+
 
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
@@ -106,8 +126,28 @@ const FavoriteCheckWrapper = styled.div`
   }
 `
 
-const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
 
+
+//카카오톡 공유하기
+
+const KakaoShare = styled.div`
+ display: flex;
+ padding-left: 84%;
+`
+
+const KakaoShareWrapper = styled.img`
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  @media all and (max-width:767px) {
+    margin-bottom: 1rem;
+  }
+`
+
+
+const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
+  
   const dispatch = useDispatch();
   
   const { isLogin, userKey} = useSelector(state => ({
@@ -118,13 +158,16 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
 
-  const { content, hashtag, image, postId, likeUser } = useSelector(state => ({
+  const { content, hashtag, image, postId, likeUser, place } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
     postId : state.pickPosting.postInfo.postId,
     likeUser : state.pickPosting.postInfo.likeUser,
+    place : state.pickPosting.postInfo.place
   })); 
+
+
   // likebutton click event
   const handleLikeButton = async(e) => {
     const like = e.target.id;
@@ -139,6 +182,31 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
       alert('이미 좋아요한 게시물입니다.')
     }
   }
+
+
+  const KakaoShareHandler = () => {
+    Kakao.Link.createDefaultButton({
+      container: '#create-kakao-link-btn',
+      objectType: 'feed',
+      content: {
+        title: 'Senna, 사진을 타고 날아가는',
+        description: `${hashtag}`,
+        imageUrl: image[0],
+        link: {
+          webUrl: 'https://senna.world',
+        },
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            webUrl: 'https://senna.world',
+          },
+        },
+      ],
+    })
+  }
+
 
   if (!ctModal) return null;
 
@@ -206,12 +274,20 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
                 <ContentText>
                   {content}
                 </ContentText>
-                <HashTagWrapper>
+            </ContentTextArea>
+            <HashTagWrapper>
                 {hashtag.map((e, index) => {
                   return <HashTag key={index}>{`#${e}`}</HashTag>
                 })}
               </HashTagWrapper>
-            </ContentTextArea>
+            <PlaceWrapper>
+              <Place>{place}</Place>
+              </PlaceWrapper>
+            <KakaoShare onClick={()=>KakaoShareHandler()}> 
+            <a id="create-kakao-link-btn" href="javascript:;" >
+            <KakaoShareWrapper src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+            </a>
+            </KakaoShare>
           </ContentsWrapper>
         </ContentModalDiv>
 

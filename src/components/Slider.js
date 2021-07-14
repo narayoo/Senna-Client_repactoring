@@ -10,6 +10,7 @@ import ipad3 from '../img/ipad3.png';
 import iphone1 from '../img/iphone1.png';
 import iphone2 from '../img/iphone2.png';
 import iphone3 from '../img/iphone3.png';
+import '../style/slider.css';
 
 const ani = keyframes`
   0%{
@@ -37,24 +38,27 @@ const Container = styled.div`
 `; 
 
 
-const Picture = styled.picture`
+const Picture = styled.div`
 
 `
 
 const MainImg = styled.img`
   width: 100%;
   height: auto;
-  /* opacity: 0.4; */
+
+
+
+
 `;
 const MainFont = styled.p`
   position: absolute;
-  top:0;
+  top:3rem;
   right:0;
   bottom:0;
-  left:0;
+  left:11rem;
   display: flex; 
-  align-items: center; 
-  justify-content: center;
+  align-items: left; 
+  justify-content: left;
   font-size: 2.5rem;
   color: #eeeeee;
   animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
@@ -70,36 +74,22 @@ function Slider() {
     <CarouselWrapper>
       <Carousel autoplay>
         <Container>
-          <Picture>
-          <source srcSet={main1} media="(min-width: 1000px)" />
-          <source srcSet={ipad1} media="(min-width: 700px)" />
-          <source srcSet={iphone1} media="(min-width: 400px)" />
           <MainImg src={main1}></MainImg>
-          {/* <MainFont>나의 기억 속 여행지를 <br />사람들과 공유할 수 있습니다</MainFont> */}
-          </Picture>
+          {/* <MainFont>한 장의 사진에 기록되는 당신의 추억 한 조각을<br />새나에서 많은 사람들과 공유해보세요.</MainFont> */}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
-        <Picture>
-          <source srcSet={main2} media="(min-width: 1000px)" />
-          <source srcSet={ipad2} media="(min-width: 700px)" />
-          <source srcSet={iphone2} media="(min-width: 400px)" />
           <MainImg src={main2}></MainImg>
-          {/* <MainFont>Hello, We are Senna {`:)`}<br />Record your memories<br />And share your memories with people</MainFont> */}
+          {/* <MainFont>당신의 일상을 떠나 새로운 곳에서 만난<br />모든 것을 앨범처럼 기록하세요.<br />그리고 새나와 함께 나눠요.</MainFont> */}
         {/* <video controls autoplay="autoplay" loop="loop" muted >
           <source src={main1} type="video/mp4" />
         </video>  */}
-        </Picture>
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
-        <Picture>
-          <source srcSet={main3} media="(min-width: 1000px)" />
-          <source srcSet={ipad3} media="(min-width: 700px)" />
-          <source srcSet={iphone3} media="(min-width: 400px)" />
-          <MainImg src={main3}></MainImg>
+        <MainImg src={main3}></MainImg>
+          {/* <MainFont>새나에서는 언제든 당신이 원하는 곳을 찾고 <br />당신이 모르는 새로운 곳을 만날 수 있으며<br />좋아하는 것을 언제든 꺼내보고<br />소중한 추억을 간직할 수 있습니다. </MainFont> */}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
-        </Picture>
         </Container>
       </Carousel>
     </CarouselWrapper>

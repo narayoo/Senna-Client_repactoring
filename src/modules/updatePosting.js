@@ -3,12 +3,13 @@ import axios from "axios";
 /** 액션타입 */
 export const UPDATE_POSTING = 'updatePosting/UPDATE_POSTING';
 /** 액션생성함수 & API 요청 */
-export const onUpdatePosting = (userId,images,content,hashtag,id) => async dispatch => {
+export const onUpdatePosting = (userId,images,content,hashtag,id,place) => async dispatch => {
   console.log('userId:',userId)
   console.log('images:',images)
   console.log('content:',content)
   console.log('hashtag:',hashtag)
   console.log('id:',id)
+  console.log('place',place)
   let formData = new FormData()
   const config = {
     header: {'content-type': 'multipart/form-data'}
@@ -19,7 +20,8 @@ export const onUpdatePosting = (userId,images,content,hashtag,id) => async dispa
   formData.append("hashtag", hashtag);
   formData.append("content", content);
   formData.append("userId", userId);
-  const updatePostingInfo = await axios.patch(`https://www.senna-server.shop/post/m/${id}`, formData, config);
+  formData.append("place", place)
+  const updatePostingInfo = await axios.patch(`https://www.senna-server.shop/post/${id}`, formData, config);
   dispatch({type: UPDATE_POSTING, updatePostingInfo});
 }
 const initialState = {
@@ -49,6 +51,7 @@ export default function updatePosting(state = initialState, action){
         hashtag: action.updatePostingInfo.data.data.hashtag,
         created_date: action.updatePostingInfo.data.data.created_date,
         status: true,
+        place : action.updatePostingInfo.data.data.place
       }
     default : return state;
   }

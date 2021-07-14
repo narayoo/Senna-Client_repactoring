@@ -16,6 +16,7 @@ const initialState = {
     image: [],
     postId: '',
     likeUser: [],
+    place: ''
   },
 }
 
@@ -30,6 +31,7 @@ export default function pickPosting(state = initialState, action){
           image: action.getPosting.data.data.image,
           postId: action.getPosting.data.data._id,
           likeUser: action.getPosting.data.data.likeUser,
+          place: action.getPosting.data.data.place
         }
       }
     default : return state;
