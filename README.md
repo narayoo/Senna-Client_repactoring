@@ -153,10 +153,27 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 <summary>이곳을 클릭해주세요 🍉</summary>
 <div markdown="1">       
 
-작업 목록 (개별): Main page[Album_Grid, Nav, ContentModal, LoginModal],SignUp, AddComponent page, SearchBar[material_ui], InfiniteScroll, Mypage[MyContentModal, MyFavoriteModal, ContentsCarousel], 전반 Markup
+MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, updateMycontent, SignUp, Modal, AddContents, Login ] 
 
 
-작업 목록 (공통): ProfileUpdate page, Mypage, Search, KakaoLogin
+기능 구현 :   
+
+[공통] 
+ - User likeButton.    
+ - Search.  
+ - User UpdateProfile. 
+ - Kakao Social User Features
+
+
+[개별]
+ - 일반 Login and Logout
+ - AddContent
+ - Update Mycontent
+ - Delete Mycontent
+ - SearchBar material_ui CountrySelect_library 적용
+ - HotKeyword & UserSuggestKeyword
+ - InfiniteScroll
+ - 모든페이지 반응형 웹 작업
 
 
 </div>
