@@ -1,37 +1,47 @@
 import axios from "axios";
+import jwt_decode from 'jwt-decode';
 
 export const KAKAO_LOGIN = 'kakaoReducer/KAKAO_LOGIN';
 export const KAKAO_LOGOUT = 'kakaoReducer/KAKAO_LOGOUT';
 export const KAKAO_INFO = 'kakaoReducer/KAKAO_INFO';
+export const KAKAO_REFRESH = 'kakaoReducer/KAKAO_REFRESH'
 
 export const kakaoLogin = (acToken) => async dispatch => {
   const kakaoLoginSuccess = await axios.get(`https://www.senna-server.shop/oauth/callback/kakao`,
-  {headers : {authorization : acToken}})
+  {headers : {authorization : acToken}
+  , withCredentials: true 
+  })
   dispatch({type:KAKAO_LOGIN, kakaoLoginSuccess})
 }
 export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
-
-  const kakaoLogoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
+   const kakaoLogoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
   { headers : { 
     authorization : localAcToken ,
     kakaoKey: kakaoAcToken,
     'Content-Type': 'application/json',
+    },
     withCredentials: true 
-    } 
   });
   dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess})
-}
+} 
 
 export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
-  const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
+   const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 
     authorization : kakaoAcToken ,
     'Content-Type': 'application/json',
+    },
     withCredentials: true 
-    } 
   });
   dispatch({type:KAKAO_INFO, getKakaoInfoSuccess});
 }
+
+export const autoRefreshKakaoLogin = () => async dispatch => {
+  const autoRefreshKakao = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
+  dispatch({type:KAKAO_REFRESH, autoRefreshKakao})  
+}
+
+
 
 const initialState = {
   login : {
@@ -94,6 +104,19 @@ export default function kakaoLoginReducer(state = initialState, action) {
               uploadList: action.getKakaoInfoSuccess.data.data.uploadList,
             }
           }
+        
+        case KAKAO_REFRESH :
+        return {
+          ...state,
+            login: {
+              userId: action.autoRefreshKakao.data.data.userId,
+              isLogin: true,
+              userKey: action.autoRefreshKakao.data.data._id,
+              accessToken: `Bearer ${action.autoRefreshKakao.data.accessToken}`,
+              profileImg: action.autoRefreshKakao.data.data.profileImg,
+              favorite: action.autoRefreshKakao.data.data.favorite,
+            },
+        }
         default : return state;
     }
 }

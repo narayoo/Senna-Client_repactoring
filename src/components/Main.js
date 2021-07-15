@@ -7,11 +7,14 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import {localLogin, localLogout} from '../modules/loginReducer';
+import {localLogin, localLogout , autoRefreshLogin} from '../modules/loginReducer';
 import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getHotKeyword } from '../modules/hotkeywordReducer';
+import jwt_decode from 'jwt-decode';
+
+
 
 import dotenv from 'dotenv';
 
@@ -57,6 +60,8 @@ const Main = React.memo(() => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollTop]);
+
+
   // 스크롤 감지 함수
   const handleScroll = async() => {
     const scroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -89,7 +94,8 @@ const Main = React.memo(() => {
       password: password,
     }
     setLoading(true);
-    await dispatch(localLogin(body));
+    await dispatch(localLogin(body))
+
     setLoading(false);
     await setModal(false);
   }
