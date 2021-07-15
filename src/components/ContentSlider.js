@@ -11,7 +11,7 @@ const ContentSlider = (({image}) => {
     width: 65%;
     @media all and (max-width:767px) {
       width: 100%;
-      height: 300px;
+      height: 280px;
     }
   `;
   const Wrapper = styled.div`//carousel-wrapper

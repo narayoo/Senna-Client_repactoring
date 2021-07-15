@@ -23,6 +23,16 @@ const LoginModalDiv = styled.div`
   border: 1px solid gray;
   padding: 1.5rem;
   border-radius: 15px;
+  @media all and (max-width:767px) {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    width: 500px;
+    height: 500px;
+    padding: 2rem;
+  }
 `;
 // 모달 버튼 그룹
 const ButtonGroup = styled.div`
@@ -30,6 +40,16 @@ const ButtonGroup = styled.div`
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
+  @media all and (max-width:767px) {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: 5rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: 3rem;
+  }
 `;
 // 모달 닫기 버튼
 const CancleBtn = styled.button`
@@ -46,6 +66,16 @@ const CancleBtn = styled.button`
   &:hover{
     cursor: pointer;
     background: ${darken(0.1, '#707070')};
+  }
+  @media all and (max-width:767px) {
+    flex-grow: 0;
+    margin: 0;
+    width: 100%;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    flex-grow: 0;
+    margin: 0;
+    width: 100%;
   }
 `;
 // 로그인버튼 
@@ -64,6 +94,18 @@ const LoginBtn = styled.button`
     cursor: pointer;
     background: ${lighten(0.1, '#00acc1')};
   }
+  @media all and (max-width:767px) {
+    flex-grow: 0;
+    margin: 0;
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    flex-grow: 0;
+    margin: 0;
+    margin-top: 1.5rem;
+    width: 100%;
+  }
 `;
 // 소셜 로그인 버튼
 const SocialBtn = styled.button`
@@ -80,6 +122,16 @@ const SocialBtn = styled.button`
   &:hover{
     cursor: pointer;
     background: ${darken(0.1, '#fef01b')};
+  }
+  @media all and (max-width:767px) {
+    flex-grow: 0;
+    margin: 0;
+    margin-top: 1.5rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    flex-grow: 0;
+    margin: 0;
+    margin-top: 1.5rem;
   }
 `;
 // 로그인 인풋
@@ -98,7 +150,16 @@ const LoginInput = styled.input`
   background-color: #ffffff;
   box-shadow: none;
   outline:none;
-}
+  }
+  @media all and (max-width:767px) {
+    width: 100%;
+    height: 45px;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    width: 80%;
+    height: 38px;
+    margin-top: 1.5rem;
+  }
 `;
 // 모달 타이틀
 const Title = styled.p`
@@ -107,7 +168,14 @@ const Title = styled.p`
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 3rem;
-  
+  @media all and (max-width:767px) {
+    font-size: 2.5rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    font-size: 1.5rem;
+  }
 `
 
 const LoginModal = React.memo(({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) => {

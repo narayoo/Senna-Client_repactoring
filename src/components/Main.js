@@ -44,7 +44,9 @@ const Main = React.memo(() => {
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
- 
+  const errMsg = useSelector(state => state.loginReducer.message);
+  const statusNo = useSelector(state => state.loginReducer.status);
+
   useEffect(async() => {
     await dispatch(getAllOfPosting());
     // 핫 키워드 얻어오기
@@ -93,7 +95,7 @@ const Main = React.memo(() => {
     }
     setLoading(true);
     await dispatch(localLogin(body))
-    
+
     setLoading(false);
     await setModal(false);
   }

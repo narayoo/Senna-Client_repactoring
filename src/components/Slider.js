@@ -7,8 +7,6 @@ import main3 from '../img/main3.png';
 import iphone1 from '../img/iphone1.png';
 import iphone2 from '../img/iphone2.png';
 import iphone3 from '../img/iphone3.png';
-
-
 const ani = keyframes`
   0%{
     letter-spacing:-.5em;
@@ -29,6 +27,8 @@ const Container = styled.div`
   width : auto;
   height: auto;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   &:focus{
     outline: none;
   }
@@ -37,7 +37,6 @@ const Container = styled.div`
 
 const Picture = styled.picture`
   
-
 `
 
 const MainImg = styled.img`
@@ -45,7 +44,6 @@ const MainImg = styled.img`
   height: auto;
 
 `;
-
 
 const MainFont = styled.p`
   position: absolute;
@@ -65,6 +63,13 @@ const MainFont = styled.p`
   }
 `;
 
+const Copyright = styled.p`
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  font-weight: 100;
+  color: rgba(239, 235, 233, 0.6);
+`;
 function Slider() {
   return (
     <>  
@@ -77,7 +82,7 @@ function Slider() {
            <source srcSet={iphone1} media="(max-width: 766px)" />
          <MainImg src={main1} alt='image1'></MainImg>
          </Picture>
-          {/* <MainFont>한 장의 사진에 기록되는 당신의 추억 한 조각을<br />새나에서 많은 사람들과 공유해보세요.</MainFont> */}  
+          {/* <MainFont></MainFont> */}  
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
@@ -87,10 +92,10 @@ function Slider() {
            <source srcSet={iphone2} media="(max-width: 766px)" />
          <MainImg src={main2} alt='image2'></MainImg>
          </Picture>
-          {/* <MainFont>당신의 일상을 떠나 새로운 곳에서 만난<br />모든 것을 앨범처럼 기록하세요.<br />그리고 새나와 함께 나눠요.</MainFont> */}
+          {/* <MainFont></MainFont> */}
         {/* <video controls autoplay="autoplay" loop="loop" muted >
           <source src={main1} type="video/mp4" />
-        </video>  */}
+        </video>*/}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
@@ -100,10 +105,9 @@ function Slider() {
              <source srcSet={iphone3} media="(max-width: 766px)" />
             <MainImg src={main3} alt='image3'></MainImg>
           </Picture>
-          {/* <MainFont>새나에서는 언제든 당신이 원하는 곳을 찾고 <br />당신이 모르는 새로운 곳을 만날 수 있으며<br />좋아하는 것을 언제든 꺼내보고<br />소중한 추억을 간직할 수 있습니다. </MainFont> */}
-        
+          {/* <MainFont></MainFont> */}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
-        </Container>
+        </Container>  */}
       </Carousel>
     </CarouselWrapper>
     </>
