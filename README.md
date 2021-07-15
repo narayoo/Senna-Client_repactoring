@@ -29,10 +29,10 @@
 <hr>
 
 
-# 🐣 팀 소개 
+# 🦋 팀 소개 
 
 
-<img src="https://user-images.githubusercontent.com/78632904/121001632-737dac00-c7c6-11eb-809e-bf16ef783799.png" width="400px">
+<img src="https://user-images.githubusercontent.com/78632904/125730713-c7f3b198-3fe2-46f3-9482-e64c3f7ade7c.png" width="400px">
 
 <br>
 
