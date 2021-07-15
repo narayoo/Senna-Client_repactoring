@@ -47,21 +47,52 @@ const MainImg = styled.img`
 
 const MainFont = styled.p`
   position: absolute;
-  top:3rem;
-  right:0;
-  bottom:0;
-  left:11rem;
+  top: 0;
+  bottom: 10rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   display: flex; 
-  align-items: left; 
-  justify-content: left;
-  font-size: 2.5rem;
-  color: #eeeeee;
+  align-items: center; 
+  justify-content: center;
+  font-size: 9rem;
+  color: #1b1b1b;
+  font-family: 'Dancing Script', cursive;
   animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
-  text-shadow: 8px 6px 6px #5d4037;
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.2);
   @media all and (max-width:767px) {
-    font-size: 1rem;
+    display: none;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    font-size: 5rem;
+    bottom: 6rem;
   }
 `;
+
+const SubFont =styled.p`
+  position: absolute;
+  top: 12rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 2rem;
+  color: #1b1b1b;
+  font-family: 'Nunito Sans', sans-serif;
+  animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.2);
+  @media all and (max-width:767px) {
+     display: none;
+  }
+  @media all and (min-width:768px) and (max-width:1023px) { 
+    font-size: 1rem;
+    top: 8rem;
+  }
+
+`
 
 const Copyright = styled.p`
   position: absolute;
@@ -82,7 +113,8 @@ function Slider() {
            <source srcSet={iphone1} media="(max-width: 766px)" />
          <MainImg src={main1} alt='image1'></MainImg>
          </Picture>
-          {/* <MainFont></MainFont> */}  
+          <MainFont>Welcome to <br />Senna</MainFont>
+          <SubFont>SHARE YOUR MEMORY</SubFont>
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
