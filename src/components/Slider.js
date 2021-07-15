@@ -107,7 +107,7 @@ function Slider() {
           </Picture>
           {/* <MainFont></MainFont> */}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
-        </Container>  */}
+        </Container>
       </Carousel>
     </CarouselWrapper>
     </>
