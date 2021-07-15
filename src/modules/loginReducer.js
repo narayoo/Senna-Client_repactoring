@@ -12,6 +12,7 @@ export const ERROR = 'loginReducer/ERROR';
 /** 액션생성함수 & API 요청 */
 export const localLogin = (body) => async dispatch => {
   try {
+    console.log('login:::',body)
     const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', body, { withCredentials:true });
     dispatch({type:LOCAL_LOGIN,loginSuccess});
   } catch(err) {
