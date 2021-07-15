@@ -1,19 +1,12 @@
 # 프로젝트 소개
 
-# 💙 LOGO
-
-<img src=https://user-images.githubusercontent.com/60214107/123025723-00a34080-d416-11eb-97b3-89a10ffc4618.png width="400px">
-
-***
+# 💙 ABOUT 
 
 <br>
 
-# About 
+<img src=https://user-images.githubusercontent.com/60214107/123025723-00a34080-d416-11eb-97b3-89a10ffc4618.png width="70px">  
 
-<br>
-
-
-### _새나 : " 새가 나는 것처럼 자유롭고 아름다움 "_   
+### _새나 : " 새가 나는 것처럼 자유롭고 아름다움 "_ 
 
 <br>
 
@@ -26,6 +19,12 @@
 
 
 <br>
+
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/78632904/125732170-0c77bee9-7c09-4228-9ea9-6c160012f585.gif)
+
+
+
 <hr>
 
 
