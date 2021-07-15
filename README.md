@@ -127,13 +127,29 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 <summary>이곳을 클릭해주세요 🍉</summary>
 <div markdown="1">       
 
-MongoDB 구축
+[공통]
+ - MongoDB 구축 및 연결
+ - kakao 소셜 로그인 / 회원탈퇴
+ - AWS 배포 및 https 적용
+ - kakao share api / google place api (클라단 공통 작업)
+ 
+ 
+[개별]
+ - post controller 작성 
+    - 모든 게시물 불러오기
+    - 하나의 게시물 불러오기
+    - 게시물 삭제 / 수정 / 등록
+ - search controller 작성
+    - 검색시 게시물 불러오기
+ - user controller 작성
+    - 아이디 중복 확인
+    - 유저 추천 키워드
+    - 좋아요 등록 / 삭제
+    - 회원 정보 수정
+ - 패스워드 암호화 
+ - multer-s3 연결
+ - API 문서 관리
 
-API작성(개별): /login, /logout, /signup, /info, /withdrawal, /refreshtokenrequest
-
-API작성(공통): /delete, 소셜 /login
-
-AWS 배포(공통) (EC2, S3, RDS, Route53)
 
 </div>
 </details>
