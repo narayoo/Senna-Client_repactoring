@@ -7,7 +7,6 @@ import Loading from './Loading';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom';
 
 const {Kakao} = window;
-
 // 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
@@ -93,6 +92,7 @@ const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 10%;
+  padding-right: 1.5rem;
   @media all and (max-width:767px) {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -110,8 +110,7 @@ const HashTag = styled.p`
     margin-top: 1.5rem;
   }
 `;
-
-//위치
+//위치 래퍼
 const PlaceWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -125,14 +124,16 @@ const PlaceWrapper = styled.div`
   }
   
 `
+// 위치
 const Place = styled.p`
   color: #1b1b1b;
   font-size: 13px;
+  padding-right: 1.5rem;
   @media all and (min-width:768px) and (max-width:1023px){
   width: 100%;
   }
 `
-
+// 좋아요 버튼 래퍼
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
   padding-top: 1.5rem;
@@ -146,7 +147,6 @@ const FavoriteCheckWrapper = styled.div`
   }
 `
 //카카오톡 공유하기
-
 const KakaoShare = styled.div`
  display: flex;
  justify-content: flex-end;
@@ -155,7 +155,7 @@ const KakaoShare = styled.div`
   justify-content: flex-end;
  }
 `
-
+// 카카오 공유하기 래퍼
 const KakaoShareWrapper = styled.img`
   width: 1.7rem;
   height: 1.7rem;
@@ -165,8 +165,6 @@ const KakaoShareWrapper = styled.img`
     margin-bottom: 0rem;
   }
 `
-
-
 const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
   
   const dispatch = useDispatch();
