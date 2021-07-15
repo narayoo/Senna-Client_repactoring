@@ -24,7 +24,6 @@ const initialState = {
 
 
 export default function deleteMyPosting(state = initialState, action){
-  console.log('action', action)
   switch(action.type) {
     case DELETE_MY_POSTING :
       return {
