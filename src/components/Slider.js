@@ -59,7 +59,7 @@ const MainFont = styled.p`
   color: #1b1b1b;
   font-family: 'Dancing Script', cursive;
   animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
-  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.3);
   @media all and (max-width:767px) {
     display: none;
   }
@@ -71,7 +71,7 @@ const MainFont = styled.p`
 
 const SubFont =styled.p`
   position: absolute;
-  top: 12rem;
+  top: 15rem;
   bottom: 0;
   left: 0;
   right: 0;
