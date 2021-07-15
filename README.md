@@ -57,7 +57,7 @@
 
 <br>
 
-<img src = https://user-images.githubusercontent.com/78632904/122373637-9bc29300-cf9c-11eb-94a9-d2866cd28757.jpg width="400px" >
+<img src = https://user-images.githubusercontent.com/78632904/122373637-9bc29300-cf9c-11eb-94a9-d2866cd28757.jpg width="250px" >
 
 ## 송원준 <a href="https://github.com/zdtfcx/" target="_blank"><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white"/></a>
   
@@ -83,7 +83,7 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 
 
 
-<img src = https://user-images.githubusercontent.com/78632904/122373465-7897e380-cf9c-11eb-8e0b-12e21a5253a4.jpg width="400px">
+<img src = https://user-images.githubusercontent.com/78632904/122373465-7897e380-cf9c-11eb-8e0b-12e21a5253a4.jpg width="250px">
 
 ## 유나라 (팀장) <a href="https://github.com/narayoo" target="_blank"><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white"/></a>
 
@@ -114,7 +114,7 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 
 
 
-<img src = https://user-images.githubusercontent.com/78632904/122377998-894a5880-cfa0-11eb-9862-8c4ad85a62fc.jpg width="400px">
+<img src = https://user-images.githubusercontent.com/78632904/122377998-894a5880-cfa0-11eb-9862-8c4ad85a62fc.jpg width="250px">
 
 ## 이혜빈 <a href="https://github.com/bining93" target="_blank"><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white"/></a>
 
@@ -139,7 +139,7 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 </details>
 
 
-<img src =https://user-images.githubusercontent.com/78632904/122380899-4e95ef80-cfa3-11eb-8a0b-fa73493c4a3a.jpg width="400px">
+<img src =https://user-images.githubusercontent.com/78632904/122380899-4e95ef80-cfa3-11eb-8a0b-fa73493c4a3a.jpg width="250px">
 
 ## 조미현 <a href="https://github.com/hold1593" target="_blank"><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white"/></a>
 
