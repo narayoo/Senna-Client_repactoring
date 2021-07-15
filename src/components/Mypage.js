@@ -259,29 +259,28 @@ const Mypage = React.memo( ( ) => {
 
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken)
 
-  let newAccessToken = accessToken.split(' ')[1];
-  let newKakaoAccessToken = kakaoAcToken.split(' ')[1];
-  
 
     useEffect(async() => {
       
       let now = new Date()
-      if (newAccessToken !== undefined) {
+      if (accessToken !== undefined && !kakaoAcToken) {
+        let newAccessToken = accessToken.split(' ')[1];
         let decoded = jwt_decode(newAccessToken)
         let expiry = decoded.exp - Number(now.getTime().toString().substr(0, 10));
-        if(expiry < 600){
+        if(expiry < 10){
           return  await dispatch(autoRefreshLogin())
         }
        
-       } else if (newKakaoAccessToken !== undefined) {
+       } else if (kakaoAcToken !== undefined && !accessToken) {
+        let newKakaoAccessToken = kakaoAcToken.split(' ')[1];
         let decodedKakao = jwt_decode(newKakaoAccessToken)
         let kakaoExpiry = decodedKakao.exp - Number(now.getTime().toString().substr(0, 10));
         console.log('카카오리프레싀', newKakaoAccessToken)
         console.log('카카오리프레싀22', decodedKakao)
-        if (kakaoExpiry < 600 ){
+        if (kakaoExpiry < 10 ){
           return await dispatch(autoRefreshKakaoLogin())
         }
-       }
+      }
     })
 
     
