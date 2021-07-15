@@ -2,8 +2,7 @@
 
 # 💙 LOGO
 
-![Senna편집](https://user-images.githubusercontent.com/60214107/123025723-00a34080-d416-11eb-97b3-89a10ffc4618.png)
-
+<img src=https://user-images.githubusercontent.com/60214107/123025723-00a34080-d416-11eb-97b3-89a10ffc4618.png width="400px">
 
 ***
 
@@ -33,8 +32,7 @@
 # 🐣 팀 소개 
 
 
-![송유이조-001](https://user-images.githubusercontent.com/78632904/121001632-737dac00-c7c6-11eb-809e-bf16ef783799.png)
-
+<img src="https://user-images.githubusercontent.com/78632904/121001632-737dac00-c7c6-11eb-809e-bf16ef783799.png" width="400px">
 
 <br>
 
