@@ -125,7 +125,9 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
 
 <details>
 <summary>이곳을 클릭해주세요 🍉</summary>
-<div markdown="1">       
+<div markdown="1">    
+ 
+ 
 
 [공통]
  - MongoDB 구축 및 연결
@@ -150,9 +152,9 @@ AWS 배포(공통) (EC2, S3, RDS, Route53)
  - multer-s3 연결
  - API 문서 관리
 
-
 </div>
 </details>
+
 
 
 <img src =https://user-images.githubusercontent.com/78632904/122380899-4e95ef80-cfa3-11eb-8a0b-fa73493c4a3a.jpg width="250px">
