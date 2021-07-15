@@ -184,6 +184,7 @@ const UpdateMycontents = React.memo(() => {
   }
   const onAddContent = async(e) => {
     if(ok && isLogin){
+      console.log('유저아이디',userId)
       await dispatch(addContent(hash,text,userId,photo,place));
       alert('등록되었습니다.')
       await dispatch(getAllOfPosting());
@@ -207,7 +208,7 @@ const UpdateMycontents = React.memo(() => {
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <>
-        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Ij.formattedPrediction)}} 
+        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
           options={{
             types: [],
             fields: ['geometry.location','address_components','place_id','formatted_address']
@@ -229,3 +230,4 @@ const UpdateMycontents = React.memo(() => {
 export default UpdateMycontents;
 
 
+// setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)
