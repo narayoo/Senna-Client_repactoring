@@ -183,3 +183,15 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 
 <br>
 
+
+
+# 🛠 Tech Stack(기술 스택)
+
+![stack](https://user-images.githubusercontent.com/78632904/125749306-ef24bf10-45cf-4cd7-9f99-620e49ed2adb.png)
+
+
+
+<br>
+
+<hr>
+
