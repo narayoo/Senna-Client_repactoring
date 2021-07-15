@@ -12,8 +12,6 @@ import { localLogout, autoRefreshLogin} from '../modules/loginReducer';
 import { kakaoLogout, autoRefreshKakaoLogin } from '../modules/kakaoReducer'
 import jwt_decode from 'jwt-decode';
 
-
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -218,10 +216,8 @@ const UserFavoriteBox = styled.div`
     flex-direction: column;
     border: 1px solid rgba(238, 238, 238, 0.2);
   }
-`
-
+`;
 const {Kakao} = window;
-
 const Mypage = React.memo( ( ) => {
   
   const dispatch = useDispatch();
@@ -229,6 +225,8 @@ const Mypage = React.memo( ( ) => {
   const [kakaoAT , setkakaoAT] = useState('');
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
+  const [postLoading, setPostLoading ] = useState(null);
+
   const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
@@ -283,16 +281,13 @@ const Mypage = React.memo( ( ) => {
         }
        }
     })
-
-    
-
-  
-
   // 내 콘텐트 모달 열기
   const myContentOpenHandler = async(e) => {
     const postId = e.target.id;
     setMyCtModal(true);
+    setPostLoading(true);
     await dispatch(getPickPosting(postId));
+    setPostLoading(false);
   }
   // 콘텐츠 모달 외부 클릭 시 닫기
   const handleMyCtModalOff = (e) => {
@@ -305,7 +300,9 @@ const Mypage = React.memo( ( ) => {
   const myFavoriteOpenHandler = async(e) => {
     const postId = e.target.id;
     setFavoCtModal(true);
+    setPostLoading(true);
     await dispatch(getPickPosting(postId));
+    setPostLoading(false);
   }
   // 콘텐츠 모달 외부 클릭 시 닫기
   const handleFavoCtModalOff = (e) => {
