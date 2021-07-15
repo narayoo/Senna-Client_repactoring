@@ -1,5 +1,4 @@
 import axios from "axios";
-import jwt_decode from 'jwt-decode';
 
 export const KAKAO_LOGIN = 'kakaoReducer/KAKAO_LOGIN';
 export const KAKAO_LOGOUT = 'kakaoReducer/KAKAO_LOGOUT';
@@ -26,7 +25,7 @@ export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
 } 
 
 export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
-   const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
+  const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 
     authorization : kakaoAcToken ,
     'Content-Type': 'application/json',

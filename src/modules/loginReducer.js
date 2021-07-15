@@ -10,9 +10,9 @@ export const AUTO_REFRESH_LOGIN = 'loginReducer/AUTO_REFRESH_LOGIN'
 export const ERROR = 'loginReducer/ERROR';
 
 /** 액션생성함수 & API 요청 */
-export const localLogin = (userId,password) => async dispatch => {
+export const localLogin = (body) => async dispatch => {
   try {
-    const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', userId,password);
+    const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', body, { withCredentials:true });
     dispatch({type:LOCAL_LOGIN,loginSuccess});
   } catch(err) {
     console.log('err', err.response)
@@ -111,19 +111,7 @@ export default function loginReducer(state = initialState, action){
           uploadList: action.getInfoSuccess.data.data.uploadList,
         }
       }
-      case REFRESH_LOGIN :
-        return {
-          ...state,
-            login: {
-              userId: action.refreshLogin.data.userId,
-              isLogin: true,
-              userKey: action.refreshLogin.data.userKey,
-              accessToken: `Bearer ${action.refreshLogin.data.accessToken}`,
-              profileImg: action.refreshLogin.data.profileImg,
-              favorite: action.refreshLogin.data.favorite,
-              suggest: action.refreshLogin.data.keyword,
-            },
-        }
+    
         case AUTO_REFRESH_LOGIN :
         return {
           ...state,
