@@ -264,3 +264,10 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 
 ***
 
+
+
+![Mind_Map_4](https://user-images.githubusercontent.com/78632904/125923155-e92f5c28-45c5-4575-b3f4-e77e53993b68.jpg)
+
+
+
+***
