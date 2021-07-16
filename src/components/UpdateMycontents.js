@@ -216,7 +216,7 @@ const UpdateMycontents = React.memo(() => {
         <Warning> ⚠️ 사진은 모두 다시 선택해주셔야 합니다 </Warning>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <>
-        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Ij.formattedPrediction)}} 
+        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
           options={{
             types: [],
             fields: ['geometry.location','address_components','place_id','formatted_address']
