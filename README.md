@@ -207,7 +207,7 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Redux" src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white"/>
 
 
-<img alt="Styled Components" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/><img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
+<img alt="Styled Components" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
 <img alt="jsx" src ="https://img.shields.io/badge/-JS%2FX-%23DA81F5.svg?style=for-the-badge&logo=&logoColor=white"/>
 
 
@@ -215,15 +215,15 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/>
 
 
-<img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/><img alt="Express.js" src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/><img alt="Git" src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"/>
+<img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/> <img alt="Express.js" src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/><img alt="Git" src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"/>
 
 
 
-<img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"/><img alt="mongoose" src ="https://img.shields.io/badge/-mongoose-%23B43104.svg?style=for-the-badge&logo=&logoColor=white"/>
+<img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"/> <img alt="mongoose" src ="https://img.shields.io/badge/-mongoose-%23B43104.svg?style=for-the-badge&logo=&logoColor=white"/>
 <img alt="Sequelize" src ="https://img.shields.io/badge/-Sequelize-%23FA58D0.svg?style=for-the-badge&logo=&logoColor=white"/>
 
 
-<img alt="AWS" src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white"/><img alt="S3" src ="https://img.shields.io/badge/-S3-%23FF8000.svg?style=for-the-badge&logo=&logoColor=white"/>
+<img alt="AWS" src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white"/> <img alt="S3" src ="https://img.shields.io/badge/-S3-%23FF8000.svg?style=for-the-badge&logo=&logoColor=white"/>
 <img alt="EC2" src ="https://img.shields.io/badge/-EC2-%23FF0000.svg?style=for-the-badge&logo=&logoColor=white"/>
 <img alt="Route53" src ="https://img.shields.io/badge/-Route53-%23FFBF00.svg?style=for-the-badge&logo=&logoColor=white"/>
 
