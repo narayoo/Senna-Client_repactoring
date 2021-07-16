@@ -220,7 +220,7 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 
 
 <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"/> <img alt="mongoose" src ="https://img.shields.io/badge/-mongoose-%23B43104.svg?style=for-the-badge&logo=&logoColor=white"/>
-<img alt="Sequelize" src ="https://img.shields.io/badge/-Sequelize-%23FA58D0.svg?style=for-the-badge&logo=&logoColor=white"/>
+
 
 
 <img alt="AWS" src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white"/> <img alt="S3" src ="https://img.shields.io/badge/-S3-%23FF8000.svg?style=for-the-badge&logo=&logoColor=white"/>
