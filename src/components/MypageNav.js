@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 const MyPageNavWrapper = styled.div`
   position: relative;
 `;
-// 로고 
 const Logo = styled.img`
   position: absolute;
   height: 5rem;
@@ -22,7 +21,6 @@ const Logo = styled.img`
     margin-right: 0rem;
   }
 `;
-// nav에 있는 버튼 
 const NavButton = styled.button`
   right: 0;
   position: absolute;
@@ -31,7 +29,6 @@ const NavButton = styled.button`
   font-size: 15px;
   margin-right: 2rem;
   margin-top: 2rem;
-  
   &:hover {
     cursor: pointer;
   }
@@ -42,14 +39,11 @@ const NavButton = styled.button`
   }
 `;
 
-
 export default function MypageNav({logout, kakaoLogoutHandler}) {
 
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
 
-
-  // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
   }

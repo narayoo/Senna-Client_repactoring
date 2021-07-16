@@ -15,7 +15,6 @@ const BackgroundDark = styled.div`
   background: rgba(0,0,0,0.7);
   z-index: 3;
 `;
-// login modal div
 const LoginModalDiv = styled.div`
   width: 400px;
   height: 400px;
@@ -34,7 +33,6 @@ const LoginModalDiv = styled.div`
     padding: 2rem;
   }
 `;
-// 모달 버튼 그룹
 const ButtonGroup = styled.div`
   justify-content: center;
   margin-top: 2rem;
@@ -51,7 +49,6 @@ const ButtonGroup = styled.div`
     margin-top: 3rem;
   }
 `;
-// 모달 닫기 버튼
 const CancleBtn = styled.button`
   flex-grow: 1;
   width: 40%;
@@ -78,7 +75,6 @@ const CancleBtn = styled.button`
     width: 100%;
   }
 `;
-// 로그인버튼 
 const LoginBtn = styled.button`
   flex-grow: 1;
   width: 40%;
@@ -107,7 +103,6 @@ const LoginBtn = styled.button`
     width: 100%;
   }
 `;
-// 소셜 로그인 버튼
 const SocialBtn = styled.button`
   flex-grow: 2;
   width: 100%;
@@ -134,7 +129,6 @@ const SocialBtn = styled.button`
     margin-top: 1.5rem;
   }
 `;
-// 로그인 인풋
 const LoginInput = styled.input`
   background: #f5f5f5;
   border: 1px solid #e0e0e0;
@@ -161,7 +155,6 @@ const LoginInput = styled.input`
     margin-top: 1.5rem;
   }
 `;
-// 모달 타이틀
 const Title = styled.p`
   color: #424242;
   font-size: 1.4rem;
@@ -176,7 +169,7 @@ const Title = styled.p`
   @media all and (min-width:768px) and (max-width:1023px) { 
     font-size: 1.5rem;
   }
-`
+`;
 
 const LoginModal = React.memo(({ loading, changePwd, changeId, userId, password, handleModalOff, visible, onConfirm, onCancle, onSocialLogin}) => {
   

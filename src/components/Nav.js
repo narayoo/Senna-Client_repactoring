@@ -9,7 +9,6 @@ import { useHistory } from 'react-router-dom'
 import { getUserInfo } from '../modules/loginReducer';
 import { getKakaoUserInfo} from '../modules/kakaoReducer'
 
-// 네비바 영역
 const NavSection = styled.div`
   width: 100%;
   position: sticky;
@@ -20,7 +19,6 @@ const NavSection = styled.div`
   z-index: 3;
   transition: all 0.3s ease-in-out;
 `;
-// 로고 
 const Logo = styled.img`
   height: 5rem;
   display: flex;
@@ -41,7 +39,6 @@ const Logo = styled.img`
     margin-right: 0rem;
   }
 `;
-// nav에 있는 버튼 
 const NavButton = styled.button`
   background: none;
   border: none;
@@ -116,25 +113,23 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const [open, setOpen] = useState(false);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
-  }
+  };
   const gotoMypage = async() => {
       history.push('./mypage');
       await dispatch(getUserInfo(accessToken));
-  }
+  };
   const gotoKakaoMypage = async() => {
     history.push('./mypage');
     await dispatch(getKakaoUserInfo(kakaoAcToken));
-  }
+  };
   const onHambugBtn = async() => {
     setOpen(!open);
-  }
+  };
   
   return (
     <>

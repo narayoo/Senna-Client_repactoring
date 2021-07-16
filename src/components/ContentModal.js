@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
@@ -7,7 +7,6 @@ import Loading from './Loading';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom';
 
 const {Kakao} = window;
-// 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
   left: 0;
@@ -20,7 +19,6 @@ const BackgroundDark = styled.div`
   background: rgba(0,0,0,0.7);
   z-index: 3;
 `;
-// content modal div
 const ContentModalDiv = styled.div`
   max-width: 900px;
   min-width: 750px;
@@ -40,7 +38,6 @@ const ContentModalDiv = styled.div`
     height: 550px;
   }
 `;
-// 좋아요아이콘 
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,8 +45,7 @@ const ContentsWrapper = styled.div`
   @media all and (max-width:767px) {
     width: 100%;
   }
-` 
-// content text area css
+`;
 const ContentTextArea = styled.div`
   height: 100%;
   padding-top: 1rem;
@@ -67,7 +63,6 @@ const ContentTextArea = styled.div`
     min-height: 50px;
   }
 `;
-// content text css
 const ContentText = styled.div`
   width: 100%;
   height: 70%;
@@ -87,7 +82,6 @@ const ContentText = styled.div`
     height: 100%;
   }
 `;
-// 해시태그 
 const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -98,7 +92,6 @@ const HashTagWrapper = styled.div`
     padding-right: 2rem;
   }
 `;
-// 해시태그
 const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
@@ -110,7 +103,6 @@ const HashTag = styled.p`
     margin-top: 1.5rem;
   }
 `;
-//위치 래퍼
 const PlaceWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -123,8 +115,7 @@ const PlaceWrapper = styled.div`
     height: 10%;
   }
   
-`
-// 위치
+`;
 const Place = styled.p`
   color: #1b1b1b;
   font-size: 13px;
@@ -132,8 +123,7 @@ const Place = styled.p`
   @media all and (min-width:768px) and (max-width:1023px){
   width: 100%;
   }
-`
-// 좋아요 버튼 래퍼
+`;
 const FavoriteCheckWrapper = styled.div`
   text-align: right;
   padding-top: 1.5rem;
@@ -145,8 +135,7 @@ const FavoriteCheckWrapper = styled.div`
     padding-right: 2rem;
     padding-bottom: 1rem;
   }
-`
-//카카오톡 공유하기
+`;
 const KakaoShare = styled.div`
  display: flex;
  justify-content: flex-end;
@@ -154,8 +143,7 @@ const KakaoShare = styled.div`
  @media all and (max-width:767px) {
   justify-content: flex-end;
  }
-`
-// 카카오 공유하기 래퍼
+`;
 const KakaoShareWrapper = styled.img`
   width: 1.7rem;
   height: 1.7rem;
@@ -164,19 +152,15 @@ const KakaoShareWrapper = styled.img`
   @media all and (max-width:767px) {
     margin-bottom: 0rem;
   }
-`
+`;
 const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
-  
   const dispatch = useDispatch();
-  
   const { isLogin, userKey} = useSelector(state => ({
     isLogin : state.loginReducer.login.isLogin,
     userKey : state.loginReducer.login.userKey,
   })); 
-
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
-
   const { content, hashtag, image, postId, likeUser, place } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -186,11 +170,8 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
     place : state.pickPosting.postInfo.place
   })); 
 
-
-  // likebutton click event
   const handleLikeButton = async(e) => {
     const like = e.target.id;
-    
     if(isLogin && heart === null) {
       await dispatch(likeButton(like, userKey))
       setHeart('like');
@@ -200,9 +181,7 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
     }else if(heart === 'like') {
       alert('이미 좋아요한 게시물입니다.')
     }
-  }
-
-
+  };
   const KakaoShareHandler = () => {
     Kakao.Link.createDefaultButton({
       container: '#create-kakao-link-btn',
@@ -225,7 +204,6 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
       ],
     })
   }
-
 
   if (!ctModal) return null;
 

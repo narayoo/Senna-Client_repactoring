@@ -16,7 +16,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
-// 마이페이지 컨테이너
 const ProfileSection = styled.section`
   padding-top: 1rem;
   padding-left: 5rem;
@@ -38,8 +37,7 @@ const ProfileSection = styled.section`
     padding-right: 1rem;
     padding-bottom: 0rem;
   } 
-`
-// 유저 정보 컨테이너
+`;
 const UserInfoSection = styled.section`
   width: 40%;
   display: flex;
@@ -55,7 +53,6 @@ const UserInfoSection = styled.section`
     margin-top: 6rem;
   } 
 `;
-// 유저 프로필 박스 랩퍼
 const UserProfileBox = styled.div`
   width: 200px;
   height: 200px;
@@ -71,17 +68,14 @@ const UserProfileBox = styled.div`
     height: 150px;
   }
 `;
-// 유저 이미지
 const UserImage = styled.img`
   width: 100%;
   height: auto;
 `;
-// 유저 이름
 const UserNameText = styled.p`
   font-size: 25px;
   color: #eeeeee;
 `;
-// 회원정보 업데이트 버튼 
 const UpdateInfoButton = styled.button`
   width: 100px;
   height: 37px;
@@ -102,8 +96,7 @@ const UpdateInfoButton = styled.button`
     box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
     color: #eeeeee;
   }
-`
-// 회원 탈퇴 버튼
+`;
 const WithdrawalButton = styled.a`
   font-size: 11px;
   text-transform: uppercase;
@@ -123,7 +116,6 @@ const WithdrawalButton = styled.a`
     margin-top: 0;
   }
 `;
-// 유저 콘텐츠 모음 컨테이너
 const UserContentSection = styled.section`
   width: 60%;
   margin-top: 5rem;
@@ -134,7 +126,6 @@ const UserContentSection = styled.section`
     margin-top: 4rem;
   }
 `;
-// 유저 콘텐트 모음
 const UserTextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -149,18 +140,18 @@ const UserTextBox = styled.div`
     flex-direction: column;
     border: 1px solid rgba(238, 238, 238, 0.2);
   }
-`
+`;
 const SlideWrapper = styled.div`
   display: flex;
   height: 100%;
   overflow: hidden;
 `;
-const Wrapper = styled.div`//carousel-wrapper
+const Wrapper = styled.div`
   display: flex;
   width: 100%; 
   overflow: hidden;
 `;
-const StyledSlider = styled.div` //carousel
+const StyledSlider = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
@@ -182,7 +173,7 @@ const MyContentImg = styled.img`
     -moz-transform:scale(1.03);
     -o-transform:scale(1.03);  
   }
-`
+`;
 const SliderBtn = styled.button`
   display: flex;
   width: 2rem;
@@ -202,7 +193,6 @@ const Title = styled.p`
   color: #eeeeee;
   margin-left: 2rem;
 `;
-// 유저 좋아요 모음
 const UserFavoriteBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -226,7 +216,6 @@ const Mypage = React.memo( ( ) => {
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
   const [postLoading, setPostLoading ] = useState(null);
-
   const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
     userId : state.loginReducer.user.userId,
     profileImg : state.loginReducer.user.profileImg,
@@ -236,7 +225,6 @@ const Mypage = React.memo( ( ) => {
   }),
   shallowEqual
   ); 
-
   const {kakaoUserId, kakaoProfileImg, kakaoFavorite, kakaoId, kakaoUploadList} = useSelector(state => ({
     kakaoUserId : state.kakaoReducer.user.userId,
     kakaoProfileImg : state.kakaoReducer.user.profileImg,
@@ -246,20 +234,15 @@ const Mypage = React.memo( ( ) => {
   }),
   shallowEqual
   );
-
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const localAT = useSelector(state => state.kakaoReducer.login.localToken);
-
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
-
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken)
 
-
     useEffect(async() => {
-      
       let now = new Date()
       if (accessToken !== undefined && !kakaoAcToken) {
         let newAccessToken = accessToken.split(' ')[1];
@@ -268,27 +251,22 @@ const Mypage = React.memo( ( ) => {
         if(expiry < 10){
           return  await dispatch(autoRefreshLogin())
         }
-       
        } else if (kakaoAcToken !== undefined && !accessToken) {
         let newKakaoAccessToken = kakaoAcToken.split(' ')[1];
         let decodedKakao = jwt_decode(newKakaoAccessToken)
         let kakaoExpiry = decodedKakao.exp - Number(now.getTime().toString().substr(0, 10));
-        console.log('카카오리프레싀', newKakaoAccessToken)
-        console.log('카카오리프레싀22', decodedKakao)
         if (kakaoExpiry < 10 ){
           return await dispatch(autoRefreshKakaoLogin())
         }
       }
-    })
-  // 내 콘텐트 모달 열기
+    });
   const myContentOpenHandler = async(e) => {
     const postId = e.target.id;
     setMyCtModal(true);
     setPostLoading(true);
     await dispatch(getPickPosting(postId));
     setPostLoading(false);
-  }
-  // 콘텐츠 모달 외부 클릭 시 닫기
+  };
   const handleMyCtModalOff = (e) => {
     const clicked = e.target.closest('.myCtModal');
     if (clicked) return;
@@ -302,8 +280,7 @@ const Mypage = React.memo( ( ) => {
     setPostLoading(true);
     await dispatch(getPickPosting(postId));
     setPostLoading(false);
-  }
-  // 콘텐츠 모달 외부 클릭 시 닫기
+  };
   const handleFavoCtModalOff = (e) => {
     const clicked = e.target.closest('.myFavoCtModal');
     if (clicked) return;
@@ -313,80 +290,64 @@ const Mypage = React.memo( ( ) => {
   };
   const photoList = uploadList.filter((e) => e.status === true)
   const kakaoPhotoList = kakaoUploadList.filter((e) => e.status === true)
-  let index = 0;
   const carousel1 = document.getElementsByClassName('carousel1'); 
   const carousel2 = document.getElementsByClassName('carousel2'); 
-  
-  //  Mycontent이전 버튼
+  let index = 0;
+
   const onPrev = () => {
     if (index === 0) return; 
     index -= 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
-    
-  }
-  // Mycontent다음 버튼
+  };
   const onNext = () => {
     if (index === 100) return; 
     index += 1; 
     carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
-    console.log('index::',index)
-  } 
-  //  MyFavorite이전 버튼
+  };
   const onPrev2 = () => {
     if (index === 0) return; 
     index -= 1; 
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
-  }
-  // MyFavorite다음 버튼
+  };
   const onNext2 = () => {
     if (index === 100) return; 
     index += 1; 
     carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
-  } 
+  };
   const handleWithdrawal = () => { 
     dispatch(withdrawal(id))
     alert("회원 탈퇴가 완료되었습니다.")
     history.push('./')
     logout()
-  }
-  // user logout 
+  };
   const logout = async() => {
       await dispatch(localLogout(accessToken))
       history.push('./')
-  }
-  // 프로필 업데이트 핸들러
+  };
   const updateProfileHandler = () => {
     history.push('/profileupdate')
-  }
-  
-  // 카카오유저 회원탈퇴 
+  };
   const kakaoWidrawalHandler = async () => {
     await dispatch(kakaoUserWithdrawal(kakaoId))
     alert("회원 탈퇴가 완료되었습니다.")
     history.push('./')
     kakaoLogoutHandler()
-  }
-
-  // 카카오 로그아웃
+  };
   const kakaoLogoutHandler = () => {
       dispatch(kakaoLogout(kakaoAT, localAT))
       history.push('./')
-  }
-  
-   // 카카오 로그인
-   const onSocialLogin = () => {
+  };
+  const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {
-        console.log(authObj)
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
         setkakaoAT(socialAC)
       },
       fail: function(err) {
-        console.log(err)
       },
     })
-  }
+  };
 
   return (
     <>

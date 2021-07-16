@@ -1,15 +1,8 @@
 import axios from "axios";
 
-/** 액션타입 */
 export const UPDATE_POSTING = 'updatePosting/UPDATE_POSTING';
-/** 액션생성함수 & API 요청 */
+
 export const onUpdatePosting = (userId,images,content,hashtag,id,place) => async dispatch => {
-  console.log('userId:',userId)
-  console.log('images:',images)
-  console.log('content:',content)
-  console.log('hashtag:',hashtag)
-  console.log('id:',id)
-  console.log('place',place)
   let formData = new FormData()
   const config = {
     header: {'content-type': 'multipart/form-data'}
@@ -38,7 +31,6 @@ const initialState = {
 }
 
 export default function updatePosting(state = initialState, action){
-  console.log('updatePosting Action::',action)
   switch(action.type) {
     case UPDATE_POSTING :
       return {

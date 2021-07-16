@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Main from './components/Main';
 import Mypage from './components/Mypage';
 import Addcontents from './components/Addcontents';
 import SignUp from './components/SignUp';
-import Search from './components/Search'
-import ProfileUpdate from './components/ProfileUpdate'
-import UpdateMycontents from './components/UpdateMycontents'
-// 프레젠테이셔널 컴포넌트가 아닌, 컨테이너 컴포넌트를 불러서 렌더링 하는 것이 좋다.
-
-/* 글로벌 속성 (수정금지)*/
+import Search from './components/Search';
+import ProfileUpdate from './components/ProfileUpdate';
+import UpdateMycontents from './components/UpdateMycontents';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-
   return (
     <>
     <GlobalStyle />

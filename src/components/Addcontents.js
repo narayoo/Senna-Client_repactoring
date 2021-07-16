@@ -8,8 +8,6 @@ import { getAllOfPosting } from '../modules/showAllPosting';
 import Autocomplete from "react-google-autocomplete";
 import '../style/google.css'
 
-
-
 const AddCtWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -135,25 +133,20 @@ const HashTagBox = styled.input`
   }
 `;
 
- 
-
 const UpdateMycontents = React.memo(() => {
   const [ text, setText ] = useState('');
   const [ hash, setHash ] = useState([]);
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
   const [ place, setPlace] = useState('');
-
   const dispatch = useDispatch();
   const history = useHistory();
   const imgArr = [];
-
   const userId = useSelector(state => state.loginReducer.login.userId);
   const kakoUserId = useSelector(state => state.kakaoReducer.login.userId);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   
-  // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
     window.location.replace("/")
   }
@@ -163,8 +156,6 @@ const UpdateMycontents = React.memo(() => {
   const onChangeHash = (e) => {
     setHash(e.target.value);
   }
-  
-
   const handleFileOnChange = (e) => {
     let file = e.target.files;
     if(file.length > 5 || file.length < 1) {
@@ -184,7 +175,6 @@ const UpdateMycontents = React.memo(() => {
   }
   const onAddContent = async(e) => {
     if(ok && isLogin){
-      console.log('유저아이디',userId)
       await dispatch(addContent(hash,text,userId,photo,place));
       alert('등록되었습니다.')
       await dispatch(getAllOfPosting());
@@ -228,6 +218,3 @@ const UpdateMycontents = React.memo(() => {
 
 
 export default UpdateMycontents;
-
-
-// setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)

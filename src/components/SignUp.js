@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
-`
+`;
 const SignupContainer = styled.form`
   display: flex;
   justify-content: center;
@@ -21,7 +21,6 @@ const Title = styled.p`
   margin-bottom: 4rem;
   font-size: 40px;
 `;
-// 이미지 wrapper
 const ProfileCircle = styled.div`
   width: 200px;
   height: 200px;
@@ -201,7 +200,6 @@ const IdSection = styled.div`
 `;
 
 const SignUp = React.memo(() => {
-
   const [previewURL, setPreviewURL] = useState('');
   const [img, setImg] = useState('');
   const [userId, setUserId] = useState('');
@@ -212,7 +210,6 @@ const SignUp = React.memo(() => {
   const [isPwdDoubleCk , setIsPwdDoubleCk ] = useState(false);
   const [checkId, setCheckId] = useState(false);
 
-  // 유저 이미지 미리보기 적용 함수
   const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -222,18 +219,18 @@ const SignUp = React.memo(() => {
       setPreviewURL(reader.result);
     };
     reader.readAsDataURL(file)
-  } 
-  // 유저 이미지 미리보기 적용 조건문
+  };
+
   let profile_preview = null;
+
   if(img !== ''){
     profile_preview = <img className='profile_preview' src={previewURL}></img>
   }else{
     profile_preview = <img className='profile_preview' src={userImg}></img>
-  }
-  // 캔슬 버튼 누를 시 새로고침을 위한 함수
+  };
   const cancle = () => {
     window.location.replace("/")
-  }
+  };
   const onChangeId = (e) => {
     setUserId(e.target.value);
     if (!isId(e.target.value)) { 
@@ -243,7 +240,7 @@ const SignUp = React.memo(() => {
     } else { // 이메일 형식 통과 했을때
       setValidId(true);
     }
-  }
+  };
   const onChangePwd = (e) => {
     setPassword(e.target.value);
     // 비밀번호 형식 안맞을 때
@@ -252,7 +249,7 @@ const SignUp = React.memo(() => {
     } else { // 비밀번호 형식 통과 했을때
       setIsValidPassword(true);
     }
-  }
+  };
   const onChangeCheckPwd = (e) => {
     setCheckPassword(e.target.value);
     if (password.length < 1 || e.target.value.length < 1) {
@@ -264,9 +261,10 @@ const SignUp = React.memo(() => {
     } else {
       setIsPwdDoubleCk(false);
     }
-  }
-  // submit 버튼 클릭 함수
+  };
+
   let history = useHistory();
+
   const submit = async (e) => {
     e.preventDefault();
     if(!isValidId){
@@ -292,28 +290,24 @@ const SignUp = React.memo(() => {
         history.push('./'); // 메인 페이지로 리다이렉션
         window.location.replace('./')
       }).catch(err => {
-        console.log(err)
       })
     }
-  }
-  // 아이디 중복 확인 함수
+  };
   const doubleCheckId = async(e) => {
     e.preventDefault()
     const id = { id : userId}
     await axios.post('https://www.senna-server.shop/user/checkid',id)
     .then(res => {
       if(userId !== ''){
-        console.log(res)
         setCheckId(true)
         alert('사용할 수 있는 아이디입니다.')
       }else{
         alert('아이디를 입력해주세요.')
       }
     }).catch(err => {
-      console.log(err)
       alert('이미 존재하는 아이디입니다.')
     })
-  }
+  };
 
   return (
     <>

@@ -22,7 +22,6 @@ dotenv.config()
 
 const {Kakao} = window;
 
-// album section css
 const AlbumSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -39,14 +38,12 @@ const AlbumSection = styled.section`
     padding-right: 0rem;
   }
 `;
-// Img css
 const PhotoImg = styled.img`
   width:100%;
   &:hover{
     cursor: pointer;
   }
 `;
-// add 버튼 css
 const AddButton = styled.button`
   width: 100px;
   height: 37px;
@@ -77,7 +74,6 @@ const AddButton = styled.button`
     margin-right: 4rem;
   }
 `;
-// add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -95,8 +91,7 @@ const SearchResult = styled.div`
     margin-left: 3rem;
     font-size: 3rem;
   }
-`
-// total contents Css
+`;
 const TotalComponent = styled.p`
   margin-left: 11rem;
   @media all and (min-width:768px) and (max-width:1023px) { 
@@ -107,7 +102,6 @@ const TotalComponent = styled.p`
     font-size: 11px;
   }
 `;
-// 네비바 영역
 const NavSection = styled.div`
   width: 100%;
   position: sticky;
@@ -122,7 +116,6 @@ const NavSection = styled.div`
     padding-top: 1rem;
   }
 `;
-// 로고 
 const Logo = styled.img`
   height: 5rem;
   display: block;
@@ -136,7 +129,6 @@ const Logo = styled.img`
     margin-right: 0rem;
   }
 `;
-// nav에 있는 버튼 
 const NavButton = styled.button`
   background: none;
   border: none;
@@ -159,7 +151,6 @@ const ButtonGroup = styled.div`
     display: none;
   }
 `;
-
 const CountrySelectSection = styled.div`
   width: 50%;
   @media all and (max-width:767px) {
@@ -211,67 +202,58 @@ const Search = React.memo(() => {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
-  const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
-  const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+  const [heart , setHeart] = useState(null); 
+  const [kakaoAT , setkakaoAT] = useState('');
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
   const [open, setOpen] = useState(false);
-
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Logo 클릭 시 메인화면 새로고침 이동
   const clickLogo = () => {
     window.location.replace("/")
-  }
+  };
   const gotoMypage = () => {
     history.push('./mypage');
     dispatch(getUserInfo(accessToken));
-  }
-  // 모든 포스팅 얻어오기 디스패치
+  };
   useEffect(() => {
     dispatch(getAllOfPosting());
   },[]);
-  // scrollTop 상태값 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, [scrollTop]);
   const changeId = (e) => {
     setUserId(e.target.value);
-  }
+  };
   const changePwd = (e) => {
     setPassword(e.target.value);
-  }
-  // top 버튼 함수
+  };
   const handleTop = () => {  
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
     setScrollTop(0); 
-  }
-  // 스크롤 감지 함수
+  };
   const handleScroll = () => {
     const scroll = document.body.scrollTop || document.documentElement.scrollTop;
     const { scrollHeight, clientHeight } = document.documentElement;
     const scrollTop = scroll / (scrollHeight - clientHeight);
     setScrollTop(scrollTop);
   };
-  // modal 열기
   const openModal = () => {
     setModal(true);
-  }
-  // 로그인 서밋 후 모달 닫기
+  };
   const onConfirm = async(e) => {
     const body = {
       userId: userId,
@@ -279,12 +261,10 @@ const Search = React.memo(() => {
     }
     dispatch(localLogin(body));
     setModal(false);
-  }
-  // modal 취소 후 닫기
+  };
   const onCancle = () => {
     setModal(false);
-  }
-  // 로그인 모달 외부 클릭 시 닫기
+  };
   const handleModalOff = (e) => {
     const clicked = e.target.closest('.modal');
     if (clicked) return;
@@ -292,19 +272,15 @@ const Search = React.memo(() => {
       setModal(false);
     }
   };
-
-   // content modal 열기
-   const openCtModal = async (e) => {
+  const openCtModal = async (e) => {
     const postId = e.target.id;
     setCtModal(true);
     await dispatch(getPickPosting(postId));
 
     if(likeUser.includes(userId)){
       setHeart('like');
-      console.log('열림 트루',heart)
     }
-  }
-  // 콘텐츠 모달 외부 클릭 시 닫기
+  };
   const handleCtModalOff = async(e) => {
     const clicked = e.target.closest('.ctModal');
     if (clicked) return;
@@ -312,24 +288,18 @@ const Search = React.memo(() => {
       setCtModal(false);
       if(heart === 'like'){
         setHeart(null);
-        console.log('닫힘',heart)
       }else{
         setHeart(null);
       }
     }
   };
- 
-  // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
-  }
-
-  // 카카오 로그인
+  };
   const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {
-        console.log(authObj)
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
         setkakaoAT(socialAC)
@@ -337,27 +307,18 @@ const Search = React.memo(() => {
         setModal(false);
       },
       fail: function(err) {
-        console.log(err)
       },
     })
-  }
-   // 카카오 로그아웃
+  };
   const kakaoLogout = () => {
     Kakao.Auth.logout(function() {
       dispatch(kakaoLogout(kakaoAT, localAT))
     })
-  }
-  const gotoKakaoMypage = async() => {
-    history.push('./mypage');
-    await dispatch(getKakaoUserInfo(kakaoAcToken));
-  }
+  };
   const onHambugBtn = async() => {
     setOpen(!open);
-  }
-  
-
+  };
   const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
-  /* fake async fetch */
   const fetchItems = async () => {
     setState(prev => ({ ...prev, isLoading: true }));
     await fakeFetch();

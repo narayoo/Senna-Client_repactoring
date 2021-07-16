@@ -26,8 +26,8 @@ const Main = React.memo(() => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(null);
   const [postLoading, setPostLoading ] = useState(null);
-  const [heart , setHeart] = useState(null); // 선택한 포스트의 좋아요 상태
-  const [kakaoAT , setkakaoAT] = useState(''); // 선택한 포스트의 좋아요 상태
+  const [heart , setHeart] = useState(null);
+  const [kakaoAT , setkakaoAT] = useState('');
   const [showPosting, setShowPosting] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -43,45 +43,37 @@ const Main = React.memo(() => {
 
   useEffect(async() => {
     await dispatch(getAllOfPosting());
-    // 핫 키워드 얻어오기
     await dispatch(getHotKeyword());
-    
-  },[])
-  // scrollTop 상태값 감지
+  },[]);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollTop]);
-
-
-  // 스크롤 감지 함수
   const handleScroll = async() => {
     const scroll = document.body.scrollTop || document.documentElement.scrollTop;
     const { scrollHeight, clientHeight } = document.documentElement;
     const scrollTop = scroll / (scrollHeight - clientHeight);
     await setScrollTop(scrollTop);
   };
-  // top 버튼 함수
   const handleTop = async() => {  
     await window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
     setScrollTop(0); 
-  }
+  };
   const changeId = async(e) => {
     await setUserId(e.target.value);
-  }
+  };
   const changePwd = async(e) => {
     await setPassword(e.target.value);
-  }
-  // modal 열기
+  };
   const openModal = async() => {
     await setModal(true);
-  }
-  // 로그인 서밋 후 모달 닫기
+  };
   const onConfirm = async(e) => {
     const body = {
       userId: userId,
@@ -92,12 +84,10 @@ const Main = React.memo(() => {
 
     setLoading(false);
     await setModal(false);
-  }
-  // modal 취소 후 닫기
+  };
   const onCancle = async() => {
     await setModal(false);
-  }
-  // 로그인 모달 외부 클릭 시 닫기
+  };
   const handleModalOff = async(e) => {
     const clicked = e.target.closest('.modal');
     if (clicked) return;
@@ -105,8 +95,7 @@ const Main = React.memo(() => {
       await setModal(false);
     }
   };
-   // content modal 열기
-   const openCtModal = async (e) => {
+  const openCtModal = async (e) => {
     const postId = e.target.id;
     setCtModal(true);
     setPostLoading(true);
@@ -115,8 +104,7 @@ const Main = React.memo(() => {
     if(likeUser.includes(userId)){
       await setHeart('like');
     }
-  }
-  // 콘텐츠 모달 외부 클릭 시 닫기
+  };
   const handleCtModalOff = async(e) => {
     const clicked = e.target.closest('.ctModal');
     if (clicked) return;
@@ -129,16 +117,13 @@ const Main = React.memo(() => {
       }
     }
   };
-  // user logout 
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
-  }
-  // 카카오 로그인
+  };
   const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {
-        console.log(authObj)
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
         setkakaoAT(socialAC)
@@ -146,15 +131,12 @@ const Main = React.memo(() => {
         setModal(false);
       },
       fail: function(err) {
-        console.log(err)
       },
     })
-  }
-   // 카카오 로그아웃
+  };
   const kakaoLogoutHandler = () => {
       dispatch(kakaoLogout(kakaoAT, localAT))
-  }
-
+  };
 
   return (
     <>

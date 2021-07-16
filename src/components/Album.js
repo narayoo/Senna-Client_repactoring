@@ -5,7 +5,7 @@ import "../style/grid.css";
 import styled from 'styled-components';
 import StackGrid from "react-stack-grid";
 import useIntersect from './useIntersect';
-// album section css
+
 const AlbumSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -22,7 +22,6 @@ const AlbumSection = styled.section`
     padding-right: 0rem;
   }
 `;
-// Img css
 const PhotoImg = styled.img`
   width:100%;
   z-index: -1;
@@ -36,13 +35,11 @@ const PhotoImg = styled.img`
     -o-transform:scale(1.1);  
   }
 `;
-// add 버튼 wrapper css
 const AddButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 78%;
 `;
-// add 버튼 css
 const AddButton = styled.button`
   width: 100px;
   height: 37px;
@@ -63,7 +60,6 @@ const AddButton = styled.button`
     color: #eeeeee;
   }
 `;
-// total contents Css
 const TotalComponent = styled.p`
 `;
 
@@ -74,7 +70,6 @@ const Album = React.memo(({ openCtModal,  }) => {
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
 
   const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
-  /* fake async fetch */
   const fetchItems = async () => {
     setState(prev => ({ ...prev, isLoading: true }));
     await fakeFetch();
@@ -116,7 +111,6 @@ const Album = React.memo(({ openCtModal,  }) => {
             }
           })()}
         </AddButtonWrapper>
-        
         <StackGrid 
           columnWidth={300}
           gutterWidth={25}
