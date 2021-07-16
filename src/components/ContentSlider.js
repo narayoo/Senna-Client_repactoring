@@ -59,17 +59,21 @@ const ContentSlider = (({image}) => {
   const modalcarousel = document.getElementsByClassName('modalcarousel'); 
 
   const onPrev = () => {
-    let mql = window.matchMedia("screen and (max-width: 768px)");
+    let mql = window.matchMedia("screen and (max-width: 767px)");
+    let mql2 = window.matchMedia("screen and (min-width:768px) and (max-width:1023px)");
     if (index === 0) return; 
     index -= 1; 
     if (mql.matches) {
       modalcarousel[0].style['transform'] = `translate3d(-${300 * index}px, 0, 0)`; 
-    } else {
+    }else if(mql2.matches){
+      modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    }else {
       modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
     }
   }
   const onNext = () => {
-    let mql = window.matchMedia("screen and (max-width: 768px)");
+    let mql = window.matchMedia("screen and (max-width: 767px)");
+    let mql2 = window.matchMedia("screen and (min-width:768px) and (max-width:1023px)");
     if(image.length === 1) {
       if (index === 0) return; 
     }else if(image.length === 2){
@@ -84,7 +88,9 @@ const ContentSlider = (({image}) => {
     index += 1; 
     if (mql.matches) {
       modalcarousel[0].style['transform'] = `translate3d(-${300 * index}px, 0, 0)`; 
-    } else {
+    }else if(mql2.matches){
+      modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
+    }else {
       modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
     }
   } 
