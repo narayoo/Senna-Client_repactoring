@@ -70,13 +70,20 @@
 <summary>이곳을 클릭해주세요 🍉</summary>
 <div markdown="1">       
 
-MongoDB 구축
-
-API작성(개별): /login, /logout, /signup, /info, /withdrawal, /refreshtokenrequest
-
-API작성(공통): /delete, 소셜 /login
-
-AWS 배포(공통) (EC2, S3, RDS, Route53)
+ 
+[공통]
+ - MongoDB 구축 및 연결
+ - AWS 배포 및 https 적용
+ 
+[개별]
+ - search controller 작성 
+    - 인기 검색어 관리 / 불러오기
+ - user controller 작성
+    - 로그인 관리
+    - 회원가입 / 회원탈퇴 관리
+    - 회원 정보 수정
+ - 패스워드 암호화 / 복호화
+ - API 문서 관리
 
 </div>
 </details>
