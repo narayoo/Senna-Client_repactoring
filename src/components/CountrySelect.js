@@ -336,7 +336,7 @@ const CountrySelect = React.memo(() => {
         <TextField
           {...params}
           onKeyPress={onKeyPress}
-          label='나라 및 지역 영문 검색'
+          label='나라 및 지역 검색'
           variant="filled"
           inputProps={{
             ...params.inputProps,
