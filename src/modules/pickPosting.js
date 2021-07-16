@@ -1,14 +1,12 @@
 import axios from "axios";
 
-/** 액션타입 */
 export const PICK_POSTING = 'pickPosting/PICK_POSTING';
 
-/** 액션생성함수 & API 요청 */
 export const getPickPosting = (postingId) => async dispatch => {
   const getPosting = await axios.get(`https://www.senna-server.shop/post/${postingId}`);
   dispatch({type: PICK_POSTING,getPosting});
-}
-/** 초기상태 선언 */
+};
+
 const initialState = {
   postInfo: {
     content: '',

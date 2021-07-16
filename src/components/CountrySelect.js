@@ -5,7 +5,7 @@ import { searchContent } from "../modules/searchReducer"
 import { TextField } from '@material-ui/core';
 import { Autocomplete }from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-import { css } from 'styled-components';
+
 function countryToFlag(isoCode) {
   return typeof String.fromCodePoint !== 'undefined'
     ? isoCode
@@ -13,7 +13,6 @@ function countryToFlag(isoCode) {
         .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
     : isoCode;
 }
-
 const useStyles = makeStyles({
   option: {
     fontSize: 15,
@@ -28,14 +27,13 @@ const useStyles = makeStyles({
     }
   },
 });
-
 const CountrySelect = React.memo(() => {
   const history = useHistory();
   const dispatch = useDispatch();
   const hot = useSelector(state => state.hotkeywordReducer.hot);
   const suggest = useSelector(state => state.loginReducer.login.suggest);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
-
+  
   const onKeyPress = (e) => {
     if(e.key == 'Enter') {
       dispatch(searchContent(e.target.value))
@@ -342,7 +340,7 @@ const CountrySelect = React.memo(() => {
           variant="filled"
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
+            autoComplete: 'new-password',
           }}
         />
       )}

@@ -33,18 +33,12 @@ const Container = styled.div`
     outline: none;
   }
 `; 
-
-
 const Picture = styled.picture`
-  
-`
-
+`;
 const MainImg = styled.img`
   width: 100%;
   height: auto;
-
 `;
-
 const MainFont = styled.p`
   position: absolute;
   top: 0;
@@ -59,7 +53,7 @@ const MainFont = styled.p`
   color: #1b1b1b;
   font-family: 'Dancing Script', cursive;
   animation: ${ani} 1.5s cubic-bezier(.25,.46,.45,.94) both;
-  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.3);
   @media all and (max-width:767px) {
     display: none;
   }
@@ -68,10 +62,9 @@ const MainFont = styled.p`
     bottom: 6rem;
   }
 `;
-
 const SubFont =styled.p`
   position: absolute;
-  top: 12rem;
+  top: 15rem;
   bottom: 0;
   left: 0;
   right: 0;
@@ -92,14 +85,6 @@ const SubFont =styled.p`
     top: 8rem;
   }
 
-`
-
-const Copyright = styled.p`
-  position: absolute;
-  bottom: 0;
-  right: 15px;
-  font-weight: 100;
-  color: rgba(239, 235, 233, 0.6);
 `;
 function Slider() {
   return (
@@ -124,10 +109,6 @@ function Slider() {
            <source srcSet={iphone2} media="(max-width: 766px)" />
          <MainImg src={main2} alt='image2'></MainImg>
          </Picture>
-          {/* <MainFont></MainFont> */}
-        {/* <video controls autoplay="autoplay" loop="loop" muted >
-          <source src={main1} type="video/mp4" />
-        </video>*/}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
         <Container>
@@ -137,7 +118,6 @@ function Slider() {
              <source srcSet={iphone3} media="(max-width: 766px)" />
             <MainImg src={main3} alt='image3'></MainImg>
           </Picture>
-          {/* <MainFont></MainFont> */}
         <a href="#" className='scrollAni'><span></span><span></span><span></span></a>
         </Container>
       </Carousel>

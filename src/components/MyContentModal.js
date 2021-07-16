@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
@@ -7,10 +7,8 @@ import { onDeleteMypost, onDeleteKakaoMypost }from '../modules/deleteMyPosting';
 import { getUserInfo } from '../modules/loginReducer';
 import { getKakaoUserInfo } from '../modules/kakaoReducer'
 
-
 const {Kakao} = window;
 
-// 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
   left: 0;
@@ -23,7 +21,6 @@ const BackgroundDark = styled.div`
   background: rgba(0,0,0,0.7);
   z-index: 2;
 `;
-// content modal div
 const ContentModalDiv = styled.div`
   max-width: 900px;
   min-width: 750px;
@@ -43,7 +40,6 @@ const ContentModalDiv = styled.div`
     overflow: scroll;
   }
 `;
-
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,8 +48,7 @@ const ContentsWrapper = styled.div`
   @media all and (max-width:767px) {
     width: 100%;
   }
-` 
-// content text area css
+`;
 const ContentTextArea = styled.div`
   height: 100%;
   padding-top: 0.5rem;
@@ -66,7 +61,6 @@ const ContentTextArea = styled.div`
     padding-right: 2rem;
   }
 `;
-// content text css
 const ContentText = styled.div`
   width: 100%;
   height: 70%;
@@ -77,24 +71,21 @@ const ContentText = styled.div`
   outline:none;
   }
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
   @media all and (max-width:767px) {
     height: 100%;
   }
 `;
-// 해시태그 
 const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 20%;
 `;
-// 해시태그
 const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
 `;
-// 버튼 래퍼
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -103,10 +94,8 @@ const BtnWrapper = styled.div`
     justify-content: space-around;
     margin-top: 1rem;
     height: 60px;
-    
   }
 `;
-// 내 콘텐츠 업데이트 버튼
 const UpdateBtn = styled.button`
   width: 100px;
   height: 37px;
@@ -132,8 +121,7 @@ const UpdateBtn = styled.button`
     width: 130px;
     height: 30px;
   }
-`
-// 내 콘텐츠 삭제 버튼
+`;
 const DeleteBtn = styled.button`
   width: 100px;
   height: 37px;
@@ -159,32 +147,24 @@ const DeleteBtn = styled.button`
     height: 30px;
   }
 `;
-
-
-//위치
 const PlaceWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   height: 20%;
   margin-bottom: 1rem;
-`
+`;
 const Place = styled.p`
   color: #1b1b1b;
   font-size: 13px;
   @media all and (min-width:768px) and (max-width:1023px){
   width: 100%;
   }
-`
-
-
-//카카오톡 공유하기
-
+`;
 const KakaoShare = styled.div`
  display: flex;
  padding-left: 84%;
-`
-
+`;
 const KakaoShareWrapper = styled.img`
   width: 1.7rem;
   height: 1.7rem;
@@ -193,10 +173,8 @@ const KakaoShareWrapper = styled.img`
   @media all and (max-width:767px) {
     margin-bottom: 1rem;
   }
-`
-
+`;
 const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}) => {
-
   const dispatch = useDispatch();
   const { content, hashtag, image, postingId, place} = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
@@ -207,13 +185,9 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
   })); 
   const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
-
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
 
-
-
-  // 내 콘텐츠 삭제 핸들러
   const deleteMyctHandler = (e) => {
     alert('삭제 후 게시물은 복구할 수 없습니다.')
     const postId = e.target.id;
@@ -226,16 +200,10 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
        dispatch(getKakaoUserInfo(kakaoAcToken))
       setMyCtModal(false);
     }
-    
-
-  }
-  
-  // 내 콘텐츠 업데이트 핸들러
+  };
   const updateMyctHandler = (e) => {
     
-  }
-
-  //카카오 공유하기
+  };
   const KakaoShareHandler = () => {
     Kakao.Link.createDefaultButton({
       container: '#create-kakao-link-btn',
@@ -257,7 +225,7 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
         },
       ],
     })
-  }
+  };
 
   if (!myCtModal) return null;
   return(

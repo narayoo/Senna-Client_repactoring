@@ -18,7 +18,7 @@ const UpdateUserBox = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-`
+`;
 const UserNewImage = styled.div`
   width: 200px;
   height: 200px;
@@ -29,13 +29,11 @@ const UserNewImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
- 
   @media all and (max-width:767px) {
     width: 150px;
     height: 150px;
   }
-`
-
+`;
 const AddNewFile = styled.input`
   margin-top: 1.5rem;
   padding: 0.7rem;
@@ -96,16 +94,16 @@ const UpdateUserInfoComplete = styled.button`
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     border: none;
   }
-`
+`;
 
 function ProfileUpdate () {
-  
+
   const [previewURL, setPreviewURL] = useState('');
   const [img, setImg] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
-  const id  = useSelector(state => state.loginReducer.login.userKey)
+  const id = useSelector(state => state.loginReducer.login.userKey)
   const accessToken = useSelector(state => state.loginReducer.login.accessToken)
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
@@ -114,22 +112,19 @@ function ProfileUpdate () {
  
   const onChangePassword = (e) => {
     setPassword(e.target.value);
-  }
+  };
   const updateProfileHandler = async() => {
       await dispatch(updateProfile(id,img,password))
       alert('프로필이 수정되었습니다.')
       history.push('/mypage');
       await dispatch(getUserInfo(accessToken)); 
-  }
-
-
+  };
   const updateKakaoUserProfileHandler = async() => {
     await dispatch(updateKakaoProfile(kakaoUserKey,img))
     alert('프로필이 수정되었습니다.')
     history.push('/mypage');
     await dispatch(getKakaoUserInfo(kakaoAcToken));
-  }
-
+  };
   const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -139,15 +134,16 @@ function ProfileUpdate () {
       setPreviewURL(reader.result);
     };
     reader.readAsDataURL(file)
-  } 
-  // 유저 이미지 미리보기 적용 조건문 
+  };
+
   let profile_preview = null;
+
   if(img !== ''){
     profile_preview = <img className='profile_preview' src={previewURL}></img>
   }else{
     profile_preview = <img className='profile_preview' src={userImg}></img>
-  }
-
+  };
+  
   return (
     <>
       <MypageNav />

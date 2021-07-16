@@ -1,7 +1,7 @@
 import React, { useState }from 'react';
 import styled from 'styled-components';
-import { Link , useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import { searchContent } from "../modules/searchReducer"
 
 const Search_Bar = styled.input`
@@ -29,9 +29,7 @@ const SearchForm = styled.form`
   height: 3rem;
 `;
 export default function SearchBar({}) {
-
   const [searchinput, setSearchinput] = useState('');
-
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -40,11 +38,10 @@ export default function SearchBar({}) {
       dispatch(searchContent(searchinput))
       history.push('/search') 
     }
-  }
-
+  };
   const searchHandler = (e) => {
     const word = setSearchinput(e.target.value)
-  }
+  };
 
   return (
     <>

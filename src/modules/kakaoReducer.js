@@ -11,7 +11,7 @@ export const kakaoLogin = (acToken) => async dispatch => {
   , withCredentials: true 
   })
   dispatch({type:KAKAO_LOGIN, kakaoLoginSuccess})
-}
+};
 export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
    const kakaoLogoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
   { headers : { 
@@ -22,8 +22,7 @@ export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
     withCredentials: true 
   });
   dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess})
-} 
-
+};
 export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
   const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 
@@ -33,14 +32,11 @@ export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
     withCredentials: true 
   });
   dispatch({type:KAKAO_INFO, getKakaoInfoSuccess});
-}
-
+};
 export const autoRefreshKakaoLogin = () => async dispatch => {
   const autoRefreshKakao = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
   dispatch({type:KAKAO_REFRESH, autoRefreshKakao})  
-}
-
-
+};
 
 const initialState = {
   login : {

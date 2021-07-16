@@ -14,7 +14,7 @@ const ContentSlider = (({image}) => {
       height: 280px;
     }
   `;
-  const Wrapper = styled.div`//carousel-wrapper
+  const Wrapper = styled.div`
     display: flex;
     width: 500px; 
     height: 100%;
@@ -25,8 +25,7 @@ const ContentSlider = (({image}) => {
       height: 100%;
     }
   `;
-  
-  const StyledSlider = styled.div` //carousel
+  const StyledSlider = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
@@ -36,7 +35,6 @@ const ContentSlider = (({image}) => {
     transform: translate3d(0, 0, 0); 
     transition: transform 0.7s;
   `;
-  
   const Img = styled.img`
     width: 500px;
     text-align: center;
@@ -44,7 +42,6 @@ const ContentSlider = (({image}) => {
       width: 300px;
     }
   `;
-
   const SliderBtn = styled.button`
     display: flex;
     width: 2.2rem;
@@ -58,26 +55,21 @@ const ContentSlider = (({image}) => {
       cursor: pointer;
     }
   `;
-
   let index = 0;
   const modalcarousel = document.getElementsByClassName('modalcarousel'); 
 
-  //  이전 버튼
   const onPrev = () => {
     let mql = window.matchMedia("screen and (max-width: 768px)");
     if (index === 0) return; 
     index -= 1; 
-
     if (mql.matches) {
       modalcarousel[0].style['transform'] = `translate3d(-${300 * index}px, 0, 0)`; 
     } else {
       modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
     }
   }
-  // 다음 버튼
   const onNext = () => {
     let mql = window.matchMedia("screen and (max-width: 768px)");
-    
     if(image.length === 1) {
       if (index === 0) return; 
     }else if(image.length === 2){
@@ -96,7 +88,6 @@ const ContentSlider = (({image}) => {
       modalcarousel[0].style['transform'] = `translate3d(-${500 * index}px, 0, 0)`; 
     }
   } 
-
   const photoList = image.map((e,index) =>
     <Img src={e} key={index} loading="lazy" />
   )

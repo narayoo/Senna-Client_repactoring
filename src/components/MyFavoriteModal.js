@@ -6,7 +6,6 @@ import { getUserInfo } from '../modules/loginReducer';
 import { onDeleteFavo , onDeleteKakaoFavo }from '../modules/deleteFavo';
 import { getKakaoUserInfo } from '../modules/kakaoReducer'
 
-// 모달 뒷배경
 const BackgroundDark = styled.div`
   position: fixed;
   left: 0;
@@ -19,7 +18,6 @@ const BackgroundDark = styled.div`
   background: rgba(0,0,0,0.7);
   z-index: 2;
 `;
-// content modal div
 const ContentModalDiv = styled.div`
   max-width: 900px;
   min-width: 750px;
@@ -39,7 +37,6 @@ const ContentModalDiv = styled.div`
     overflow: scroll;
   }
 `;
-// 좋아요아이콘 
 const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,8 +45,7 @@ const ContentsWrapper = styled.div`
   @media all and (max-width:767px) {
     width: 100%;
   }
-` 
-// content text area css
+`;
 const ContentTextArea = styled.div`
   height: 100%;
   padding-top: 0.5rem;
@@ -62,7 +58,6 @@ const ContentTextArea = styled.div`
     padding-right: 2rem;
   }
 `;
-// content text css
 const ContentText = styled.div`
   width: 100%;
   height: 70%;
@@ -79,18 +74,15 @@ const ContentText = styled.div`
     height: 100%;
   }
 `;
-// 해시태그 
 const HashTagWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 20%;
 `;
-// 해시태그
 const HashTag = styled.p`
   color: #1b1b1b;
   width: 30%;
 `;
-// 버튼 래퍼
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -101,7 +93,6 @@ const BtnWrapper = styled.div`
     height: 60px;
   }
 `;
-// 좋아요한 콘텐츠 삭제 핸들러
 const DeleteBtn = styled.button`
   width: 100px;
   height: 37px;
@@ -130,7 +121,6 @@ const DeleteBtn = styled.button`
 const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtModalOff}) => {
 
   const dispatch = useDispatch();
-  
   const { content, hashtag, image, } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -143,25 +133,20 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
     accessToken: state.loginReducer.login.accessToken,
     userKey: state.loginReducer.user.id,
   })); 
-
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
 
-
-
   if (!favoCtModal) return null;
 
-  // 좋아요한 게시물 삭제
   const deleteFavoCtHandler = async(e) => {
     alert('해당 게시물 좋아요를 취소합니다.')
     const postId = e.target.id;
       await dispatch(onDeleteFavo(postId,userKey))
       await dispatch(getUserInfo(accessToken));
       setFavoCtModal(false);
-  }
-
+  };
   const deleteKakaoFavoCtHandler = async(e) => {
     alert('해당 게시물 좋아요를 취소합니다.')
     const postId = e.target.id;
@@ -169,7 +154,7 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
     await dispatch(getKakaoUserInfo(kakaoAcToken))
     setFavoCtModal(false);
 
-  }
+  };
 
   return(
     <>

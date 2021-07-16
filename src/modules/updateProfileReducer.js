@@ -1,10 +1,8 @@
 import axios from "axios";
 
-/** 액션타입 */
 export const UPDATE_PROFILE = 'updateProfileReducer/UPDATE_PROFILE';
 export const KAKAO_UPDATE_PROFILE = 'updateProfileReducer/KAKAO_UPDATE_PROFILE';
 
-/** 액션생성함수 & API 요청 */
 export const updateProfile = (id,profileImg,password) => async dispatch => {
   let formData = new FormData()
   const config = {
@@ -15,9 +13,7 @@ export const updateProfile = (id,profileImg,password) => async dispatch => {
 
   const updateProfile = await axios.patch(`https://www.senna-server.shop/user/profile/${id}`,formData, config);
   dispatch({type: UPDATE_PROFILE,updateProfile});
-}
-
-
+};
 export const updateKakaoProfile = (id,profileImg) => async dispatch => {
   let formData = new FormData()
   const config = {
@@ -27,15 +23,12 @@ export const updateKakaoProfile = (id,profileImg) => async dispatch => {
 
   const updateKakaoProfile = await axios.patch(`https://www.senna-server.shop/user/profile/${id}`,formData, config);
   dispatch({type: KAKAO_UPDATE_PROFILE,updateKakaoProfile});
-}
+};
 
-
-/** 초기상태 선언 */
 const initialState = {
   profileImg: '',
   password: '',
 }
-
 
 export default function updateProfileReducer(state = initialState, action){
     switch(action.type) {

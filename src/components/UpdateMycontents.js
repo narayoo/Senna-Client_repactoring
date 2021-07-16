@@ -137,7 +137,6 @@ const Warning = styled.p`
   justify-content: left;
 `;
 const UpdateMycontents = React.memo(() => {
-
   const isLogin = useSelector(state => state.loginReducer.login.isLogin)
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const userId = useSelector(state => state.loginReducer.login.userId);
@@ -156,21 +155,19 @@ const UpdateMycontents = React.memo(() => {
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
   const [ place, setPlace] = useState('');
-
   const dispatch = useDispatch();
   const history = useHistory();
   const imgArr = [];
 
-  // 캔슬 버튼 누를 시 새로고침을 위한 함수
   const cancle = () => {
     window.location.replace("/mypage")
-  }
+  };
   const onChangeText = (e) => {
     setText(e.target.value);
-  }
+  };
   const onChangeHash = (e) => {
     setHash(e.target.value);
-  }
+  };
   const handleFileOnChange = (e) => {
     // 업데이트해야하니까 여기서 기존이미지들 삭제해야함
     let file = e.target.files;
@@ -188,8 +185,7 @@ const UpdateMycontents = React.memo(() => {
       }
     }
     setPhoto(photo.concat(imgArr));
-  }
-  // 게시물 업데이트 수정
+  };
   const onUpdateContent = async(e) => {
     if(ok && isLogin){
       await dispatch(onUpdatePosting(userId,photo,text,hash,postingId,place));
@@ -205,12 +201,11 @@ const UpdateMycontents = React.memo(() => {
     else{
       alert('필수 : 파일은 1장 이상 5장 이하입니다');
     }
-  }
-  // user logout 
+  };
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
-  }
+  };
 
   return (
     <>

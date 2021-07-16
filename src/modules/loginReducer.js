@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-/** 액션타입 */
 export const LOCAL_LOGIN = 'loginReducer/LOCAL_LOGIN';
 export const LOCAL_LOGOUT = 'loginReducer/LOCAL_LOGOUT';
 export const USER_INFO = 'loginReducer/USER_INFO';
@@ -9,19 +7,14 @@ export const REFRESH_LOGIN = 'loginReducer/REFRESH_LOGIN'
 export const AUTO_REFRESH_LOGIN = 'loginReducer/AUTO_REFRESH_LOGIN'
 export const ERROR = 'loginReducer/ERROR';
 
-/** 액션생성함수 & API 요청 */
 export const localLogin = (body) => async dispatch => {
   try {
-    console.log('login:::',body)
     const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', body, { withCredentials:true });
     dispatch({type:LOCAL_LOGIN,loginSuccess});
   } catch(err) {
-    console.log('err', err.response)
     alert(err.response.data)
   }
-}
-
-
+};
 export const localLogout = (accessToken) => async dispatch => {
   const logoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
   { headers : { 
@@ -31,11 +24,7 @@ export const localLogout = (accessToken) => async dispatch => {
     withCredentials: true 
   });
   dispatch({type:LOCAL_LOGOUT, logoutSuccess});
-}
-
-
-
-
+};
 export const getUserInfo = (accessToken) =>  async dispatch => {
   const getInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
   { headers : { 
@@ -45,18 +34,12 @@ export const getUserInfo = (accessToken) =>  async dispatch => {
     withCredentials: true 
   });
   dispatch({type:USER_INFO, getInfoSuccess});
- } 
-
-
-
+};
 export const autoRefreshLogin = () => async dispatch => {
-    const autoRefreshLogin = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
-    dispatch({type:AUTO_REFRESH_LOGIN, autoRefreshLogin})  
-}
+  const autoRefreshLogin = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
+  dispatch({type:AUTO_REFRESH_LOGIN, autoRefreshLogin})  
+};
 
-
-
-  
 const initialState = {
   login : {
     userId: '',
@@ -77,7 +60,6 @@ const initialState = {
 }
 
 export default function loginReducer(state = initialState, action){
-  console.log('acctions:::',action)
   switch(action.type) {
     case LOCAL_LOGIN :
       return {
@@ -125,7 +107,6 @@ export default function loginReducer(state = initialState, action){
               favorite: action.autoRefreshLogin.data.data.favorite,
             },
         }
-
     default : return state;
   }
 }

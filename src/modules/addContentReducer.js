@@ -1,6 +1,5 @@
 import axios from "axios";
 
-/** 액션타입 */
 export const ADD_CONTENT = 'addComtentReducer/ADD_CONTENT';
 export const KAKAO_ADD_CONTENT = 'addComtentReducer/KAKAO_ADD_CONTENT'
 
@@ -22,7 +21,6 @@ export const addContent = (hashtag,content,userId,images,place) => async dispatc
 }
 
 export const kakaoAddContent = (hashtag,content,userId,images,place) => async dispatch => {
-  console.log('플레이스나와', place)
   let formData = new FormData()
   const config = {
     header: {'content-type': 'multipart/form-data'}
@@ -51,7 +49,6 @@ export default function addContentReducer(state = initialState, action){
         content_data : action.userAddContent.data
       }
       case KAKAO_ADD_CONTENT :
-        console.log('뭐가나올까유', action.kakaoUserAddContent.data)
         return {
           ...state,
           content_data : action.kakaoUserAddContent.data
