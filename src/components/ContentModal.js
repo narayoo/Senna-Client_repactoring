@@ -63,17 +63,19 @@ const ContentTextArea = styled.div`
     min-height: 50px;
   }
 `;
-const ContentText = styled.div`
+const ContentText = styled.textarea`
   width: 100%;
   height: 70%;
   border: none;
   color: #1b1b1b;
   overflow-y: scroll;
+  background-color: #f5f5f5;
+  font-size: 1rem;
   &:focus {
     outline:none;
   }
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
   }
   @media all and (min-width:768px) and (max-width:1023px){
     height: 100%;
@@ -268,7 +270,7 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
             })()}
 
               <ContentTextArea>
-                <ContentText>
+                <ContentText readOnly>
                   {content}
                 </ContentText>
             </ContentTextArea>
