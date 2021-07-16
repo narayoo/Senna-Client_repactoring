@@ -210,6 +210,8 @@ const Search = React.memo(() => {
   const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
   const [open, setOpen] = useState(false);
+  const [postLoading, setPostLoading ] = useState(null);
+
   const { accessToken } = useSelector(state => ({
     accessToken : state.loginReducer.login.accessToken,
   })); 
@@ -275,8 +277,9 @@ const Search = React.memo(() => {
   const openCtModal = async (e) => {
     const postId = e.target.id;
     setCtModal(true);
+    setPostLoading(true);
     await dispatch(getPickPosting(postId));
-
+    setPostLoading(false);
     if(likeUser.includes(userId)){
       setHeart('like');
     }
@@ -477,6 +480,7 @@ const Search = React.memo(() => {
         setHeart={setHeart}
         handleCtModalOff={handleCtModalOff}
         ctModal={ctModal}
+        postLoading={postLoading}
         >
       </ContentModal>
     </>
