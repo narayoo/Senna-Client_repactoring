@@ -259,14 +259,14 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 ***
 
 
-![Mind_Map_3](https://user-images.githubusercontent.com/78632904/125918683-5d43bcfe-14b7-4e38-86dd-06eca5d139d2.jpg)
+![Mind_Map_6](https://user-images.githubusercontent.com/78632904/125946182-4510e2ba-86d1-49f3-836a-a915f6829ffc.jpg)
 
 
 ***
 
 
 
-![Mind_Map_4](https://user-images.githubusercontent.com/78632904/125923155-e92f5c28-45c5-4575-b3f4-e77e53993b68.jpg)
+![Mind_Map_7](https://user-images.githubusercontent.com/78632904/125946290-8a3244c4-1b40-436c-b27a-86b569bc18c1.jpg)
 
 
 
