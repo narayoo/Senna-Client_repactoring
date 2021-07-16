@@ -245,5 +245,22 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 
 <br>
 
-<hr>
+
+
+***
+
+
+# 🧞‍♂️ FlowChart
+
+
+
+![Flowchart_Template_1](https://user-images.githubusercontent.com/78632904/125918694-1290b739-ea68-47e7-9d2b-cca76358aedd.jpg)
+
+***
+
+
+![Mind_Map_3](https://user-images.githubusercontent.com/78632904/125918683-5d43bcfe-14b7-4e38-86dd-06eca5d139d2.jpg)
+
+
+***
 
