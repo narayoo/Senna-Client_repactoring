@@ -96,7 +96,7 @@ const HashTagWrapper = styled.div`
 `;
 const HashTag = styled.p`
   color: #1b1b1b;
-  width: 30%;
+  width: 100%;
   @media all and (min-width:768px) and (max-width:1023px){
     width: 100%;
   }
@@ -264,15 +264,13 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
                      />
                     }
                  </FavoriteCheckWrapper>
-                 
                 )
               }
             })()}
-
-              <ContentTextArea>
-                <ContentText readOnly>
-                  {content}
-                </ContentText>
+            <ContentTextArea>
+              <ContentText readOnly name="description" value="This is a description.">
+                {content}
+              </ContentText>
             </ContentTextArea>
             <HashTagWrapper>
                 {hashtag.map((e, index) => {
