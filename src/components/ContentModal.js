@@ -268,7 +268,7 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
               }
             })()}
             <ContentTextArea>
-              <ContentText readOnly name="description" value="This is a description.">
+              <ContentText readOnly name="description" value={content}>
                 {content}
               </ContentText>
             </ContentTextArea>
