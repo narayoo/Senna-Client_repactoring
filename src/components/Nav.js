@@ -93,7 +93,7 @@ const HambugToggle = styled.div`
    @media all and (max-width:767px) {
     width: 100%;
     position: sticky;
-    top: 3.5rem;
+    top: 6.5rem;
     display: flex;
     align-items: center;
     z-index: 3;
