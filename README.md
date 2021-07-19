@@ -24,13 +24,167 @@
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/78632904/125732502-f80b61b5-ab71-4bd0-bdd7-968ae82ac575.gif)
 
 
-![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/78632904/125733249-e752ddb9-4e74-4fae-91cf-537b4244e98f.gif)
+## 주요 기능별 시연 GIF 🦋  
 
 
-![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/78632904/125733322-a0b0d339-d389-48f2-aff3-5b82e2ddb907.gif)
+<details>
+<summary>Landing (메인페이지)</summary>
+<div markdown="1">   
+    
+![메인시작페이지](https://user-images.githubusercontent.com/78632904/126101133-c07c8ec9-d0eb-47d4-ae81-ac46712a0987.gif)
+
+</div>
+</details>
 
 
-![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/78632904/125733380-df9b8599-6d1f-4b4c-bab7-d8569f29e598.gif)
+<details>
+<summary>Infinity Scroll (무한스크롤)</summary>
+<div markdown="1">       
+
+![무한스크롤](https://user-images.githubusercontent.com/78632904/126101146-8837d9ac-7b77-450b-a5bc-550674abfcdf.gif)
+
+</div>
+</details>
+
+<details>
+<summary>Search (검색)</summary>
+<div markdown="1">       
+추천검색어 , 인기검색어 , 해시태그 검색
+
+
+![추천검색인기검색](https://user-images.githubusercontent.com/78632904/126101273-f4e8133b-bcf7-44ce-b52d-3d1bff9b218a.gif)
+
+![서치페이지에서재검색](https://user-images.githubusercontent.com/78632904/126101302-73f55e8f-6fc3-4cdd-91df-d9ce91c0fe37.gif)
+
+
+</div>
+</details>
+
+<details>
+<summary>SignUp (회원가입)</summary>
+<div markdown="1">       
+
+
+![회원가입1](https://user-images.githubusercontent.com/78632904/126101767-374f2191-617f-4c98-b060-09ed393c43b3.gif)
+
+
+![회원가입2](https://user-images.githubusercontent.com/78632904/126101778-be0bb37e-72d1-4c71-8e30-28346dfe27ea.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Login (로그인)</summary>
+<div markdown="1">       
+
+일반유저 로그인
+
+![로그인](https://user-images.githubusercontent.com/78632904/126101394-aeb566bb-6697-4d3d-89d3-fa741e9c369e.gif)
+
+
+카카오 소셜 로그인
+
+![카카오로그인](https://user-images.githubusercontent.com/78632904/126101408-7154833e-f51f-43f8-8e8b-039190ba4fe4.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Content (컨텐츠)</summary>
+<div markdown="1">       
+
+게시물 등록 , 수정, 삭제 
+
+
+![게시물등록1](https://user-images.githubusercontent.com/78632904/126101512-6a83ff16-1996-4d0e-967c-3f5a4156035c.gif)
+
+
+![게시물등록2](https://user-images.githubusercontent.com/78632904/126101529-a0433b85-e204-453e-80b0-a850288ec74a.gif)
+
+
+![게시물수정1](https://user-images.githubusercontent.com/78632904/126101570-27010f30-7e27-44eb-9a9a-37217b789575.gif)
+
+
+![게시물수정2삭제까지](https://user-images.githubusercontent.com/78632904/126101583-dd3e0f43-24a2-4af5-8230-1cf81c72d34e.gif)
+
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Profile (프로필)</summary>
+<div markdown="1">       
+
+프로필 수정
+
+
+![회원프로필수정](https://user-images.githubusercontent.com/78632904/126101646-0eb61c3a-987b-4696-a3ab-6dd5168243be.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Favorite (좋아요)</summary>
+<div markdown="1">       
+
+게시물 확인 및 좋아요, 삭제 
+
+
+![모달창열기좋아요까지](https://user-images.githubusercontent.com/78632904/126101688-40365973-820f-4d3f-8376-ae1bd4b1d65e.gif)
+
+
+![페이보릿삭제](https://user-images.githubusercontent.com/78632904/126101713-9c0cf3ab-70f7-4eff-9b4f-8b50b7880a05.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Social Share (공유하기)</summary>
+<div markdown="1">       
+카카오 소셜 공유하기 
+
+![카카오톡공유하기1](https://user-images.githubusercontent.com/78632904/126101790-62caa610-1ebd-4016-9aa7-0adf0e031984.gif)
+
+
+![카카오톡공유하기2](https://user-images.githubusercontent.com/78632904/126101796-4334683e-d5a9-42e5-9120-3a88b150bc8b.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Responsive (Tablet)</summary>
+<div markdown="1">       
+
+
+![반응형-아이패드](https://user-images.githubusercontent.com/78632904/126101811-d4cbe25b-6441-4ae5-a5e6-cd17dc06f6f7.gif)
+
+
+</div>
+</details>
+
+
+<details>
+<summary>Responsive (mobile)</summary>
+<div markdown="1">       
+
+
+![반응형-아이폰](https://user-images.githubusercontent.com/78632904/126101825-bc3367e3-43ec-4a28-85f2-4ad084092b23.gif)
+
+
+</div>
+</details>
 
 
 
