@@ -271,3 +271,11 @@ MarkUp : 전반 Design & Markup[ Main & Album_Grid, Nav & SearchBar, Mypage, upd
 
 
 ***
+
+
+# 🌵 DB schema
+
+
+![DB final](https://user-images.githubusercontent.com/77980674/125894172-5263d240-ee36-400e-ae7f-5120761b024a.jpg)
+
+***
