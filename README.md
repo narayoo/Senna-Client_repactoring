@@ -6,6 +6,8 @@
 
 <img src=https://user-images.githubusercontent.com/60214107/123025723-00a34080-d416-11eb-97b3-89a10ffc4618.png width="70px">  
 
+
+### 배포링크 : https://senna.world/
 ### _새나 : " 새가 나는 것처럼 자유롭고 아름다움 "_ 
 
 <br>
