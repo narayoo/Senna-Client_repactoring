@@ -203,7 +203,9 @@
 
 <br>
 
-# [Wiki바로가기](https://github.com/codestates/Senna-client/wiki)
+### [Wiki바로가기](https://github.com/codestates/Senna-client/wiki)
+### [Client-repository](https://github.com/codestates/Senna-client)
+### [Sever-repository](https://github.com/codestates/Senna-server)
 
 <br>
 
