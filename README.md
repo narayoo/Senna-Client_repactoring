@@ -1,6 +1,6 @@
 # 프로젝트 소개
 
-# 💙 ABOUT 
+# 💙 ABOUT (새나)
 
 <br>
 
@@ -196,7 +196,7 @@
 <hr>
 
 
-# 🦋 팀 소개 
+# 🦋 팀 소개 (송유이조)
 
 
 <img src="https://user-images.githubusercontent.com/78632904/125730713-c7f3b198-3fe2-46f3-9482-e64c3f7ade7c.png" width="400px">
