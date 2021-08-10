@@ -70,6 +70,7 @@ const Album = React.memo(({ openCtModal,  }) => {
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
 
   const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
+
   const fetchItems = async () => {
     setState(prev => ({ ...prev, isLoading: true }));
     await fakeFetch();
@@ -78,6 +79,8 @@ const Album = React.memo(({ openCtModal,  }) => {
       isLoading: false
     }));
   };
+
+
   useEffect(() => {
     fetchItems();
   }, []);
@@ -86,7 +89,9 @@ const Album = React.memo(({ openCtModal,  }) => {
     await fetchItems();
     observer.observe(entry.target);
   }, {});
-  const { itemCount, isLoading } = state;
+
+
+  const { itemCount } = state;
   if (!itemCount) return null;
 
   return (

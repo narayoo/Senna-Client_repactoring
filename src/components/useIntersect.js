@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from 'react';
+import { useEffect, useState,useCallback } from 'react';
 
 const useIntersect = (onIntersect, option) => {
   const [ref, setRef] = useState(null);
