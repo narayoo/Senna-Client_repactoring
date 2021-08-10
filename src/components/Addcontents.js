@@ -198,7 +198,7 @@ const UpdateMycontents = React.memo(() => {
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <>
-        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
+        <Autocomplete apiKey={process.env.REACT_APP_GOOGLE_API_KEY} onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
           options={{
             types: [],
             fields: ['geometry.location','address_components','place_id','formatted_address']

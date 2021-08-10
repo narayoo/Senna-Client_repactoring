@@ -163,12 +163,11 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
   })); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
   const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
-  const { content, hashtag, image, postId, likeUser, place } = useSelector(state => ({
+  const { content, hashtag, image, postId, place } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     image: state.pickPosting.postInfo.image,
     postId : state.pickPosting.postInfo.postId,
-    likeUser : state.pickPosting.postInfo.likeUser,
     place : state.pickPosting.postInfo.place
   })); 
 

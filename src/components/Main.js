@@ -52,12 +52,14 @@ const Main = React.memo(() => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollTop]);
+
   const handleScroll = async() => {
     const scroll = document.body.scrollTop || document.documentElement.scrollTop;
     const { scrollHeight, clientHeight } = document.documentElement;
     const scrollTop = scroll / (scrollHeight - clientHeight);
     await setScrollTop(scrollTop);
   };
+
   const handleTop = async() => {  
     await window.scrollTo({
       top: 0,
@@ -65,15 +67,19 @@ const Main = React.memo(() => {
     });
     setScrollTop(0); 
   };
+
   const changeId = async(e) => {
     await setUserId(e.target.value);
   };
+
   const changePwd = async(e) => {
     await setPassword(e.target.value);
   };
+
   const openModal = async() => {
     await setModal(true);
   };
+
   const onConfirm = async(e) => {
     const body = {
       userId: userId,
@@ -85,9 +91,11 @@ const Main = React.memo(() => {
     setLoading(false);
     await setModal(false);
   };
+
   const onCancle = async() => {
     await setModal(false);
   };
+
   const handleModalOff = async(e) => {
     const clicked = e.target.closest('.modal');
     if (clicked) return;
@@ -95,6 +103,7 @@ const Main = React.memo(() => {
       await setModal(false);
     }
   };
+
   const openCtModal = async (e) => {
     const postId = e.target.id;
     setCtModal(true);
@@ -105,6 +114,7 @@ const Main = React.memo(() => {
       await setHeart('like');
     }
   };
+
   const handleCtModalOff = async(e) => {
     const clicked = e.target.closest('.ctModal');
     if (clicked) return;
@@ -117,10 +127,12 @@ const Main = React.memo(() => {
       }
     }
   };
+
   const logout = () => {
     dispatch(localLogout(accessToken))
     history.push('./')
   };
+  
   const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {

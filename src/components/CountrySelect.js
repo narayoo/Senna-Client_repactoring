@@ -35,7 +35,7 @@ const CountrySelect = React.memo(() => {
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   
   const onKeyPress = (e) => {
-    if(e.key == 'Enter') {
+    if(e.key === 'Enter') {
       dispatch(searchContent(e.target.value))
       history.push('/search') 
     }

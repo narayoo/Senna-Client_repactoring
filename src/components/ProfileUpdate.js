@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import userImg from '../img/userImg.png';
 import MypageNav from '../components/MypageNav';
@@ -119,12 +119,14 @@ function ProfileUpdate () {
       history.push('/mypage');
       await dispatch(getUserInfo(accessToken)); 
   };
+  
   const updateKakaoUserProfileHandler = async() => {
     await dispatch(updateKakaoProfile(kakaoUserKey,img))
     alert('프로필이 수정되었습니다.')
     history.push('/mypage');
     await dispatch(getKakaoUserInfo(kakaoAcToken));
   };
+
   const handleFileOnChange = async (event) => {
     event.preventDefault();
     let reader = new FileReader();

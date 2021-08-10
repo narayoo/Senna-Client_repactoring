@@ -16,7 +16,7 @@ import { getPickPosting } from '../modules/pickPosting';
 import { kakaoLogin } from '../modules/kakaoReducer';
 import { getUserInfo } from '../modules/loginReducer';
 import useIntersect from './useIntersect';
-import { getKakaoUserInfo} from '../modules/kakaoReducer'
+
 
 dotenv.config()
 
@@ -207,7 +207,6 @@ const Search = React.memo(() => {
   const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
   const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
   const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
   const [open, setOpen] = useState(false);
   const [postLoading, setPostLoading ] = useState(null);
