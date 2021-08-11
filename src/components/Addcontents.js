@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
 import Nav from './Nav'
-import { addContent , kakaoAddContent} from '../modules/addContentReducer';
+import { addContent , kakaoAddContent} from '../modules/addContent';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import Autocomplete from "react-google-autocomplete";
 import '../style/google.css'

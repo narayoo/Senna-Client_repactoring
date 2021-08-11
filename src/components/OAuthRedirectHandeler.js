@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { kakaoLogin } from "../modules/kakaoReducer";
+import { kakaoLogin } from "../modules/kakao";
 
 export default function  OAuth2RedirectHandler(props) {
   const dispatch = useDispatch();

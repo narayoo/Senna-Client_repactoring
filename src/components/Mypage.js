@@ -6,10 +6,10 @@ import img from '../img/userImg.png';
 import MyContentModal from '../components/MyContentModal';
 import MyFavoriteModal from '../components/MyFavoriteModal';
 import MypageNav from '../components/MypageNav';
-import { withdrawal , kakaoUserWithdrawal} from '../modules/withdrawalReducer'
+import { withdrawal , kakaoUserWithdrawal} from '../modules/withdrawal'
 import { getPickPosting } from '../modules/pickPosting';
-import { localLogout, autoRefreshLogin} from '../modules/loginReducer';
-import { kakaoLogout, autoRefreshKakaoLogin } from '../modules/kakaoReducer'
+import { localLogout, autoRefreshLogin} from '../modules/login';
+import { kakaoLogout, autoRefreshKakaoLogin } from '../modules/kakao'
 import jwt_decode from 'jwt-decode';
 
 const Container = styled.div`

@@ -1,36 +1,36 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import loginReducer from './loginReducer';
-import likeReducer from './likeReducer';
-import addContetReducer from './addContentReducer'
-import withdrawalReducer from './withdrawalReducer'
+import login from './login';
+import like from './like';
+import addContet from './addContent'
+import withdrawal from './withdrawal'
 import showAllPosting from './showAllPosting';
 import pickPosting from './pickPosting';
-import searchReducer from './searchReducer'
+import search from './search'
 import deleteMyPosting from './deleteMyPosting';
-import kakaoReducer from './kakaoReducer';
-import updateProfileReducer from './updateProfileReducer';
-import hotkeywordReducer from './hotkeywordReducer';
+import kakao from './kakao';
+import updateProfile from './updateProfile';
+import hotkeyword from './hotkeyword';
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["loginReducer", "kakaoReducer"]
+  whitelist: ["login", "kakao"]
 };
 
 const rootReducer = combineReducers({
-  loginReducer,
-  likeReducer,
-  addContetReducer,
-  withdrawalReducer,
+  login,
+  like,
+  addContet,
+  withdrawal,
   showAllPosting,
   pickPosting,
-  searchReducer,
+  search,
   deleteMyPosting,
-  kakaoReducer,
-  updateProfileReducer,
-  hotkeywordReducer,
+  kakao,
+  updateProfile,
+  hotkeyword,
 })
 
 export default persistReducer(persistConfig, rootReducer);

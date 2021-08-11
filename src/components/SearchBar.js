@@ -2,7 +2,7 @@ import React, { useState }from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { searchContent } from "../modules/searchReducer"
+import { searchContent } from "../modules/search"
 
 const Search_Bar = styled.input`
   width: 100%;

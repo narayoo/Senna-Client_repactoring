@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
-import { searchContent } from "../modules/searchReducer"
+import { searchContent } from "../modules/search"
 import { TextField } from '@material-ui/core';
 import { Autocomplete }from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';

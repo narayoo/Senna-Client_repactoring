@@ -7,11 +7,11 @@ import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
 import Nav from '../components/Nav';
 import Album from './Album';
-import {localLogin, localLogout} from '../modules/loginReducer';
+import {localLogin, localLogout} from '../modules/login';
 import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin, kakaoLogout } from '../modules/kakaoReducer';
+import { kakaoLogin, kakaoLogout } from '../modules/kakao';
 import { getAllOfPosting } from '../modules/showAllPosting';
-import { getHotKeyword } from '../modules/hotkeywordReducer';
+import { getHotKeyword } from '../modules/hotkeyword';
 import dotenv from 'dotenv';
 
 dotenv.config()

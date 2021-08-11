@@ -1,17 +1,17 @@
+import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import logger from 'redux-logger';
+import rootReducer from './modules/index';
+import ReduxThunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise';
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import rootReducer from './modules/index';
-import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import ReduxThunk from 'redux-thunk';
-import { BrowserRouter } from 'react-router-dom';
-import promiseMiddleware from 'redux-promise';
+import * as serviceWorker from './serviceWorker';
 
 
 const store = createStore(

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
-import { getUserInfo } from '../modules/loginReducer';
+import { getUserInfo } from '../modules/login';
 import { onDeleteFavo , onDeleteKakaoFavo }from '../modules/deleteFavo';
-import { getKakaoUserInfo } from '../modules/kakaoReducer'
+import { getKakaoUserInfo } from '../modules/kakao'
 
 const BackgroundDark = styled.div`
   position: fixed;

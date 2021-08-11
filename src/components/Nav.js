@@ -6,8 +6,8 @@ import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
 import { useSelector,useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { getUserInfo } from '../modules/loginReducer';
-import { getKakaoUserInfo} from '../modules/kakaoReducer'
+import { getUserInfo } from '../modules/login';
+import { getKakaoUserInfo} from '../modules/kakao'
 
 const NavSection = styled.div`
   width: 100%;
