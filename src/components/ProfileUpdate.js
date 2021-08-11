@@ -4,9 +4,9 @@ import userImg from '../img/userImg.png';
 import MypageNav from '../components/MypageNav';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { updateProfile , updateKakaoProfile} from "../modules/updateProfileReducer"
-import { getUserInfo } from '../modules/loginReducer';
-import { getKakaoUserInfo } from '../modules/kakaoReducer'
+import { updateProfile , updateKakaoProfile} from "../modules/updateProfile"
+import { getUserInfo } from '../modules/login';
+import { getKakaoUserInfo } from '../modules/kakao'
 
 const UpdateUserBox = styled.div`
   display: flex;

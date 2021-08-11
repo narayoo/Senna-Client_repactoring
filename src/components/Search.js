@@ -10,11 +10,11 @@ import logo from '../img/SennaLogo.png';
 import styled from 'styled-components';
 import LoginModal from './LoginModal';
 import ContentModal from './ContentModal';
-import { localLogin, localLogout } from '../modules/loginReducer';
+import { localLogin, localLogout } from '../modules/login';
 import { getAllOfPosting } from '../modules/showAllPosting';
 import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin } from '../modules/kakaoReducer';
-import { getUserInfo } from '../modules/loginReducer';
+import { kakaoLogin } from '../modules/kakao';
+import { getUserInfo } from '../modules/login';
 import useIntersect from './useIntersect';
 
 

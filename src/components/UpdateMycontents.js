@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
 import MypageNav from '../components/MypageNav';
-import { localLogout } from '../modules/loginReducer';
-import { getUserInfo } from '../modules/loginReducer';
-import { getKakaoUserInfo } from '../modules/kakaoReducer'
+import { localLogout } from '../modules/login';
+import { getUserInfo } from '../modules/login';
+import { getKakaoUserInfo } from '../modules/kakao'
 import { onUpdatePosting } from '../modules/updatePosting';
 import Autocomplete from "react-google-autocomplete";
 import '../style/google.css'

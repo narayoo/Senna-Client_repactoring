@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import ContentSlider from './ContentSlider';
 import { onDeleteMypost, onDeleteKakaoMypost }from '../modules/deleteMyPosting';
-import { getUserInfo } from '../modules/loginReducer';
-import { getKakaoUserInfo } from '../modules/kakaoReducer'
+import { getUserInfo } from '../modules/login';
+import { getKakaoUserInfo } from '../modules/kakao'
 
 const {Kakao} = window;
 
