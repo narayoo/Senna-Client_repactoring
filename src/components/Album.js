@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "../style/grid.css";
-import styled from 'styled-components';
+import styled from "styled-components";
 import StackGrid from "react-stack-grid";
-import useIntersect from './useIntersect';
+import useIntersect from "./useIntersect";
 
 const AlbumSection = styled.section`
   display: flex;
@@ -65,8 +65,8 @@ const TotalComponent = styled.p`
 
 const Album = React.memo(({ openCtModal,  }) => {
   let list = useSelector(state => state.showAllPosting.postingList.data);
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const isLogin = useSelector(state => state.login.login.isLogin); 
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
 
   const fakeFetch = (delay = 100) => new Promise(res => setTimeout(res, delay));
@@ -107,12 +107,12 @@ const Album = React.memo(({ openCtModal,  }) => {
               <Link to='/addcontents'>
               <AddButton>Add</AddButton>
               </Link>
-              )
+              );
             } else if (!isLogin || !kakaoIsLogin){
               return (
                 <>
                 </>
-              )
+              );
             }
           })()}
         </AddButtonWrapper>
@@ -125,14 +125,14 @@ const Album = React.memo(({ openCtModal,  }) => {
           list?.slice(0,itemCount).map((photo,index)=> {
             return <div key={index} onClick={(el) => openCtModal(el)}>
               <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy" />
-            </div>
+            </div>;
             }
           )}
         <div ref={setRef} />
         </StackGrid>
       </AlbumSection>
     </>
-  )
-})
+  );
+});
 
 export default Album;

@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import Main from './components/Main';
-import Mypage from './components/Mypage';
-import Addcontents from './components/Addcontents';
-import SignUp from './components/SignUp';
-import Search from './components/Search';
-import ProfileUpdate from './components/ProfileUpdate';
-import UpdateMycontents from './components/UpdateMycontents';
+import Main from "./components/Main";
+import Mypage from "./components/Mypage";
+import Addcontents from "./components/Addcontents";
+import SignUp from "./components/SignUp";
+import Search from "./components/Search";
+import ProfileUpdate from "./components/ProfileUpdate";
+import UpdateMycontents from "./components/UpdateMycontents";
 
 const GlobalStyle = createGlobalStyle`
   body {

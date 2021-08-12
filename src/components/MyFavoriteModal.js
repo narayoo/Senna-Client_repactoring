@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector , useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import ContentSlider from './ContentSlider';
-import { getUserInfo } from '../modules/login';
-import { onDeleteFavo , onDeleteKakaoFavo }from '../modules/deleteFavo';
-import { getKakaoUserInfo } from '../modules/kakao'
+import React from "react";
+import { useSelector , useDispatch } from "react-redux";
+import styled from "styled-components";
+import ContentSlider from "./ContentSlider";
+import { getUserInfo } from "../modules/login";
+import { onDeleteFavo , onDeleteKakaoFavo }from "../modules/deleteFavo";
+import { getKakaoUserInfo } from "../modules/kakao";
 
 const BackgroundDark = styled.div`
   position: fixed;
@@ -130,28 +130,28 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
     postingId: state.pickPosting.postInfo.postId,
   })); 
   const {accessToken, userKey} = useSelector(state => ({
-    accessToken: state.loginReducer.login.accessToken,
-    userKey: state.loginReducer.user.id,
+    accessToken: state.login.login.accessToken,
+    userKey: state.login.user.id,
   })); 
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
-  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
+  const kakaoUserKey = useSelector(state => state.kakao.login.userKey);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const isLogin = useSelector(state => state.login.login.isLogin);
 
   if (!favoCtModal) return null;
 
   const deleteFavoCtHandler = async(e) => {
-    alert('해당 게시물 좋아요를 취소합니다.')
+    alert("해당 게시물 좋아요를 취소합니다.");
     const postId = e.target.id;
-      await dispatch(onDeleteFavo(postId,userKey))
+      await dispatch(onDeleteFavo(postId,userKey));
       await dispatch(getUserInfo(accessToken));
       setFavoCtModal(false);
   };
   const deleteKakaoFavoCtHandler = async(e) => {
-    alert('해당 게시물 좋아요를 취소합니다.')
+    alert("해당 게시물 좋아요를 취소합니다.");
     const postId = e.target.id;
-    await dispatch(onDeleteKakaoFavo(postId,kakaoUserKey))
-    await dispatch(getKakaoUserInfo(kakaoAcToken))
+    await dispatch(onDeleteKakaoFavo(postId,kakaoUserKey));
+    await dispatch(getKakaoUserInfo(kakaoAcToken));
     setFavoCtModal(false);
 
   };
@@ -168,11 +168,11 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
               if(isLogin){
                 return (
                   <DeleteBtn id={postingId} onClick={(e) => deleteFavoCtHandler(e)}>Delete</DeleteBtn>
-                )
+                );
               } else if (kakaoIsLogin){
                 return (
                   <DeleteBtn id={postingId} onClick={(e) => deleteKakaoFavoCtHandler(e)}>Delete</DeleteBtn>
-                )
+                );
               }
             })()}
               </BtnWrapper>
@@ -182,7 +182,7 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
                 </ContentText>
                 <HashTagWrapper>
                 {hashtag.map((e, index) => {
-                  return <HashTag key={index}>{`#${e}`}</HashTag>
+                  return <HashTag key={index}>{`#${e}`}</HashTag>;
                 })}
               </HashTagWrapper>
             </ContentTextArea>
@@ -191,7 +191,7 @@ const MyFavoriteModal = React.memo(({favoCtModal, setFavoCtModal, handleFavoCtMo
       </BackgroundDark>
     )}
     </>
-  )
-})
-export default MyFavoriteModal
+  );
+});
+export default MyFavoriteModal;
 

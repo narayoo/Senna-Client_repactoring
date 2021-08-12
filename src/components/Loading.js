@@ -1,4 +1,4 @@
-import Loader from 'react-loader-spinner';
+import Loader from "react-loader-spinner";
 
 const Loading = (() => {
   return(
@@ -11,6 +11,6 @@ const Loading = (() => {
         timeout={2000}
       />
       </>
-  )
-})
+  );
+});
 export default Loading;

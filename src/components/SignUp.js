@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
-import { isId, isPassword } from '../js/regExp';
-import styled from 'styled-components';
-import userImg from '../img/userImg.png';
-import photo from '../img/signPhoto2.jpeg';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { isId, isPassword } from "../js/regExp";
+import styled from "styled-components";
+import userImg from "../img/userImg.png";
+import photo from "../img/signPhoto2.jpeg";
+import axios from "axios";
 
 const Wrapper = styled.div`
   display: flex;
@@ -200,11 +200,11 @@ const IdSection = styled.div`
 `;
 
 const SignUp = React.memo(() => {
-  const [previewURL, setPreviewURL] = useState('');
-  const [img, setImg] = useState('');
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [checkPassword, setCheckPassword] = useState('');
+  const [previewURL, setPreviewURL] = useState("");
+  const [img, setImg] = useState("");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
   const [isValidId , setValidId ] = useState(false);
   const [isValidPassword , setIsValidPassword ] = useState(false);
   const [isPwdDoubleCk , setIsPwdDoubleCk ] = useState(false);
@@ -215,27 +215,27 @@ const SignUp = React.memo(() => {
     let reader = new FileReader();
     let file = event.target.files[0];
     reader.onloadend = () => {
-      setImg(file)
+      setImg(file);
       setPreviewURL(reader.result);
     };
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file);
   };
 
   let profile_preview = null;
 
-  if(img !== ''){
-    profile_preview = <img className='profile_preview' src={previewURL}></img>
+  if(img !== ""){
+    profile_preview = <img className='profile_preview' src={previewURL}></img>;
   }else{
-    profile_preview = <img className='profile_preview' src={userImg}></img>
-  };
+    profile_preview = <img className='profile_preview' src={userImg}></img>;
+  }
   const cancle = () => {
-    window.location.replace("/")
+    window.location.replace("/");
   };
   const onChangeId = (e) => {
     setUserId(e.target.value);
     if (!isId(e.target.value)) { 
       setValidId(false);
-    } else if(e.target.value === ''){
+    } else if(e.target.value === ""){
       setValidId(false);
     } else { // 이메일 형식 통과 했을때
       setValidId(true);
@@ -268,45 +268,45 @@ const SignUp = React.memo(() => {
   const submit = async (e) => {
     e.preventDefault();
     if(!isValidId){
-      alert('아이디를 다시 확인해주세요.')
+      alert("아이디를 다시 확인해주세요.");
     }else if(!isValidPassword) {
-      alert('비밀번호를 다시 확인해주세요.')
+      alert("비밀번호를 다시 확인해주세요.");
     }else if(!isPwdDoubleCk) {
-      alert('비밀번호가 서로 일치하지 않습니다.')
+      alert("비밀번호가 서로 일치하지 않습니다.");
     }else if(!checkId) {
-      alert('아이디 중복확인을 해주세요.')
+      alert("아이디 중복확인을 해주세요.");
     }else if(isValidId && isValidPassword && isPwdDoubleCk && checkId){
       let formData = new FormData();
       const config = {
-        header: {'content-type': 'multipart/form-data'}
-      }
+        header: {"content-type": "multipart/form-data"}
+      };
       formData.append("avatar", img);
       formData.append("userId", userId);
       formData.append("password", password);
-      await axios.post('https://www.senna-server.shop/user/signup',
+      await axios.post("https://www.senna-server.shop/user/signup",
       formData, config)
       .then(res => {
-        alert('회원가입이 완료되었습니다');
-        history.push('./'); // 메인 페이지로 리다이렉션
-        window.location.replace('./')
+        alert("회원가입이 완료되었습니다");
+        history.push("./"); // 메인 페이지로 리다이렉션
+        window.location.replace("./");
       }).catch(err => {
-      })
+      });
     }
   };
   const doubleCheckId = async(e) => {
-    e.preventDefault()
-    const id = { id : userId}
-    await axios.post('https://www.senna-server.shop/user/checkid',id)
+    e.preventDefault();
+    const id = { id : userId};
+    await axios.post("https://www.senna-server.shop/user/checkid",id)
     .then(res => {
-      if(userId !== ''){
-        setCheckId(true)
-        alert('사용할 수 있는 아이디입니다.')
+      if(userId !== ""){
+        setCheckId(true);
+        alert("사용할 수 있는 아이디입니다.");
       }else{
-        alert('아이디를 입력해주세요.')
+        alert("아이디를 입력해주세요.");
       }
     }).catch(err => {
-      alert('이미 존재하는 아이디입니다.')
-    })
+      alert("이미 존재하는 아이디입니다.");
+    });
   };
 
   return (
@@ -337,7 +337,7 @@ const SignUp = React.memo(() => {
       </SignupContainer>
     </Wrapper>
     </>
-  )
-})
+  );
+});
 
-export default SignUp
+export default SignUp;

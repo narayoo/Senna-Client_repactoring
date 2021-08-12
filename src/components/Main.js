@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
-import '../style/main.css';
-import Slider from "./Slider"
-import LoginModal from './LoginModal';
-import ContentModal from './ContentModal';
-import Nav from '../components/Nav';
-import Album from './Album';
-import {localLogin, localLogout} from '../modules/login';
-import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin, kakaoLogout } from '../modules/kakao';
-import { getAllOfPosting } from '../modules/showAllPosting';
-import { getHotKeyword } from '../modules/hotkeyword';
-import dotenv from 'dotenv';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import "../style/main.css";
+import Slider from "./Slider";
+import LoginModal from "./LoginModal";
+import ContentModal from "./ContentModal";
+import Nav from "../components/Nav";
+import Album from "./Album";
+import {localLogin, localLogout} from "../modules/login";
+import { getPickPosting } from "../modules/pickPosting";
+import { kakaoLogin, kakaoLogout } from "../modules/kakao";
+import { getAllOfPosting } from "../modules/showAllPosting";
+import { getHotKeyword } from "../modules/hotkeyword";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 const {Kakao} = window;
 
@@ -22,24 +22,24 @@ const Main = React.memo(() => {
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
-  const [userId, setUserId] = useState('')
-  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(null);
   const [postLoading, setPostLoading ] = useState(null);
   const [heart , setHeart] = useState(null);
-  const [kakaoAT , setkakaoAT] = useState('');
+  const [kakaoAT , setkakaoAT] = useState("");
   const [showPosting, setShowPosting] = useState([]);
   const [total, setTotal] = useState(0);
 
   const dispatch = useDispatch();
   const history = useHistory();
   const { accessToken } = useSelector(state => ({
-    accessToken : state.loginReducer.login.accessToken,
+    accessToken : state.login.login.accessToken,
   })); 
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
   })); 
-  const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
+  const localAT = useSelector(state => state.kakao.login.accessToken);
 
   useEffect(async() => {
     await dispatch(getAllOfPosting());
@@ -84,9 +84,9 @@ const Main = React.memo(() => {
     const body = {
       userId: userId,
       password: password,
-    }
+    };
     setLoading(true);
-    await dispatch(localLogin(body))
+    await dispatch(localLogin(body));
 
     setLoading(false);
     await setModal(false);
@@ -97,7 +97,7 @@ const Main = React.memo(() => {
   };
 
   const handleModalOff = async(e) => {
-    const clicked = e.target.closest('.modal');
+    const clicked = e.target.closest(".modal");
     if (clicked) return;
     else {
       await setModal(false);
@@ -111,16 +111,16 @@ const Main = React.memo(() => {
     await dispatch(getPickPosting(postId));
     setPostLoading(false);
     if(likeUser.includes(userId)){
-      await setHeart('like');
+      await setHeart("like");
     }
   };
 
   const handleCtModalOff = async(e) => {
-    const clicked = e.target.closest('.ctModal');
+    const clicked = e.target.closest(".ctModal");
     if (clicked) return;
     else {
       setCtModal(false);
-      if(heart === 'like'){
+      if(heart === "like"){
         setHeart(null);
       }else{
         setHeart(null);
@@ -129,8 +129,8 @@ const Main = React.memo(() => {
   };
 
   const logout = () => {
-    dispatch(localLogout(accessToken))
-    history.push('./')
+    dispatch(localLogout(accessToken));
+    history.push("./");
   };
   
   const onSocialLogin = () => {
@@ -138,16 +138,16 @@ const Main = React.memo(() => {
       success: function(authObj) {
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
-        setkakaoAT(socialAC)
+        setkakaoAT(socialAC);
         dispatch(kakaoLogin(socialAC));
         setModal(false);
       },
       fail: function(err) {
       },
-    })
+    });
   };
   const kakaoLogoutHandler = () => {
-      dispatch(kakaoLogout(kakaoAT, localAT))
+      dispatch(kakaoLogout(kakaoAT, localAT));
   };
 
   return (
@@ -157,7 +157,7 @@ const Main = React.memo(() => {
       <div className='topBtnWrapper'>
         <button 
         className='topBtn' 
-        style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
+        style={{display: scrollTop > 0.2 ? "block" : "none"}}
         onClick={() => handleTop()}>Top</button>
       </div> 
       <LoginModal
@@ -184,8 +184,8 @@ const Main = React.memo(() => {
         >
       </ContentModal>
     </>
-  )
-})
+  );
+});
 
 export default Main;
 

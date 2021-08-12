@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector , useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import ContentSlider from './ContentSlider';
-import {likeButton, kakaoLikeButton} from '../modules/like'
-import Loading from './Loading';
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom';
+import React from "react";
+import { useSelector , useDispatch } from "react-redux";
+import styled from "styled-components";
+import ContentSlider from "./ContentSlider";
+import {likeButton, kakaoLikeButton} from "../modules/like";
+import Loading from "./Loading";
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 
 const {Kakao} = window;
 const BackgroundDark = styled.div`
@@ -158,11 +158,11 @@ const KakaoShareWrapper = styled.img`
 const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading }) => {
   const dispatch = useDispatch();
   const { isLogin, userKey} = useSelector(state => ({
-    isLogin : state.loginReducer.login.isLogin,
-    userKey : state.loginReducer.login.userKey,
+    isLogin : state.login.login.isLogin,
+    userKey : state.login.login.userKey,
   })); 
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const kakaoUserKey = useSelector(state => state.kakao.login.userKey);
   const { content, hashtag, image, postId, place } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -174,37 +174,37 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
   const handleLikeButton = async(e) => {
     const like = e.target.id;
     if(isLogin && heart === null) {
-      await dispatch(likeButton(like, userKey))
-      setHeart('like');
+      await dispatch(likeButton(like, userKey));
+      setHeart("like");
     }else if (kakaoIsLogin && heart === null) {
-      await dispatch(kakaoLikeButton(like, kakaoUserKey))
-      setHeart('like');
-    }else if(heart === 'like') {
-      alert('이미 좋아요한 게시물입니다.')
+      await dispatch(kakaoLikeButton(like, kakaoUserKey));
+      setHeart("like");
+    }else if(heart === "like") {
+      alert("이미 좋아요한 게시물입니다.");
     }
   };
   const KakaoShareHandler = () => {
     Kakao.Link.createDefaultButton({
-      container: '#create-kakao-link-btn',
-      objectType: 'feed',
+      container: "#create-kakao-link-btn",
+      objectType: "feed",
       content: {
-        title: 'Senna, 사진을 타고 날아가는',
+        title: "Senna, 사진을 타고 날아가는",
         description: `${hashtag}`,
         imageUrl: image[0],
         link: {
-          webUrl: 'https://senna.world',
+          webUrl: "https://senna.world",
         },
       },
       buttons: [
         {
-          title: '웹으로 보기',
+          title: "웹으로 보기",
           link: {
-            webUrl: 'https://senna.world',
+            webUrl: "https://senna.world",
           },
         },
       ],
-    })
-  }
+    });
+  };
 
   if (!ctModal) return null;
 
@@ -225,45 +225,45 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
                   {
                    <i 
                      id={postId} 
-                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
-                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     className={heart === "like" ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === "like" ? {color : "red", cursor:"pointer"} : {color : "gray", cursor:"pointer"}} 
                      onClick={(e) =>{
-                       ! isLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                       ! isLogin ? alert("로그인 후 이용 가능합니다.") : handleLikeButton(e);}
                      } 
                      />
                    }
                  </FavoriteCheckWrapper>  
-                )
+                );
               } else if (kakaoIsLogin){
                 return (
                   <FavoriteCheckWrapper >
                   {
                    <i 
                      id={postId} 
-                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
-                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     className={heart === "like" ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === "like" ? {color : "red", cursor:"pointer"} : {color : "gray", cursor:"pointer"}} 
                      onClick={(e) =>{
-                       ! kakaoIsLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                       ! kakaoIsLogin ? alert("로그인 후 이용 가능합니다.") : handleLikeButton(e);}
                      } 
                      />
                    }
                  </FavoriteCheckWrapper>  
-                )
+                );
               } else if (!isLogin || !kakaoIsLogin){
                 return (
                  <FavoriteCheckWrapper >
                    {
                    <i 
                      id={postId} 
-                     className={heart === 'like' ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
-                     style={heart === 'like' ? {color : 'red', cursor:'pointer'} : {color : 'gray', cursor:'pointer'}} 
+                     className={heart === "like" ? "fas fa-heart fa-2x" : "far fa-heart fa-2x"}
+                     style={heart === "like" ? {color : "red", cursor:"pointer"} : {color : "gray", cursor:"pointer"}} 
                      onClick={(e) =>{
-                       ! kakaoIsLogin ? alert('로그인 후 이용 가능합니다.') : handleLikeButton(e)}
+                       ! kakaoIsLogin ? alert("로그인 후 이용 가능합니다.") : handleLikeButton(e);}
                      } 
                      />
                     }
                  </FavoriteCheckWrapper>
-                )
+                );
               }
             })()}
             <ContentTextArea>
@@ -273,7 +273,7 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
             </ContentTextArea>
             <HashTagWrapper>
                 {hashtag.map((e, index) => {
-                  return <HashTag key={index}>{`#${e}`}</HashTag>
+                  return <HashTag key={index}>{`#${e}`}</HashTag>;
                 })}
               </HashTagWrapper>
             <PlaceWrapper>
@@ -291,6 +291,6 @@ const ContentModal = (({ ctModal, handleCtModalOff, heart, setHeart, postLoading
       </BackgroundDark>
     )}
     </>
-  )
-})
+  );
+});
 export default ContentModal;

@@ -1,63 +1,63 @@
 import axios from "axios";
 
-export const LOCAL_LOGIN = 'loginReducer/LOCAL_LOGIN';
-export const LOCAL_LOGOUT = 'loginReducer/LOCAL_LOGOUT';
-export const USER_INFO = 'loginReducer/USER_INFO';
-export const REFRESH_LOGIN = 'loginReducer/REFRESH_LOGIN'
-export const AUTO_REFRESH_LOGIN = 'loginReducer/AUTO_REFRESH_LOGIN'
-export const ERROR = 'loginReducer/ERROR';
+export const LOCAL_LOGIN = "login/LOCAL_LOGIN";
+export const LOCAL_LOGOUT = "login/LOCAL_LOGOUT";
+export const USER_INFO = "login/USER_INFO";
+export const REFRESH_LOGIN = "login/REFRESH_LOGIN";
+export const AUTO_REFRESH_LOGIN = "login/AUTO_REFRESH_LOGIN";
+export const ERROR = "login/ERROR";
 
 export const localLogin = (body) => async dispatch => {
   try {
-    const loginSuccess = await axios.post('https://www.senna-server.shop/user/login', body, { withCredentials:true });
+    const loginSuccess = await axios.post("https://www.senna-server.shop/user/login", body, { withCredentials:true });
     dispatch({type:LOCAL_LOGIN,loginSuccess});
   } catch(err) {
-    alert(err.response.data)
+    alert(err.response.data);
   }
 };
 export const localLogout = (accessToken) => async dispatch => {
-  const logoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
+  const logoutSuccess = await axios.get("https://www.senna-server.shop/user/logout",
   { headers : { 
     authorization : accessToken ,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     },
     withCredentials: true 
   });
   dispatch({type:LOCAL_LOGOUT, logoutSuccess});
 };
 export const getUserInfo = (accessToken) =>  async dispatch => {
-  const getInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
+  const getInfoSuccess =  await axios.get("https://www.senna-server.shop/user/info",
   { headers : { 
     authorization : accessToken ,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     },
     withCredentials: true 
   });
   dispatch({type:USER_INFO, getInfoSuccess});
 };
 export const autoRefreshLogin = () => async dispatch => {
-  const autoRefreshLogin = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
-  dispatch({type:AUTO_REFRESH_LOGIN, autoRefreshLogin})  
+  const autoRefreshLogin = await axios.get("https://www.senna-server.shop/user/request-token", { withCredentials:true } );
+  dispatch({type:AUTO_REFRESH_LOGIN, autoRefreshLogin});  
 };
 
 const initialState = {
   login : {
-    userId: '',
+    userId: "",
     isLogin: false,
-    userKey : '',
-    accessToken : '',
-    profileImg: '',
+    userKey : "",
+    accessToken : "",
+    profileImg: "",
     favorite: [],
-    suggest: '',
+    suggest: "",
   },
   user : {
-    id: '',
-    userId: '',
-    profileImg: '',
+    id: "",
+    userId: "",
+    profileImg: "",
     favorite: [],
     uploadList: [],
   },
-}
+};
 
 export default function loginReducer(state = initialState, action){
   switch(action.type) {
@@ -73,7 +73,7 @@ export default function loginReducer(state = initialState, action){
             favorite: action.loginSuccess.data.favorite,
             suggest: action.loginSuccess.data.keyword,
           },
-      }
+      };
     case LOCAL_LOGOUT :
       return {
         ...state,
@@ -82,7 +82,7 @@ export default function loginReducer(state = initialState, action){
             userKey: null,
             accessToken: null,
           }
-      }
+      };
     case USER_INFO :
       return {
         ...state,
@@ -93,7 +93,7 @@ export default function loginReducer(state = initialState, action){
           favorite: action.getInfoSuccess.data.data.favorite,
           uploadList: action.getInfoSuccess.data.data.uploadList,
         }
-      }
+      };
     
         case AUTO_REFRESH_LOGIN :
         return {
@@ -106,7 +106,7 @@ export default function loginReducer(state = initialState, action){
               profileImg: action.autoRefreshLogin.data.data.profileImg,
               favorite: action.autoRefreshLogin.data.data.favorite,
             },
-        }
+        };
     default : return state;
   }
 }

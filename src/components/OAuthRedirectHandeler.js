@@ -9,4 +9,4 @@ export default function  OAuth2RedirectHandler(props) {
   React.useEffect(async () => {
     await dispatch(kakaoLogin(code));
   }, []);
-};
+}

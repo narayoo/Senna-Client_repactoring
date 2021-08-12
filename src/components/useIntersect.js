@@ -1,4 +1,4 @@
-import { useEffect, useState,useCallback } from 'react';
+import { useEffect, useState,useCallback } from "react";
 
 const useIntersect = (onIntersect, option) => {
   const [ref, setRef] = useState(null);
@@ -13,7 +13,7 @@ const useIntersect = (onIntersect, option) => {
       observer = new IntersectionObserver(checkIntersect, {
         root:null,
         threshold: 0,
-        rootMargin: '200px',
+        rootMargin: "200px",
       });
       observer.observe(ref);
     }
@@ -21,4 +21,4 @@ const useIntersect = (onIntersect, option) => {
   }, [ref, checkIntersect]);
   return [ref, setRef];
 };
-export default useIntersect
+export default useIntersect;

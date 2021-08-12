@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const PICK_POSTING = 'pickPosting/PICK_POSTING';
+export const PICK_POSTING = "pickPosting/PICK_POSTING";
 
 export const getPickPosting = (postingId) => async dispatch => {
   const getPosting = await axios.get(`https://www.senna-server.shop/post/${postingId}`);
@@ -9,14 +9,14 @@ export const getPickPosting = (postingId) => async dispatch => {
 
 const initialState = {
   postInfo: {
-    content: '',
+    content: "",
     hashtag : [],
     image: [],
-    postId: '',
+    postId: "",
     likeUser: [],
-    place: ''
+    place: ""
   },
-}
+};
 
 export default function pickPosting(state = initialState, action){
   switch(action.type) {
@@ -31,7 +31,7 @@ export default function pickPosting(state = initialState, action){
           likeUser: action.getPosting.data.data.likeUser,
           place: action.getPosting.data.data.place
         }
-      }
+      };
     default : return state;
   }
 }

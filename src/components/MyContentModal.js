@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector , useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
-import styled from 'styled-components';
-import ContentSlider from './ContentSlider';
-import { onDeleteMypost, onDeleteKakaoMypost }from '../modules/deleteMyPosting';
-import { getUserInfo } from '../modules/login';
-import { getKakaoUserInfo } from '../modules/kakao'
+import React from "react";
+import { useSelector , useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import ContentSlider from "./ContentSlider";
+import { onDeleteMypost, onDeleteKakaoMypost }from "../modules/deleteMyPosting";
+import { getUserInfo } from "../modules/login";
+import { getKakaoUserInfo } from "../modules/kakao";
 
 const {Kakao} = window;
 
@@ -183,21 +183,21 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
     postingId: state.pickPosting.postInfo.postId,
     place : state.pickPosting.postInfo.place
   })); 
-  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
+  const accessToken = useSelector(state => state.login.login.accessToken); 
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const isLogin = useSelector(state => state.login.login.isLogin);
 
   const deleteMyctHandler = (e) => {
-    alert('삭제 후 게시물은 복구할 수 없습니다.')
+    alert("삭제 후 게시물은 복구할 수 없습니다.");
     const postId = e.target.id;
     if(isLogin){
-       dispatch(onDeleteMypost(postId))
+       dispatch(onDeleteMypost(postId));
        dispatch(getUserInfo(accessToken));
       setMyCtModal(false);
     } else if (kakaoIsLogin){
-       dispatch(onDeleteKakaoMypost(postId))
-       dispatch(getKakaoUserInfo(kakaoAcToken))
+       dispatch(onDeleteKakaoMypost(postId));
+       dispatch(getKakaoUserInfo(kakaoAcToken));
       setMyCtModal(false);
     }
   };
@@ -206,25 +206,25 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
   };
   const KakaoShareHandler = () => {
     Kakao.Link.createDefaultButton({
-      container: '#create-kakao-link-btn',
-      objectType: 'feed',
+      container: "#create-kakao-link-btn",
+      objectType: "feed",
       content: {
-        title: 'Senna, 사진을 타고 날아가는',
+        title: "Senna, 사진을 타고 날아가는",
         description: `${hashtag}`,
         imageUrl: image[0],
         link: {
-          webUrl: 'https://senna.world',
+          webUrl: "https://senna.world",
         },
       },
       buttons: [
         {
-          title: '웹으로 보기',
+          title: "웹으로 보기",
           link: {
-            webUrl: 'https://senna.world',
+            webUrl: "https://senna.world",
           },
         },
       ],
-    })
+    });
   };
 
   if (!myCtModal) return null;
@@ -248,7 +248,7 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
           </ContentTextArea>
             <HashTagWrapper>
               {hashtag.map((e, index) => {
-                return <HashTag key={index}>{`#${e}`}</HashTag>
+                return <HashTag key={index}>{`#${e}`}</HashTag>;
               })}
              </HashTagWrapper>
             <PlaceWrapper>
@@ -264,7 +264,7 @@ const MyContentModal = React.memo(({myCtModal, setMyCtModal, handleMyCtModalOff}
       </BackgroundDark>
     )}
     </>
-  )
-})
+  );
+});
 
 export default MyContentModal;

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import userImg from '../img/userImg.png';
-import MypageNav from '../components/MypageNav';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
-import { updateProfile , updateKakaoProfile} from "../modules/updateProfile"
-import { getUserInfo } from '../modules/login';
-import { getKakaoUserInfo } from '../modules/kakao'
+import React, { useState } from "react";
+import styled from "styled-components";
+import userImg from "../img/userImg.png";
+import MypageNav from "../components/MypageNav";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { updateProfile , updateKakaoProfile} from "../modules/updateProfile";
+import { getUserInfo } from "../modules/login";
+import { getKakaoUserInfo } from "../modules/kakao";
 
 const UpdateUserBox = styled.div`
   display: flex;
@@ -98,32 +98,32 @@ const UpdateUserInfoComplete = styled.button`
 
 function ProfileUpdate () {
 
-  const [previewURL, setPreviewURL] = useState('');
-  const [img, setImg] = useState('');
-  const [password, setPassword] = useState('');
+  const [previewURL, setPreviewURL] = useState("");
+  const [img, setImg] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  const id = useSelector(state => state.loginReducer.login.userKey)
-  const accessToken = useSelector(state => state.loginReducer.login.accessToken)
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const kakaoUserKey = useSelector(state => state.kakaoReducer.login.userKey)
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
+  const id = useSelector(state => state.login.login.userKey);
+  const accessToken = useSelector(state => state.login.login.accessToken);
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const kakaoUserKey = useSelector(state => state.kakao.login.userKey);
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
  
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
   const updateProfileHandler = async() => {
-      await dispatch(updateProfile(id,img,password))
-      alert('프로필이 수정되었습니다.')
-      history.push('/mypage');
+      await dispatch(updateProfile(id,img,password));
+      alert("프로필이 수정되었습니다.");
+      history.push("/mypage");
       await dispatch(getUserInfo(accessToken)); 
   };
   
   const updateKakaoUserProfileHandler = async() => {
-    await dispatch(updateKakaoProfile(kakaoUserKey,img))
-    alert('프로필이 수정되었습니다.')
-    history.push('/mypage');
+    await dispatch(updateKakaoProfile(kakaoUserKey,img));
+    alert("프로필이 수정되었습니다.");
+    history.push("/mypage");
     await dispatch(getKakaoUserInfo(kakaoAcToken));
   };
 
@@ -132,19 +132,19 @@ function ProfileUpdate () {
     let reader = new FileReader();
     let file = event.target.files[0];
     reader.onloadend = () => {
-      setImg(file)
+      setImg(file);
       setPreviewURL(reader.result);
     };
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file);
   };
 
   let profile_preview = null;
 
-  if(img !== ''){
-    profile_preview = <img className='profile_preview' src={previewURL}></img>
+  if(img !== ""){
+    profile_preview = <img className='profile_preview' src={previewURL}></img>;
   }else{
-    profile_preview = <img className='profile_preview' src={userImg}></img>
-  };
+    profile_preview = <img className='profile_preview' src={userImg}></img>;
+  }
   
   return (
     <>
@@ -162,7 +162,7 @@ function ProfileUpdate () {
                  <ChangeNewPasswords type='password' placeholder="새 비밀번호 확인" />
                  <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
                  </>
-                )
+                );
               } else if (kakaoIsLogin){
                 return (
                 <>
@@ -172,13 +172,13 @@ function ProfileUpdate () {
                  <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
                  <UpdateUserInfoComplete type='submit' onClick={updateKakaoUserProfileHandler}>Submit</UpdateUserInfoComplete>
                  </>
-                )
+                );
               }
             })()}
         
       </UpdateUserBox>
     </> 
-  )
+  );
          
 }
 
