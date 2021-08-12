@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
-import Nav from './Nav'
-import { addContent , kakaoAddContent} from '../modules/addContent';
-import { getAllOfPosting } from '../modules/showAllPosting';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import Nav from "./Nav";
+import { addContent , kakaoAddContent} from "../modules/addContent";
+import { getAllOfPosting } from "../modules/showAllPosting";
 import Autocomplete from "react-google-autocomplete";
-import '../style/google.css'
+import "../style/google.css";
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -134,61 +134,61 @@ const HashTagBox = styled.input`
 `;
 
 const UpdateMycontents = React.memo(() => {
-  const [ text, setText ] = useState('');
+  const [ text, setText ] = useState("");
   const [ hash, setHash ] = useState([]);
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
-  const [ place, setPlace] = useState('');
+  const [ place, setPlace] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const imgArr = [];
-  const userId = useSelector(state => state.loginReducer.login.userId);
-  const kakoUserId = useSelector(state => state.kakaoReducer.login.userId);
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const userId = useSelector(state => state.login.login.userId);
+  const kakoUserId = useSelector(state => state.kakao.login.userId);
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
   
   const cancle = () => {
-    window.location.replace("/")
-  }
+    window.location.replace("/");
+  };
   const onChangeText = (e) => {
     setText(e.target.value);
-  }
+  };
   const onChangeHash = (e) => {
     setHash(e.target.value);
-  }
+  };
   const handleFileOnChange = (e) => {
     let file = e.target.files;
     if(file.length > 5 || file.length < 1) {
-      alert('파일은 1장 이상 5장 이하입니다')
+      alert("파일은 1장 이상 5장 이하입니다");
       setOk(false);
     }else{
       if(imgArr.length !== 0){
         imgArr = [];
       }else{
         for(let i=0; i<file.length; i++){
-          imgArr.push(file[i])
+          imgArr.push(file[i]);
         }
         setOk(true);
       }
     }
     setPhoto(photo.concat(imgArr));
-  }
+  };
   const onAddContent = async(e) => {
     if(ok && isLogin){
       await dispatch(addContent(hash,text,userId,photo,place));
-      alert('등록되었습니다.')
+      alert("등록되었습니다.");
       await dispatch(getAllOfPosting());
-      history.push('./');
+      history.push("./");
     } else if (ok && kakaoIsLogin) {
       await dispatch(kakaoAddContent(hash,text,kakoUserId,photo,place));
-      alert('등록되었습니다.')
+      alert("등록되었습니다.");
       await dispatch(getAllOfPosting());
-      history.push('./');
+      history.push("./");
     }
     else{
-      alert('필수 : 파일은 1장 이상 5장 이하입니다');
+      alert("필수 : 파일은 1장 이상 5장 이하입니다");
     }
-  }
+  };
   
   return (
     <>
@@ -198,10 +198,10 @@ const UpdateMycontents = React.memo(() => {
         <HashTagBox placeholder='ex) #Korea #Seoul' value={hash} onChange={onChangeHash}/>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <>
-        <Autocomplete apiKey={process.env.REACT_APP_GOOGLE_API_KEY} onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
+        <Autocomplete apiKey={process.env.REACT_APP_GOOGLE_API_KEY} onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction);}} 
           options={{
             types: [],
-            fields: ['geometry.location','address_components','place_id','formatted_address']
+            fields: ["geometry.location","address_components","place_id","formatted_address"]
           }}
         id='autocomplete'/>
         </>
@@ -214,7 +214,7 @@ const UpdateMycontents = React.memo(() => {
     </AddCtWrapper>
   </>
   );
-})
+});
 
 
 export default UpdateMycontents;

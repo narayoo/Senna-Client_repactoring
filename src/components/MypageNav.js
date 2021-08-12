@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import logo from '../img/SennaLogo.png';
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import styled from "styled-components";
+import logo from "../img/SennaLogo.png";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MyPageNavWrapper = styled.div`
   position: relative;
@@ -41,12 +41,12 @@ const NavButton = styled.button`
 
 export default function MypageNav({logout, kakaoLogoutHandler}) {
 
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
 
   const clickLogo = () => {
-    window.location.replace("/")
-  }
+    window.location.replace("/");
+  };
 
   return (
     <MyPageNavWrapper>
@@ -58,14 +58,14 @@ export default function MypageNav({logout, kakaoLogoutHandler}) {
             return (
               <NavButton onClick={() => logout()}>Logout </NavButton>
 
-            )
+            );
           } else if (kakaoIsLogin){
             return (
               <NavButton onClick={() => kakaoLogoutHandler()}>Logout </NavButton>
-            )
+            );
           }
         })()}
       
     </MyPageNavWrapper>
-  )
+  );
 }

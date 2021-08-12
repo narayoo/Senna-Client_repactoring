@@ -1,12 +1,12 @@
-import React from 'react';
-import { Carousel } from 'antd';
-import styled,{ keyframes } from 'styled-components';
-import main1 from '../img/main1.png';
-import main2 from '../img/main2.png';
-import main3 from '../img/main3.png';
-import iphone1 from '../img/iphone1.png';
-import iphone2 from '../img/iphone2.png';
-import iphone3 from '../img/iphone3.png';
+import React from "react";
+import { Carousel } from "antd";
+import styled,{ keyframes } from "styled-components";
+import main1 from "../img/main1.png";
+import main2 from "../img/main2.png";
+import main3 from "../img/main3.png";
+import iphone1 from "../img/iphone1.png";
+import iphone2 from "../img/iphone2.png";
+import iphone3 from "../img/iphone3.png";
 const ani = keyframes`
   0%{
     letter-spacing:-.5em;

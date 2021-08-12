@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { useSelector,shallowEqual, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom'
-import styled from 'styled-components';
-import img from '../img/userImg.png';
-import MyContentModal from '../components/MyContentModal';
-import MyFavoriteModal from '../components/MyFavoriteModal';
-import MypageNav from '../components/MypageNav';
-import { withdrawal , kakaoUserWithdrawal} from '../modules/withdrawal'
-import { getPickPosting } from '../modules/pickPosting';
-import { localLogout, autoRefreshLogin} from '../modules/login';
-import { kakaoLogout, autoRefreshKakaoLogin } from '../modules/kakao'
-import jwt_decode from 'jwt-decode';
+import React, { useState } from "react";
+import { useSelector,shallowEqual, useDispatch } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
+import styled from "styled-components";
+import img from "../img/userImg.png";
+import MyContentModal from "../components/MyContentModal";
+import MyFavoriteModal from "../components/MyFavoriteModal";
+import MypageNav from "../components/MypageNav";
+import { withdrawal , kakaoUserWithdrawal} from "../modules/withdrawal";
+import { getPickPosting } from "../modules/pickPosting";
+import { localLogout, autoRefreshLogin} from "../modules/login";
+import { kakaoLogout, autoRefreshKakaoLogin } from "../modules/kakao";
+import jwt_decode from "jwt-decode";
 
 const Container = styled.div`
   display: flex;
@@ -212,35 +212,35 @@ const Mypage = React.memo( ( ) => {
   
   const dispatch = useDispatch();
   const history = useHistory();
-  const [kakaoAT , setkakaoAT] = useState('');
+  const [kakaoAT , setkakaoAT] = useState("");
   const [myCtModal, setMyCtModal] = useState(false);
   const [favoCtModal, setFavoCtModal] = useState(false);
   const [postLoading, setPostLoading ] = useState(null);
   const {userId,profileImg,favorite,id,uploadList} = useSelector(state => ({
-    userId : state.loginReducer.user.userId,
-    profileImg : state.loginReducer.user.profileImg,
-    favorite: state.loginReducer.user.favorite,
-    id : state.loginReducer.login.userKey,
-    uploadList: state.loginReducer.user.uploadList
+    userId : state.login.user.userId,
+    profileImg : state.login.user.profileImg,
+    favorite: state.login.user.favorite,
+    id : state.login.login.userKey,
+    uploadList: state.login.user.uploadList
   }),
   shallowEqual
   ); 
   const {kakaoUserId, kakaoProfileImg, kakaoFavorite, kakaoId, kakaoUploadList} = useSelector(state => ({
-    kakaoUserId : state.kakaoReducer.user.userId,
-    kakaoProfileImg : state.kakaoReducer.user.profileImg,
-    kakaoFavorite : state.kakaoReducer.user.favorite,
-    kakaoId : state.kakaoReducer.login.userKey,
-    kakaoUploadList : state.kakaoReducer.user.uploadList
+    kakaoUserId : state.kakao.user.userId,
+    kakaoProfileImg : state.kakao.user.profileImg,
+    kakaoFavorite : state.kakao.user.favorite,
+    kakaoId : state.kakao.login.userKey,
+    kakaoUploadList : state.kakao.user.uploadList
   }),
   shallowEqual
   );
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const localAT = useSelector(state => state.kakaoReducer.login.localToken);
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const localAT = useSelector(state => state.kakao.login.localToken);
   const { accessToken } = useSelector(state => ({
-    accessToken : state.loginReducer.login.accessToken,
+    accessToken : state.login.login.accessToken,
   })); 
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken)
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
 
     // useEffect(async() => {
     //   let now = new Date()
@@ -268,7 +268,7 @@ const Mypage = React.memo( ( ) => {
     setPostLoading(false);
   };
   const handleMyCtModalOff = (e) => {
-    const clicked = e.target.closest('.myCtModal');
+    const clicked = e.target.closest(".myCtModal");
     if (clicked) return;
     else {
       setMyCtModal(false);
@@ -282,71 +282,71 @@ const Mypage = React.memo( ( ) => {
     setPostLoading(false);
   };
   const handleFavoCtModalOff = (e) => {
-    const clicked = e.target.closest('.myFavoCtModal');
+    const clicked = e.target.closest(".myFavoCtModal");
     if (clicked) return;
     else {
       setFavoCtModal(false);
     }
   };
-  const photoList = uploadList.filter((e) => e.status === true)
-  const kakaoPhotoList = kakaoUploadList.filter((e) => e.status === true)
-  const carousel1 = document.getElementsByClassName('carousel1'); 
-  const carousel2 = document.getElementsByClassName('carousel2'); 
+  const photoList = uploadList.filter((e) => e.status === true);
+  const kakaoPhotoList = kakaoUploadList.filter((e) => e.status === true);
+  const carousel1 = document.getElementsByClassName("carousel1"); 
+  const carousel2 = document.getElementsByClassName("carousel2"); 
   let index = 0;
 
   const onPrev = () => {
     if (index === 0) return; 
     index -= 1; 
-    carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    carousel1[0].style["transform"] = `translate3d(-${800 * index}px, 0, 0)`; 
   };
   const onNext = () => {
     if (index === 100) return; 
     index += 1; 
-    carousel1[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    carousel1[0].style["transform"] = `translate3d(-${800 * index}px, 0, 0)`; 
   };
   const onPrev2 = () => {
     if (index === 0) return; 
     index -= 1; 
-    carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    carousel2[0].style["transform"] = `translate3d(-${800 * index}px, 0, 0)`; 
   };
   const onNext2 = () => {
     if (index === 100) return; 
     index += 1; 
-    carousel2[0].style['transform'] = `translate3d(-${800 * index}px, 0, 0)`; 
+    carousel2[0].style["transform"] = `translate3d(-${800 * index}px, 0, 0)`; 
   };
   const handleWithdrawal = () => { 
-    dispatch(withdrawal(id))
-    alert("회원 탈퇴가 완료되었습니다.")
-    history.push('./')
-    logout()
+    dispatch(withdrawal(id));
+    alert("회원 탈퇴가 완료되었습니다.");
+    history.push("./");
+    logout();
   };
   const logout = async() => {
-      await dispatch(localLogout(accessToken))
-      history.push('./')
+      await dispatch(localLogout(accessToken));
+      history.push("./");
   };
   const updateProfileHandler = () => {
-    history.push('/profileupdate')
+    history.push("/profileupdate");
   };
   const kakaoWidrawalHandler = async () => {
-    await dispatch(kakaoUserWithdrawal(kakaoId))
-    alert("회원 탈퇴가 완료되었습니다.")
-    history.push('./')
-    kakaoLogoutHandler()
+    await dispatch(kakaoUserWithdrawal(kakaoId));
+    alert("회원 탈퇴가 완료되었습니다.");
+    history.push("./");
+    kakaoLogoutHandler();
   };
   const kakaoLogoutHandler = () => {
-      dispatch(kakaoLogout(kakaoAT, localAT))
-      history.push('./')
+      dispatch(kakaoLogout(kakaoAT, localAT));
+      history.push("./");
   };
   const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
-        setkakaoAT(socialAC)
+        setkakaoAT(socialAC);
       },
       fail: function(err) {
       },
-    })
+    });
   };
 
   return (
@@ -361,11 +361,11 @@ const Mypage = React.memo( ( ) => {
                 if(isLogin){
                   return(
                     <UserImage src={ profileImg === undefined ? img : profileImg } />
-                  )
+                  );
                 } else if (kakaoIsLogin){
                   return (
                     <UserImage src={ kakaoProfileImg === undefined ? img : kakaoProfileImg } />
-                  )
+                  );
                 }
               })()
             }
@@ -374,9 +374,9 @@ const Mypage = React.memo( ( ) => {
           <UserNameText>
             {(()=> {
               if(isLogin){
-                return userId
+                return userId;
               } else if (kakaoIsLogin){
-                return kakaoUserId
+                return kakaoUserId;
               }
             })()}
             </UserNameText>
@@ -387,11 +387,11 @@ const Mypage = React.memo( ( ) => {
               if(isLogin){
                 return (
                   <WithdrawalButton onClick={() => handleWithdrawal()}>Withdrawal</WithdrawalButton>
-                )
+                );
               } else if (kakaoIsLogin){
                 return (
                   <WithdrawalButton onClick={() => kakaoWidrawalHandler()}>Withdrawal</WithdrawalButton>
-                )
+                );
               }
             })()}
          
@@ -410,27 +410,27 @@ const Mypage = React.memo( ( ) => {
                       <StyledSlider className='carousel1'>
                       { 
                       photoList.length === 0 ? 
-                      <p style={{margin:'0 auto'}}>No Contents</p> :
+                      <p style={{margin:"0 auto"}}>No Contents</p> :
                       photoList.map((e, index) => {
-                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />;
                       })
                       }
                     </StyledSlider>
                     </>
-                    )} else if (kakaoIsLogin){
+                    );} else if (kakaoIsLogin){
                       return( 
                         <>                     
                       <StyledSlider className='carousel1'>
                       { 
                       kakaoPhotoList.length === 0 ? 
-                      <p style={{margin:'0 auto'}}>No Contents</p> :
+                      <p style={{margin:"0 auto"}}>No Contents</p> :
                       kakaoPhotoList.map((e, index) => {
-                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                        return <MyContentImg id={e._id} onClick={(e) => myContentOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />;
                       })
                       }
                      </StyledSlider>
                      </>
-                     )}
+                     );}
                   })()
                 }
               </Wrapper>
@@ -449,28 +449,28 @@ const Mypage = React.memo( ( ) => {
                   <StyledSlider className='carousel2'>
                   {
                     kakaoFavorite.length === 0 ? 
-                    <p style={{margin:'0 auto'}}>No Contents</p> :
+                    <p style={{margin:"0 auto"}}>No Contents</p> :
                     kakaoFavorite.map((e, index) => {
-                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />;
                     })
                   }
                 </StyledSlider>
                 </>
-                )
+                );
               } else if (isLogin){
                 return (
                   <>
                   <StyledSlider className='carousel2'>
                   {
                     favorite.length === 0 ? 
-                    <p style={{margin:'0 auto'}}>No Contents</p> :
+                    <p style={{margin:"0 auto"}}>No Contents</p> :
                     favorite.map((e, index) => {
-                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />
+                      return <MyContentImg id={e._id} onClick={(e) => myFavoriteOpenHandler(e)} key={index} src={e.image[0]} loading="lazy" />;
                     })
                   }
                 </StyledSlider>
                 </>
-                )
+                );
               }
               })()}
               </Wrapper>
@@ -495,6 +495,6 @@ const Mypage = React.memo( ( ) => {
     </Container>
    </>
   );
-})
+});
 
 export default Mypage;

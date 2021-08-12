@@ -1,8 +1,8 @@
-import React, { useState }from 'react';
-import styled from 'styled-components';
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { searchContent } from "../modules/search"
+import React, { useState }from "react";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { searchContent } from "../modules/search";
 
 const Search_Bar = styled.input`
   width: 100%;
@@ -29,18 +29,18 @@ const SearchForm = styled.form`
   height: 3rem;
 `;
 export default function SearchBar({}) {
-  const [searchinput, setSearchinput] = useState('');
+  const [searchinput, setSearchinput] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
 
   const onKeyPress = (e) => {
-    if(e.key == 'Enter') {
-      dispatch(searchContent(searchinput))
-      history.push('/search') 
+    if(e.key == "Enter") {
+      dispatch(searchContent(searchinput));
+      history.push("/search"); 
     }
   };
   const searchHandler = (e) => {
-    const word = setSearchinput(e.target.value)
+    const word = setSearchinput(e.target.value);
   };
 
   return (
@@ -54,6 +54,6 @@ export default function SearchBar({}) {
         ></Search_Bar>
       </SearchForm>
     </>
-  )
+  );
 }
 

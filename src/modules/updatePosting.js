@@ -1,34 +1,34 @@
 import axios from "axios";
 
-export const UPDATE_POSTING = 'updatePosting/UPDATE_POSTING';
+export const UPDATE_POSTING = "updatePosting/UPDATE_POSTING";
 
 export const onUpdatePosting = (userId,images,content,hashtag,id,place) => async dispatch => {
-  let formData = new FormData()
+  let formData = new FormData();
   const config = {
-    header: {'content-type': 'multipart/form-data'}
-  }
+    header: {"content-type": "multipart/form-data"}
+  };
   for (let i=0; i < images.length; i++){
-    formData.append('images', images[i]);
+    formData.append("images", images[i]);
   }
   formData.append("hashtag", hashtag);
   formData.append("content", content);
   formData.append("userId", userId);
-  formData.append("place", place)
+  formData.append("place", place);
   const updatePostingInfo = await axios.patch(`https://www.senna-server.shop/post/${id}`, formData, config);
   dispatch({type: UPDATE_POSTING, updatePostingInfo});
-}
+};
 const initialState = {
   data: {
-    postingId: '', 
-    userId: '', 
+    postingId: "", 
+    userId: "", 
     image: [], 
-    content: '',
+    content: "",
     likes: 0,
     hashtag: [],
     created_date: Date,
     status: true,
   }
-}
+};
 
 export default function updatePosting(state = initialState, action){
   switch(action.type) {
@@ -44,7 +44,7 @@ export default function updatePosting(state = initialState, action){
         created_date: action.updatePostingInfo.data.data.created_date,
         status: true,
         place : action.updatePostingInfo.data.data.place
-      }
+      };
     default : return state;
   }
 }

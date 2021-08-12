@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
-import MypageNav from '../components/MypageNav';
-import { localLogout } from '../modules/login';
-import { getUserInfo } from '../modules/login';
-import { getKakaoUserInfo } from '../modules/kakao'
-import { onUpdatePosting } from '../modules/updatePosting';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import MypageNav from "../components/MypageNav";
+import { localLogout } from "../modules/login";
+import { getUserInfo } from "../modules/login";
+import { getKakaoUserInfo } from "../modules/kakao";
+import { onUpdatePosting } from "../modules/updatePosting";
 import Autocomplete from "react-google-autocomplete";
-import '../style/google.css'
+import "../style/google.css";
 
 const AddCtWrapper = styled.div`
   display: flex;
@@ -137,14 +137,14 @@ const Warning = styled.p`
   justify-content: left;
 `;
 const UpdateMycontents = React.memo(() => {
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin)
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin)
-  const userId = useSelector(state => state.loginReducer.login.userId);
-  const kakaoUserId = useSelector(state => state.kakaoReducer.login.userId)
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
+  const userId = useSelector(state => state.login.login.userId);
+  const kakaoUserId = useSelector(state => state.kakao.login.userId);
   const { accessToken } = useSelector(state => ({
-    accessToken : state.loginReducer.login.accessToken,
+    accessToken : state.login.login.accessToken,
   }));
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
   const { content, hashtag, postingId, } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
@@ -154,13 +154,13 @@ const UpdateMycontents = React.memo(() => {
   const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
   const [ photo, setPhoto ] = useState([]);
   const [ ok, setOk ] = useState(false);
-  const [ place, setPlace] = useState('');
+  const [ place, setPlace] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const imgArr = [];
 
   const cancle = () => {
-    window.location.replace("/mypage")
+    window.location.replace("/mypage");
   };
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -172,14 +172,14 @@ const UpdateMycontents = React.memo(() => {
     // 업데이트해야하니까 여기서 기존이미지들 삭제해야함
     let file = e.target.files;
     if(file.length > 5 || file.length < 1) {
-      alert('파일은 1장 이상 5장 이하입니다')
+      alert("파일은 1장 이상 5장 이하입니다");
       setOk(false);
     }else{
       if(imgArr.length !== 0){
         imgArr = [];
       }else{
         for(let i=0; i<file.length; i++){
-          imgArr.push(file[i])
+          imgArr.push(file[i]);
         }
         setOk(true);
       }
@@ -190,21 +190,21 @@ const UpdateMycontents = React.memo(() => {
     if(ok && isLogin){
       await dispatch(onUpdatePosting(userId,photo,text,hash,postingId,place));
       await dispatch(getUserInfo(accessToken));
-      alert('수정이 완료되었습니다.')
-      history.push('./mypage');
+      alert("수정이 완료되었습니다.");
+      history.push("./mypage");
     }else if (ok && kakaoIsLogin){
       await dispatch(onUpdatePosting(kakaoUserId,photo,text,hash,postingId,place));
       await dispatch(getKakaoUserInfo(kakaoAcToken));
-      alert('수정이 완료되었습니다.')
-      history.push('./mypage');
+      alert("수정이 완료되었습니다.");
+      history.push("./mypage");
     }
     else{
-      alert('필수 : 파일은 1장 이상 5장 이하입니다');
+      alert("필수 : 파일은 1장 이상 5장 이하입니다");
     }
   };
   const logout = () => {
-    dispatch(localLogout(accessToken))
-    history.push('./')
+    dispatch(localLogout(accessToken));
+    history.push("./");
   };
 
   return (
@@ -216,10 +216,10 @@ const UpdateMycontents = React.memo(() => {
         <Warning> ⚠️ 사진은 모두 다시 선택해주셔야 합니다 </Warning>
         <AddFile multiple type='file' className='img' name='images' accept='image/*' onChange={handleFileOnChange}></AddFile>
         <>
-        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction)}} 
+        <Autocomplete apiKey='AIzaSyBZ00JR8dRVy70lU5omSXLk3YsGWi0c0NE' onPlaceSelected={(place,inputRef, autocomplete) => { setPlace(autocomplete.gm_accessors_.place.Dj.formattedPrediction);}} 
           options={{
             types: [],
-            fields: ['geometry.location','address_components','place_id','formatted_address']
+            fields: ["geometry.location","address_components","place_id","formatted_address"]
           }}
         id='autocomplete'/>
         </>
@@ -232,5 +232,5 @@ const UpdateMycontents = React.memo(() => {
     </AddCtWrapper>
   </>
   );
-})
+});
 export default UpdateMycontents;

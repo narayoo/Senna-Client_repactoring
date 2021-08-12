@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const USER_WITHDRAWAL = 'withdrawalReducer/USER_WITHDRAWAL';
-export const KAKAO_USER_WITHDRAWAL = 'withdrawalReducer/KAKAO_USER_WITHDRAWAL';
+export const USER_WITHDRAWAL = "withdrawal/USER_WITHDRAWAL";
+export const KAKAO_USER_WITHDRAWAL = "withdrawal/KAKAO_USER_WITHDRAWAL";
 
 export const withdrawal = (id) => async dispatch => {
-    const password = prompt('비밀번호를 입력하세요', '');
+    const password = prompt("비밀번호를 입력하세요", "");
     const withdrawalSuccess = await axios.delete(`https://www.senna-server.shop/user/${id}`, {data: {password}});
     dispatch({type:USER_WITHDRAWAL,withdrawalSuccess});
 };
@@ -15,10 +15,10 @@ export const kakaoUserWithdrawal = (id) => async dispatch => {
 
 const initialState = {
   user : {
-    id: '',
-    userId: '',
-    password:'',
-    profileImg: '',
+    id: "",
+    userId: "",
+    password:"",
+    profileImg: "",
     favorite: [],
     status: true
   },
@@ -37,7 +37,7 @@ export default function withdrawalReducer(state = initialState, action){
           favorite: null,
           status: false
         }
-      }
+      };
       case KAKAO_USER_WITHDRAWAL :
         return {
           ...state,
@@ -48,7 +48,7 @@ export default function withdrawalReducer(state = initialState, action){
             favorite: null,
             status: false
           }
-        }
+        };
 
     default : return state;
   }

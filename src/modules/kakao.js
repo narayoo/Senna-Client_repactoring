@@ -1,62 +1,62 @@
 import axios from "axios";
 
-export const KAKAO_LOGIN = 'kakaoReducer/KAKAO_LOGIN';
-export const KAKAO_LOGOUT = 'kakaoReducer/KAKAO_LOGOUT';
-export const KAKAO_INFO = 'kakaoReducer/KAKAO_INFO';
-export const KAKAO_REFRESH = 'kakaoReducer/KAKAO_REFRESH'
+export const KAKAO_LOGIN = "kakao/KAKAO_LOGIN";
+export const KAKAO_LOGOUT = "kakao/KAKAO_LOGOUT";
+export const KAKAO_INFO = "kakao/KAKAO_INFO";
+export const KAKAO_REFRESH = "kakao/KAKAO_REFRESH";
 
 export const kakaoLogin = (acToken) => async dispatch => {
-  const kakaoLoginSuccess = await axios.get(`https://www.senna-server.shop/oauth/callback/kakao`,
+  const kakaoLoginSuccess = await axios.get("https://www.senna-server.shop/oauth/callback/kakao",
   {headers : {authorization : acToken}
   , withCredentials: true 
-  })
-  dispatch({type:KAKAO_LOGIN, kakaoLoginSuccess})
+  });
+  dispatch({type:KAKAO_LOGIN, kakaoLoginSuccess});
 };
 export const kakaoLogout = (kakaoAcToken, localAcToken ) => async dispatch => {
-   const kakaoLogoutSuccess = await axios.get('https://www.senna-server.shop/user/logout',
+   const kakaoLogoutSuccess = await axios.get("https://www.senna-server.shop/user/logout",
   { headers : { 
     authorization : localAcToken ,
     kakaoKey: kakaoAcToken,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     },
     withCredentials: true 
   });
-  dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess})
+  dispatch({type:KAKAO_LOGOUT, kakaoLogoutSuccess});
 };
 export const getKakaoUserInfo = (kakaoAcToken) =>  async dispatch => {
-  const getKakaoInfoSuccess =  await axios.get('https://www.senna-server.shop/user/info',
+  const getKakaoInfoSuccess =  await axios.get("https://www.senna-server.shop/user/info",
   { headers : { 
     authorization : kakaoAcToken ,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     },
     withCredentials: true 
   });
   dispatch({type:KAKAO_INFO, getKakaoInfoSuccess});
 };
 export const autoRefreshKakaoLogin = () => async dispatch => {
-  const autoRefreshKakao = await axios.get('https://www.senna-server.shop/user/request-token', { withCredentials:true } )
-  dispatch({type:KAKAO_REFRESH, autoRefreshKakao})  
+  const autoRefreshKakao = await axios.get("https://www.senna-server.shop/user/request-token", { withCredentials:true } );
+  dispatch({type:KAKAO_REFRESH, autoRefreshKakao});  
 };
 
 const initialState = {
   login : {
-    userId: '',
+    userId: "",
     isLogin: false,
-    userKey : '',
-    accessToken : '',
-    profileImg: '',
+    userKey : "",
+    accessToken : "",
+    profileImg: "",
     favorite: [],
-    localToken: '',
+    localToken: "",
     uploadList: [],
   },
   user : {
-    id: '',
-    userId: '',
-    profileImg: '',
+    id: "",
+    userId: "",
+    profileImg: "",
     favorite: [],
     uploadList: [],
   },
-}
+};
 
 export default function kakaoLoginReducer(state = initialState, action) {
     switch(action.type) {
@@ -73,7 +73,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
             localToken: action.kakaoLoginSuccess.data.localToken,
             uploadList: action.kakaoLoginSuccess.data.uploadList,
           }
-        }
+        };
         case KAKAO_LOGOUT : 
         return {
           ...state,
@@ -87,7 +87,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
             localToken: null,
             uploadList:[],
           }
-        }
+        };
         case KAKAO_INFO :
           return {
             ...state,
@@ -98,7 +98,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
               favorite: action.getKakaoInfoSuccess.data.data.favorite,
               uploadList: action.getKakaoInfoSuccess.data.data.uploadList,
             }
-          }
+          };
         
         case KAKAO_REFRESH :
         return {
@@ -111,7 +111,7 @@ export default function kakaoLoginReducer(state = initialState, action) {
               profileImg: action.autoRefreshKakao.data.data.profileImg,
               favorite: action.autoRefreshKakao.data.data.favorite,
             },
-        }
+        };
         default : return state;
     }
 }

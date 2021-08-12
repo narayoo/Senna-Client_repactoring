@@ -1,13 +1,13 @@
-import React, {useState}  from 'react';
-import { Link } from 'react-router-dom'
-import '../style/nav.css';
-import CountrySelect from './CountrySelect';
-import logo from '../img/SennaLogo.png';
-import styled from 'styled-components';
-import { useSelector,useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
-import { getUserInfo } from '../modules/login';
-import { getKakaoUserInfo} from '../modules/kakao'
+import React, {useState}  from "react";
+import { Link } from "react-router-dom";
+import "../style/nav.css";
+import CountrySelect from "./CountrySelect";
+import logo from "../img/SennaLogo.png";
+import styled from "styled-components";
+import { useSelector,useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { getUserInfo } from "../modules/login";
+import { getKakaoUserInfo} from "../modules/kakao";
 
 const NavSection = styled.div`
   width: 100%;
@@ -108,23 +108,23 @@ const HambugToggle = styled.div`
 `;
 
 function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin);
-  const kakaoLogin = useSelector(state => state.kakaoReducer.login.isLogin);
-  const accessToken = useSelector(state => state.loginReducer.login.accessToken); 
-  const kakaoAcToken = useSelector(state => state.kakaoReducer.login.accessToken);
+  const isLogin = useSelector(state => state.login.login.isLogin);
+  const kakaoLogin = useSelector(state => state.kakao.login.isLogin);
+  const accessToken = useSelector(state => state.login.login.accessToken); 
+  const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const clickLogo = () => {
-    window.location.replace("/")
+    window.location.replace("/");
   };
   const gotoMypage = async() => {
-      history.push('./mypage');
+      history.push("./mypage");
       await dispatch(getUserInfo(accessToken));
   };
   const gotoKakaoMypage = async() => {
-    history.push('./mypage');
+    history.push("./mypage");
     await dispatch(getKakaoUserInfo(kakaoAcToken));
   };
   const onHambugBtn = async() => {
@@ -133,11 +133,11 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
   
   return (
     <>
-      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : 'original' }>
+      <NavSection className={ scrollTop > 0.01 ? "darkNav" : "original" }>
         { scrollTop  > 0.01 ? 
           <>
           <Link to='./'>
-            <Logo src={logo} onClick={clickLogo} style={scrollTop > 0.01 ? {position:'static', marginTop:0} : {position:'absolute'}}/>
+            <Logo src={logo} onClick={clickLogo} style={scrollTop > 0.01 ? {position:"static", marginTop:0} : {position:"absolute"}}/>
           </Link>
           <CountrySelectSection>
             <CountrySelect />
@@ -154,13 +154,13 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
                   <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                   <NavButton onClick={() => logout()}>Logout</NavButton>
                   </>
-              )}else if(kakaoLogin){
+              );}else if(kakaoLogin){
                 return (
                   <>
                   <NavButton onClick={() => gotoKakaoMypage()}>Mypage</NavButton>
                   <NavButton onClick={() => kakaoLogoutHandler()}>Logout</NavButton>
                   </>
-              )}else if (!isLogin && !kakaoLogin){
+              );}else if (!isLogin && !kakaoLogin){
                 return (
                   <>
                   <Link to='/signup'>
@@ -168,7 +168,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
                   </Link>
                   <NavButton onClick={openModal}>Login</NavButton>
                   </>
-                )}
+                );}
             })()
             }
           </ButtonGroup>
@@ -196,7 +196,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
                   <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                   <NavButton onClick={() => logout()}>Logout</NavButton>
                   </>
-              )}else if(kakaoLogin){
+              );}else if(kakaoLogin){
                 return (
                   <>
                   <CountrySelectSection2>
@@ -205,7 +205,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
                   <NavButton onClick={() => gotoKakaoMypage()}>Mypage</NavButton>
                   <NavButton onClick={() => kakaoLogoutHandler()}>Logout</NavButton>
                   </>
-              )}else if (!isLogin && !kakaoLogin){
+              );}else if (!isLogin && !kakaoLogin){
                 return (
                   <>
                   <CountrySelectSection2>
@@ -216,7 +216,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
                   </Link>
                   <NavButton onClick={openModal}>Login</NavButton>
                   </>
-                )}
+                );}
             })()
             }
         </HambugToggle>
@@ -224,7 +224,7 @@ function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
       <></>
       }
     </>
-  )
+  );
 }
 
 export default Nav;

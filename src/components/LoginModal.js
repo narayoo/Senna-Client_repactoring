@@ -1,7 +1,7 @@
-import React from 'react';
-import { darken, lighten } from 'polished';
-import Loading from './Loading';
-import styled from 'styled-components';
+import React from "react";
+import { darken, lighten } from "polished";
+import Loading from "./Loading";
+import styled from "styled-components";
 
 const BackgroundDark = styled.div`
   position: fixed;
@@ -62,7 +62,7 @@ const CancleBtn = styled.button`
   font-weight: bold;
   &:hover{
     cursor: pointer;
-    background: ${darken(0.1, '#707070')};
+    background: ${darken(0.1, "#707070")};
   }
   @media all and (max-width:767px) {
     flex-grow: 0;
@@ -88,7 +88,7 @@ const LoginBtn = styled.button`
   font-weight: bold;
   &:hover{
     cursor: pointer;
-    background: ${lighten(0.1, '#00acc1')};
+    background: ${lighten(0.1, "#00acc1")};
   }
   @media all and (max-width:767px) {
     flex-grow: 0;
@@ -116,7 +116,7 @@ const SocialBtn = styled.button`
   font-weight: bold;
   &:hover{
     cursor: pointer;
-    background: ${darken(0.1, '#fef01b')};
+    background: ${darken(0.1, "#fef01b")};
   }
   @media all and (max-width:767px) {
     flex-grow: 0;
@@ -188,7 +188,7 @@ const LoginModal = React.memo(({ loading, changePwd, changeId, userId, password,
             <LoginBtn onClick={onConfirm}>
             {
             loading ? 
-            <Loading /> : 'Login'}
+            <Loading /> : "Login"}
               </LoginBtn>
               <SocialBtn onClick={(e) => onSocialLogin(e)}>Kakao Login</SocialBtn>
           </ButtonGroup>
@@ -196,6 +196,6 @@ const LoginModal = React.memo(({ loading, changePwd, changeId, userId, password,
       </BackgroundDark>
     )}
     </>
-  )
-})
+  );
+});
 export default LoginModal;

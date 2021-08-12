@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory,Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory,Link } from "react-router-dom";
 import StackGrid from "react-stack-grid";
-import dotenv from 'dotenv';
-import '../style/main.css';
-import '../style/nav.css';
-import CountrySelect from '../components/CountrySelect';
-import logo from '../img/SennaLogo.png';
-import styled from 'styled-components';
-import LoginModal from './LoginModal';
-import ContentModal from './ContentModal';
-import { localLogin, localLogout } from '../modules/login';
-import { getAllOfPosting } from '../modules/showAllPosting';
-import { getPickPosting } from '../modules/pickPosting';
-import { kakaoLogin } from '../modules/kakao';
-import { getUserInfo } from '../modules/login';
-import useIntersect from './useIntersect';
+import dotenv from "dotenv";
+import "../style/main.css";
+import "../style/nav.css";
+import CountrySelect from "../components/CountrySelect";
+import logo from "../img/SennaLogo.png";
+import styled from "styled-components";
+import LoginModal from "./LoginModal";
+import ContentModal from "./ContentModal";
+import { localLogin, localLogout } from "../modules/login";
+import { getAllOfPosting } from "../modules/showAllPosting";
+import { getPickPosting } from "../modules/pickPosting";
+import { kakaoLogin } from "../modules/kakao";
+import { getUserInfo } from "../modules/login";
+import useIntersect from "./useIntersect";
 
 
-dotenv.config()
+dotenv.config();
 
 const {Kakao} = window;
 
@@ -194,25 +194,25 @@ const HambugToggle = styled.div`
   display: none;
 `;
 const Search = React.memo(() => {
-  const word = useSelector(state => state.searchReducer.word);
-  const data = useSelector(state => state.searchReducer.data);
+  const word = useSelector(state => state.search.word);
+  const data = useSelector(state => state.search.data);
   const [scrollTop, setScrollTop] = useState(0); 
   const [modal, setModal] = useState(false);
   const [ctModal, setCtModal] = useState(false);
-  const [userId, setUserId] = useState('')
-  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(null);
   const [heart , setHeart] = useState(null); 
-  const [kakaoAT , setkakaoAT] = useState('');
-  const localAT = useSelector(state => state.kakaoReducer.login.accessToken);
-  const isLogin = useSelector(state => state.loginReducer.login.isLogin); 
-  const kakaoIsLogin = useSelector(state => state.kakaoReducer.login.isLogin);
+  const [kakaoAT , setkakaoAT] = useState("");
+  const localAT = useSelector(state => state.kakao.login.accessToken);
+  const isLogin = useSelector(state => state.login.login.isLogin); 
+  const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
   const [state, setState] = useState({ itemCount: 0, isLoading: false });
   const [open, setOpen] = useState(false);
   const [postLoading, setPostLoading ] = useState(null);
 
   const { accessToken } = useSelector(state => ({
-    accessToken : state.loginReducer.login.accessToken,
+    accessToken : state.login.login.accessToken,
   })); 
   const { likeUser } = useSelector(state => ({
     likeUser : state.pickPosting.postInfo.likeUser,
@@ -221,10 +221,10 @@ const Search = React.memo(() => {
   const history = useHistory();
 
   const clickLogo = () => {
-    window.location.replace("/")
+    window.location.replace("/");
   };
   const gotoMypage = () => {
-    history.push('./mypage');
+    history.push("./mypage");
     dispatch(getUserInfo(accessToken));
   };
   useEffect(() => {
@@ -259,7 +259,7 @@ const Search = React.memo(() => {
     const body = {
       userId: userId,
       password: password,
-    }
+    };
     dispatch(localLogin(body));
     setModal(false);
   };
@@ -267,7 +267,7 @@ const Search = React.memo(() => {
     setModal(false);
   };
   const handleModalOff = (e) => {
-    const clicked = e.target.closest('.modal');
+    const clicked = e.target.closest(".modal");
     if (clicked) return;
     else {
       setModal(false);
@@ -280,15 +280,15 @@ const Search = React.memo(() => {
     await dispatch(getPickPosting(postId));
     setPostLoading(false);
     if(likeUser.includes(userId)){
-      setHeart('like');
+      setHeart("like");
     }
   };
   const handleCtModalOff = async(e) => {
-    const clicked = e.target.closest('.ctModal');
+    const clicked = e.target.closest(".ctModal");
     if (clicked) return;
     else {
       setCtModal(false);
-      if(heart === 'like'){
+      if(heart === "like"){
         setHeart(null);
       }else{
         setHeart(null);
@@ -296,26 +296,26 @@ const Search = React.memo(() => {
     }
   };
   const logout = () => {
-    dispatch(localLogout(accessToken))
-    history.push('./')
+    dispatch(localLogout(accessToken));
+    history.push("./");
   };
   const onSocialLogin = () => {
     Kakao.Auth.login({
       success: function(authObj) {
         let ac = authObj.access_token;
         let socialAC = `Bearer ${ac}`;
-        setkakaoAT(socialAC)
+        setkakaoAT(socialAC);
         dispatch(kakaoLogin(socialAC));
         setModal(false);
       },
       fail: function(err) {
       },
-    })
+    });
   };
   const kakaoLogout = () => {
     Kakao.Auth.logout(function() {
-      dispatch(kakaoLogout(kakaoAT, localAT))
-    })
+      dispatch(kakaoLogout(kakaoAT, localAT));
+    });
   };
   const onHambugBtn = async() => {
     setOpen(!open);
@@ -342,7 +342,7 @@ const Search = React.memo(() => {
   
   return (
     <>
-      <NavSection className={ scrollTop > 0.01 ? 'darkNav' : 'original' }>
+      <NavSection className={ scrollTop > 0.01 ? "darkNav" : "original" }>
         <Link to='./'>
           <Logo src={logo} onClick={clickLogo} />
         </Link>
@@ -364,13 +364,13 @@ const Search = React.memo(() => {
                 <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                 <NavButton onClick={() => logout()}>Logout</NavButton>
                 </>
-            )}else if(kakaoIsLogin){
+            );}else if(kakaoIsLogin){
               return (
                 <>
                 <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                 <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
                 </>
-            )}else{
+            );}else{
               return (
                 <>
                 <Link to='/signup'>
@@ -378,7 +378,7 @@ const Search = React.memo(() => {
                 </Link>
                 <NavButton onClick={openModal}>Login</NavButton>
                 </>
-              )}
+              );}
           })()
           }
         </ButtonGroup>
@@ -398,7 +398,7 @@ const Search = React.memo(() => {
                   <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                 <NavButton onClick={() => logout()}>Logout</NavButton>
                   </>
-              )}else if(kakaoLogin){
+              );}else if(kakaoLogin){
                 return (
                   <>
                   <CountrySelectSection2>
@@ -407,7 +407,7 @@ const Search = React.memo(() => {
                   <NavButton onClick={() => gotoMypage()}>Mypage</NavButton>
                 <NavButton onClick={() => kakaoLogout()}>Logout</NavButton>
                   </>
-              )}else if (!isLogin && !kakaoLogin){
+              );}else if (!isLogin && !kakaoLogin){
                 return (
                   <>
                   <CountrySelectSection2>
@@ -418,7 +418,7 @@ const Search = React.memo(() => {
                   </Link>
                   <NavButton onClick={openModal}>Login</NavButton>
                   </>
-                )}
+                );}
             })()
             }
         </HambugToggle>
@@ -448,7 +448,7 @@ const Search = React.memo(() => {
           { data?.slice(0,itemCount).map((photo,index)=> {
             return <div key={index} onClick={(el) => openCtModal(el)}>
               <PhotoImg id={photo._id} key={index} src={photo.image[0]} loading="lazy"></PhotoImg>    
-            </div>
+            </div>;
             }
           )}
         <div ref={setRef} />
@@ -457,7 +457,7 @@ const Search = React.memo(() => {
       <div className='topBtnWrapper'>
         <button 
         className='topBtn' 
-        style={{display: scrollTop > 0.2 ? 'block' : 'none'}}
+        style={{display: scrollTop > 0.2 ? "block" : "none"}}
         onClick={() => handleTop()}>Top</button>
       </div> 
       <LoginModal
@@ -483,6 +483,6 @@ const Search = React.memo(() => {
         >
       </ContentModal>
     </>
-  )
-})
+  );
+});
 export default Search;
