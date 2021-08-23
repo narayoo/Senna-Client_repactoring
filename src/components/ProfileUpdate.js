@@ -73,6 +73,44 @@ const ChangeNewPasswords = styled.input`
     width: 60%;
   }
 `;
+const ButtonGroup = styled.section`
+  max-width: 800px;
+  width: 80%;
+  margin-top: 2rem;
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @media all and (max-width:767px) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+`;
+const CancleBtn = styled.button`
+  width: 100px;
+  height: 37px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #bdbdbd;
+  border: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-top: 0.5rem;
+  &:hover{
+    background-color: #8d8d8d;
+    box-shadow: 0px 15px 20px rgba(141, 141, 141, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+`;
 const UpdateUserInfoComplete = styled.button`
   width: 100px;
   height: 37px;
@@ -86,8 +124,8 @@ const UpdateUserInfoComplete = styled.button`
   box-shadow: 0px 15px 20px rgba(0, 172, 193, 0.4);
   cursor: pointer;
   outline: none;
-  margin-left: 1rem;
-  margin-top: 3rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
   &:hover{
     color: #1b1b1b;
     background-color: #eeeeee;
@@ -96,7 +134,7 @@ const UpdateUserInfoComplete = styled.button`
   }
 `;
 
-function ProfileUpdate () {
+const ProfileUpdate = () => {
 
   const [previewURL, setPreviewURL] = useState("");
   const [img, setImg] = useState("");
@@ -138,6 +176,10 @@ function ProfileUpdate () {
     reader.readAsDataURL(file);
   };
 
+  const cancle = () => {
+    window.location.replace("/mypage");
+  };
+
   let profile_preview = null;
 
   if(img !== ""){
@@ -160,7 +202,10 @@ function ProfileUpdate () {
                  <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
                  <ChangeNewPasswords type='password' placeholder="새 비밀번호" value={password} onChange={onChangePassword}/>
                  <ChangeNewPasswords type='password' placeholder="새 비밀번호 확인" />
+                 <ButtonGroup>
+                 <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn> 
                  <UpdateUserInfoComplete type='submit' onClick={updateProfileHandler}>Submit</UpdateUserInfoComplete>
+                 </ButtonGroup>
                  </>
                 );
               } else if (kakaoIsLogin){
@@ -170,7 +215,10 @@ function ProfileUpdate () {
                  {profile_preview}
                  </UserNewImage>
                  <AddNewFile type='file' className='img' name='profileImg' accept='image/*' onChange={handleFileOnChange} />
-                 <UpdateUserInfoComplete type='submit' onClick={updateKakaoUserProfileHandler}>Submit</UpdateUserInfoComplete>
+                 <ButtonGroup>
+                  <CancleBtn onClick={() => cancle()}>Cancle</CancleBtn>
+                  <UpdateUserInfoComplete type='submit' onClick={updateKakaoUserProfileHandler}>Submit</UpdateUserInfoComplete>
+                 </ButtonGroup>
                  </>
                 );
               }

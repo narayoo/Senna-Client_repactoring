@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";

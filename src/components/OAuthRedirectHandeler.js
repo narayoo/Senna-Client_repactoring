@@ -1,8 +1,10 @@
+/* eslint-disable */
+
 import React from "react";
 import { useDispatch } from "react-redux";
 import { kakaoLogin } from "../modules/kakao";
 
-export default function  OAuth2RedirectHandler(props) {
+ const OAuth2RedirectHandler = (props) => {
   const dispatch = useDispatch();
 
   let code = new URL(window.location.href).searchParams.get("code");
@@ -10,3 +12,5 @@ export default function  OAuth2RedirectHandler(props) {
     await dispatch(kakaoLogin(code));
   }, []);
 }
+
+export default OAuth2RedirectHandler

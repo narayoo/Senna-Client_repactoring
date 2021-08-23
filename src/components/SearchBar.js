@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState }from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
@@ -28,7 +30,7 @@ const SearchForm = styled.form`
   width: 50%;
   height: 3rem;
 `;
-export default function SearchBar({}) {
+const SearchBar = ({}) => {
   const [searchinput, setSearchinput] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
@@ -57,3 +59,4 @@ export default function SearchBar({}) {
   );
 }
 
+export default SearchBar

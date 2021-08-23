@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect, useState,useCallback } from "react";
 
 const useIntersect = (onIntersect, option) => {
