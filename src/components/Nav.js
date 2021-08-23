@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {useState}  from "react";
 import { Link } from "react-router-dom";
 import "../style/nav.css";
@@ -107,7 +109,7 @@ const HambugToggle = styled.div`
   display: none;
 `;
 
-function Nav({ openModal, scrollTop, logout, kakaoLogoutHandler,}) {
+const Nav = ({ openModal, scrollTop, logout, kakaoLogoutHandler,}) => {
   const isLogin = useSelector(state => state.login.login.isLogin);
   const kakaoLogin = useSelector(state => state.kakao.login.isLogin);
   const accessToken = useSelector(state => state.login.login.accessToken); 

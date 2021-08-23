@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory,Link } from "react-router-dom";
@@ -15,7 +17,7 @@ import { getAllOfPosting } from "../modules/showAllPosting";
 import { getPickPosting } from "../modules/pickPosting";
 import { kakaoLogin } from "../modules/kakao";
 import { getUserInfo } from "../modules/login";
-import useIntersect from "./useIntersect";
+import useIntersect from "./UseIntersect";
 
 
 dotenv.config();

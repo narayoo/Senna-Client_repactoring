@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -133,7 +135,7 @@ const HashTagBox = styled.input`
   }
 `;
 
-const UpdateMycontents = React.memo(() => {
+const Addcontents = React.memo(() => {
   const [ text, setText ] = useState("");
   const [ hash, setHash ] = useState([]);
   const [ photo, setPhoto ] = useState([]);
@@ -217,4 +219,4 @@ const UpdateMycontents = React.memo(() => {
 });
 
 
-export default UpdateMycontents;
+export default Addcontents;

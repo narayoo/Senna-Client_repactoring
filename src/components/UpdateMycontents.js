@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -137,27 +139,27 @@ const Warning = styled.p`
   justify-content: left;
 `;
 const UpdateMycontents = React.memo(() => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  
+  const [ text, setText ] = useState(content);
+  const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
+  const [ photo, setPhoto ] = useState([]);
+  const [ ok, setOk ] = useState(false);
+  const [ place, setPlace] = useState("");
+  const imgArr = [];
+
   const isLogin = useSelector(state => state.login.login.isLogin);
   const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
   const userId = useSelector(state => state.login.login.userId);
   const kakaoUserId = useSelector(state => state.kakao.login.userId);
-  const { accessToken } = useSelector(state => ({
-    accessToken : state.login.login.accessToken,
-  }));
+  const accessToken = useSelector(state => state.login.login.accessToken);
   const kakaoAcToken = useSelector(state => state.kakao.login.accessToken);
   const { content, hashtag, postingId, } = useSelector(state => ({
     content: state.pickPosting.postInfo.content,
     hashtag: state.pickPosting.postInfo.hashtag,
     postingId: state.pickPosting.postInfo.postId,
   }));  
-  const [ text, setText ] = useState(content);
-  const [ hash, setHash ] = useState(hashtag.map(e => `#${e}`));
-  const [ photo, setPhoto ] = useState([]);
-  const [ ok, setOk ] = useState(false);
-  const [ place, setPlace] = useState("");
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const imgArr = [];
 
   const cancle = () => {
     window.location.replace("/mypage");

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import { useSelector,shallowEqual, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";

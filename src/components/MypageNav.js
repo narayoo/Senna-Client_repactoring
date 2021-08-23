@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import styled from "styled-components";
 import logo from "../img/SennaLogo.png";
 import { Link } from "react-router-dom";
@@ -39,7 +41,7 @@ const NavButton = styled.button`
   }
 `;
 
-export default function MypageNav({logout, kakaoLogoutHandler}) {
+const MypageNav = ({logout, kakaoLogoutHandler}) => {
 
   const isLogin = useSelector(state => state.login.login.isLogin);
   const kakaoIsLogin = useSelector(state => state.kakao.login.isLogin);
@@ -69,3 +71,5 @@ export default function MypageNav({logout, kakaoLogoutHandler}) {
     </MyPageNavWrapper>
   );
 }
+
+export default MypageNav

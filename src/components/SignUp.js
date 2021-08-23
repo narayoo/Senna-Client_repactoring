@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { isId, isPassword } from "../js/regExp";
@@ -200,6 +202,7 @@ const IdSection = styled.div`
 `;
 
 const SignUp = React.memo(() => {
+  let history = useHistory();
   const [previewURL, setPreviewURL] = useState("");
   const [img, setImg] = useState("");
   const [userId, setUserId] = useState("");
@@ -263,7 +266,6 @@ const SignUp = React.memo(() => {
     }
   };
 
-  let history = useHistory();
 
   const submit = async (e) => {
     e.preventDefault();

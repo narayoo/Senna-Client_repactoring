@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 
@@ -61,38 +63,38 @@ const ContentSlider = (({image}) => {
   const onPrev = () => {
     let mql = window.matchMedia("screen and (max-width: 767px)");
     let mql2 = window.matchMedia("screen and (min-width:768px) and (max-width:1023px)");
-    if (index === 0) return; 
-    index -= 1; 
-    if (mql.matches) {
-      modalcarousel[0].style["transform"] = `translate3d(-${300 * index}px, 0, 0)`; 
-    }else if(mql2.matches){
-      modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
-    }else {
-      modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
-    }
+      if (index === 0) return; 
+      index -= 1; 
+      if (mql.matches) {
+        modalcarousel[0].style["transform"] = `translate3d(-${300 * index}px, 0, 0)`; 
+      }else if(mql2.matches){
+        modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
+      }else {
+        modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
+      }
   };
   const onNext = () => {
     let mql = window.matchMedia("screen and (max-width: 767px)");
     let mql2 = window.matchMedia("screen and (min-width:768px) and (max-width:1023px)");
-    if(image.length === 1) {
-      if (index === 0) return; 
-    }else if(image.length === 2){
-      if (index === 1) return; 
-    }else if(image.length === 3){
-      if (index === 2) return; 
-    }else if(image.length === 4){
-      if (index === 3) return; 
-    }else if(image.length === 5){
-      if (index === 4) return; 
-    }
+      if(image.length === 1) {
+        if (index === 0) return; 
+      }else if(image.length === 2){
+        if (index === 1) return; 
+      }else if(image.length === 3){
+        if (index === 2) return; 
+      }else if(image.length === 4){
+        if (index === 3) return; 
+      }else if(image.length === 5){
+        if (index === 4) return; 
+      }
     index += 1; 
-    if (mql.matches) {
-      modalcarousel[0].style["transform"] = `translate3d(-${300 * index}px, 0, 0)`; 
-    }else if(mql2.matches){
-      modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
-    }else {
-      modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
-    }
+      if (mql.matches) {
+        modalcarousel[0].style["transform"] = `translate3d(-${300 * index}px, 0, 0)`; 
+      }else if(mql2.matches){
+        modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
+      }else {
+        modalcarousel[0].style["transform"] = `translate3d(-${500 * index}px, 0, 0)`; 
+      }
   }; 
   const photoList = image.map((e,index) =>
     <Img src={e} key={index} loading="lazy" />
