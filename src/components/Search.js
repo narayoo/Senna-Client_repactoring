@@ -17,7 +17,7 @@ import { getAllOfPosting } from "../modules/showAllPosting";
 import { getPickPosting } from "../modules/pickPosting";
 import { kakaoLogin } from "../modules/kakao";
 import { getUserInfo } from "../modules/login";
-import useIntersect from "./UseIntersect";
+import useIntersect from "./useIntersect";
 
 
 dotenv.config();
