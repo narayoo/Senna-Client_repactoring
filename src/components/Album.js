@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import "../style/grid.css";
 import styled from "styled-components";
 import StackGrid from "react-stack-grid";
-import useIntersect from "./UseIntersect";
+import useIntersect from "./useIntersect";
 
 const AlbumSection = styled.section`
   display: flex;
